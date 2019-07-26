@@ -1,0 +1,518 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        07/Feb/2019  15:37:33
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\lib\LPLD\HW\HW_RTC.c
+#    Command line =  
+#        D:\2019.IAR\lib\LPLD\HW\HW_RTC.c -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\HW_RTC.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_RTC.o
+#
+###############################################################################
+
+D:\2019.IAR\lib\LPLD\HW\HW_RTC.c
+      1          /**
+      2           * @file HW_RTC.c
+      3           * @version 3.01[By LPLD]
+      4           * @date 2013-10-4
+      5           * @brief RTC底层模块相关函数
+      6           *
+      7           * 更改建议:不建议修改
+      8           *
+      9           * 版权所有:北京拉普兰德电子技术有限公司
+     10           * http://www.lpld.cn
+     11           * mail:support@lpld.cn
+     12           *
+     13           * @par
+     14           * 本代码由拉普兰德[LPLD]开发并维护，并向所有使用者开放源代码。
+     15           * 开发者可以随意修使用或改源代码。但本段及以上注释应予以保留。
+     16           * 不得更改或删除原版权所有者姓名，二次开发者可以加注二次版权所有者。
+     17           * 但应在遵守此协议的基础上，开放源代码、不得出售代码本身。
+     18           * 拉普兰德不负责由于使用本代码所带来的任何事故、法律责任或相关不良影响。
+     19           * 拉普兰德无义务解释、说明本代码的具体原理、功能、实现方法。
+     20           * 除非拉普兰德[LPLD]授权，开发者不得将本代码用于商业产品。
+     21           */
+     22          #include "common.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
+   \                     NVIC_DisableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x....             LDR.N    R2,??DataTable4  ;; 0xe000e180
+   \   0000000A   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000C   0x0940             LSRS     R0,R0,#+5
+   \   0000000E   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000012   0x4770             BX       LR               ;; return
+     23          #include "HW_RTC.h"
+     24          
+     25          //用户自定义中断服务函数
+
+   \                                 In section .bss, align 4
+     26          RTC_ISR_CALLBACK RTC_ISR[3];
+   \                     RTC_ISR:
+   \   00000000                      DS8 12
+     27          
+     28          /*
+     29           * LPLD_RTC_Init
+     30           * RTC通用初始化函数,在该函数需要设置RTC秒计数器，如果需要报警功能
+     31           * 需要使能报警中断，并设置报警寄存器
+     32           * 
+     33           * 参数:
+     34           *    rtc_init_structure--RTC初始化结构体，
+     35           *                        具体定义见RTC_InitTypeDef
+     36           *
+     37           * 输出:
+     38           *    0--配置错误
+     39           *    1--配置成功
+     40           */
+
+   \                                 In section .text, align 2, keep-with-next
+     41          uint8 LPLD_RTC_Init(RTC_InitTypeDef rtc_init_structure)
+     42          {
+   \                     LPLD_RTC_Init: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB470             PUSH     {R4-R6}
+     43            int delay;
+     44            uint32 seconds = rtc_init_structure.RTC_Seconds;
+   \   00000004   0x9803             LDR      R0,[SP, #+12]
+     45            uint32 alarm_time = rtc_init_structure.RTC_AlarmTime;
+   \   00000006   0x9904             LDR      R1,[SP, #+16]
+     46            RTC_ISR_CALLBACK invalid_isr_func = rtc_init_structure.RTC_InvalidIsr;
+   \   00000008   0x9A06             LDR      R2,[SP, #+24]
+     47            RTC_ISR_CALLBACK overflow_isr_func = rtc_init_structure.RTC_OverflowIsr;
+   \   0000000A   0x9B07             LDR      R3,[SP, #+28]
+     48            RTC_ISR_CALLBACK alarm_isr_func = rtc_init_structure.RTC_AlarmIsr;
+   \   0000000C   0x9C08             LDR      R4,[SP, #+32]
+     49          
+     50            SIM->SCGC6 |= SIM_SCGC6_RTC_MASK;
+   \   0000000E   0x....             LDR.N    R5,??DataTable4_1  ;; 0x4004803c
+   \   00000010   0x682D             LDR      R5,[R5, #+0]
+   \   00000012   0xF055 0x5500      ORRS     R5,R5,#0x20000000
+   \   00000016   0x....             LDR.N    R6,??DataTable4_1  ;; 0x4004803c
+   \   00000018   0x6035             STR      R5,[R6, #+0]
+     51            //复位所有RTC寄存器 除了SWR位 RTC_WAR和RTC_RAR寄存器
+     52            //在VBAT POR设置之后,用软件清除SWR
+     53            //复位RTC寄存器
+     54            RTC->CR  = RTC_CR_SWR_MASK; 
+   \   0000001A   0x2501             MOVS     R5,#+1
+   \   0000001C   0x....             LDR.N    R6,??DataTable4_2  ;; 0x4003d010
+   \   0000001E   0x6035             STR      R5,[R6, #+0]
+     55            //清除RTC复位标志  
+     56            RTC->CR  &= ~RTC_CR_SWR_MASK;  
+   \   00000020   0x....             LDR.N    R5,??DataTable4_2  ;; 0x4003d010
+   \   00000022   0x682D             LDR      R5,[R5, #+0]
+   \   00000024   0x086D             LSRS     R5,R5,#+1
+   \   00000026   0x006D             LSLS     R5,R5,#+1
+   \   00000028   0x....             LDR.N    R6,??DataTable4_2  ;; 0x4003d010
+   \   0000002A   0x6035             STR      R5,[R6, #+0]
+     57            //使能RTC 32.768 kHzRTC时钟源
+     58            //使能之后要延时一段时间等待
+     59            //等待时钟稳定后在配置RTC时钟计数器
+     60            RTC->CR |= RTC_CR_OSCE_MASK;
+   \   0000002C   0x....             LDR.N    R5,??DataTable4_2  ;; 0x4003d010
+   \   0000002E   0x682D             LDR      R5,[R5, #+0]
+   \   00000030   0xF455 0x7580      ORRS     R5,R5,#0x100
+   \   00000034   0x....             LDR.N    R6,??DataTable4_2  ;; 0x4003d010
+   \   00000036   0x6035             STR      R5,[R6, #+0]
+     61            
+     62            //等待32.768时钟起振
+     63            for(delay = 0;delay < 0x600000 ;delay++);
+   \   00000038   0x2500             MOVS     R5,#+0
+   \   0000003A   0xE000             B.N      ??LPLD_RTC_Init_0
+   \                     ??LPLD_RTC_Init_1: (+1)
+   \   0000003C   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??LPLD_RTC_Init_0: (+1)
+   \   0000003E   0xF5B5 0x0FC0      CMP      R5,#+6291456
+   \   00000042   0xDBFB             BLT.N    ??LPLD_RTC_Init_1
+     64            
+     65            if(rtc_init_structure.RTC_InvalidIntEnable == TRUE)
+   \   00000044   0xF89D 0x5014      LDRB     R5,[SP, #+20]
+   \   00000048   0x2D01             CMP      R5,#+1
+   \   0000004A   0xD108             BNE.N    ??LPLD_RTC_Init_2
+     66            { 
+     67              RTC->IER |= (RTC_INT_INVALID & 0x07);//开启RTC无效数据中断
+   \   0000004C   0x....             LDR.N    R5,??DataTable4_3  ;; 0x4003d01c
+   \   0000004E   0x682D             LDR      R5,[R5, #+0]
+   \   00000050   0xF055 0x0501      ORRS     R5,R5,#0x1
+   \   00000054   0x....             LDR.N    R6,??DataTable4_3  ;; 0x4003d01c
+   \   00000056   0x6035             STR      R5,[R6, #+0]
+     68              RTC_ISR[0] = invalid_isr_func;
+   \   00000058   0x....             LDR.N    R5,??DataTable4_4
+   \   0000005A   0x602A             STR      R2,[R5, #+0]
+   \   0000005C   0xE005             B.N      ??LPLD_RTC_Init_3
+     69            }
+     70            else
+     71            {
+     72              RTC->IER &= ~RTC_INT_INVALID;
+   \                     ??LPLD_RTC_Init_2: (+1)
+   \   0000005E   0x....             LDR.N    R2,??DataTable4_3  ;; 0x4003d01c
+   \   00000060   0x6812             LDR      R2,[R2, #+0]
+   \   00000062   0x0852             LSRS     R2,R2,#+1
+   \   00000064   0x0052             LSLS     R2,R2,#+1
+   \   00000066   0x....             LDR.N    R5,??DataTable4_3  ;; 0x4003d01c
+   \   00000068   0x602A             STR      R2,[R5, #+0]
+     73            }
+     74          
+     75            if(rtc_init_structure.RTC_OverflowIntEnable == TRUE)
+   \                     ??LPLD_RTC_Init_3: (+1)
+   \   0000006A   0xF89D 0x2015      LDRB     R2,[SP, #+21]
+   \   0000006E   0x2A01             CMP      R2,#+1
+   \   00000070   0xD108             BNE.N    ??LPLD_RTC_Init_4
+     76            { 
+     77              RTC->IER |= (RTC_INT_OVERFLOW & 0x07);//开启RTC计数器溢出中断
+   \   00000072   0x....             LDR.N    R2,??DataTable4_3  ;; 0x4003d01c
+   \   00000074   0x6812             LDR      R2,[R2, #+0]
+   \   00000076   0xF052 0x0202      ORRS     R2,R2,#0x2
+   \   0000007A   0x....             LDR.N    R5,??DataTable4_3  ;; 0x4003d01c
+   \   0000007C   0x602A             STR      R2,[R5, #+0]
+     78              RTC_ISR[1] = overflow_isr_func;
+   \   0000007E   0x....             LDR.N    R2,??DataTable4_4
+   \   00000080   0x6053             STR      R3,[R2, #+4]
+   \   00000082   0xE005             B.N      ??LPLD_RTC_Init_5
+     79            }
+     80            else
+     81            {
+     82              RTC->IER &= ~RTC_INT_OVERFLOW;
+   \                     ??LPLD_RTC_Init_4: (+1)
+   \   00000084   0x....             LDR.N    R2,??DataTable4_3  ;; 0x4003d01c
+   \   00000086   0x6812             LDR      R2,[R2, #+0]
+   \   00000088   0xF032 0x0202      BICS     R2,R2,#0x2
+   \   0000008C   0x....             LDR.N    R3,??DataTable4_3  ;; 0x4003d01c
+   \   0000008E   0x601A             STR      R2,[R3, #+0]
+     83            }
+     84          
+     85            if(rtc_init_structure.RTC_AlarmIntEnable == TRUE)
+   \                     ??LPLD_RTC_Init_5: (+1)
+   \   00000090   0xF89D 0x2016      LDRB     R2,[SP, #+22]
+   \   00000094   0x2A01             CMP      R2,#+1
+   \   00000096   0xD108             BNE.N    ??LPLD_RTC_Init_6
+     86            {   
+     87              RTC->IER |= (RTC_INT_ALARM & 0x07);//开启RTC报警中断
+   \   00000098   0x....             LDR.N    R2,??DataTable4_3  ;; 0x4003d01c
+   \   0000009A   0x6812             LDR      R2,[R2, #+0]
+   \   0000009C   0xF052 0x0204      ORRS     R2,R2,#0x4
+   \   000000A0   0x....             LDR.N    R3,??DataTable4_3  ;; 0x4003d01c
+   \   000000A2   0x601A             STR      R2,[R3, #+0]
+     88              RTC_ISR[2] = alarm_isr_func;
+   \   000000A4   0x....             LDR.N    R2,??DataTable4_4
+   \   000000A6   0x6094             STR      R4,[R2, #+8]
+   \   000000A8   0xE005             B.N      ??LPLD_RTC_Init_7
+     89            }
+     90            else
+     91            {
+     92              RTC->IER &= ~RTC_INT_ALARM;
+   \                     ??LPLD_RTC_Init_6: (+1)
+   \   000000AA   0x....             LDR.N    R2,??DataTable4_3  ;; 0x4003d01c
+   \   000000AC   0x6812             LDR      R2,[R2, #+0]
+   \   000000AE   0xF032 0x0204      BICS     R2,R2,#0x4
+   \   000000B2   0x....             LDR.N    R3,??DataTable4_3  ;; 0x4003d01c
+   \   000000B4   0x601A             STR      R2,[R3, #+0]
+     93            }
+     94          
+     95            //设置时钟补偿寄存器
+     96            RTC->TCR = RTC_TCR_CIR(0) | RTC_TCR_TCR(0);
+   \                     ??LPLD_RTC_Init_7: (+1)
+   \   000000B6   0x2200             MOVS     R2,#+0
+   \   000000B8   0x....             LDR.N    R3,??DataTable4_5  ;; 0x4003d00c
+   \   000000BA   0x601A             STR      R2,[R3, #+0]
+     97            
+     98            //配置秒计数器
+     99            RTC->TSR = seconds;
+   \   000000BC   0x....             LDR.N    R2,??DataTable4_6  ;; 0x4003d000
+   \   000000BE   0x6010             STR      R0,[R2, #+0]
+    100              
+    101            //配置报警寄存器
+    102            RTC->TAR = alarm_time;
+   \   000000C0   0x....             LDR.N    R0,??DataTable4_7  ;; 0x4003d008
+   \   000000C2   0x6001             STR      R1,[R0, #+0]
+    103            
+    104            //使能秒计数器
+    105            RTC->SR |= RTC_SR_TCE_MASK;
+   \   000000C4   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   000000C6   0x6800             LDR      R0,[R0, #+0]
+   \   000000C8   0xF050 0x0010      ORRS     R0,R0,#0x10
+   \   000000CC   0x....             LDR.N    R1,??DataTable4_8  ;; 0x4003d014
+   \   000000CE   0x6008             STR      R0,[R1, #+0]
+    106            
+    107            return 1;
+   \   000000D0   0x2001             MOVS     R0,#+1
+   \   000000D2   0xBC70             POP      {R4-R6}
+   \   000000D4   0xB004             ADD      SP,SP,#+16
+   \   000000D6   0x4770             BX       LR               ;; return
+    108          }
+    109          
+    110          /*
+    111           * LPLD_RTC_Deinit
+    112           * RTC反初始化函数，关闭RTCx并禁止RTC中断
+    113           * 
+    114           * 参数:
+    115           *    无
+    116           *
+    117           * 输出:
+    118           *    无
+    119           */
+
+   \                                 In section .text, align 2, keep-with-next
+    120          void LPLD_RTC_Deinit(void)
+    121          {
+   \                     LPLD_RTC_Deinit: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    122            //禁止RTC模块中断
+    123            disable_irq(RTC_IRQn);
+   \   00000002   0x2042             MOVS     R0,#+66
+   \   00000004   0x.... 0x....      BL       NVIC_DisableIRQ
+    124            //关闭RTC
+    125            RTC->SR &= (~RTC_SR_TCE_MASK);
+   \   00000008   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF030 0x0010      BICS     R0,R0,#0x10
+   \   00000010   0x....             LDR.N    R1,??DataTable4_8  ;; 0x4003d014
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    126            //关闭RTC总线时钟
+    127            SIM->SCGC6 |= SIM_SCGC6_RTC_MASK;  
+   \   00000014   0x....             LDR.N    R0,??DataTable4_1  ;; 0x4004803c
+   \   00000016   0x6800             LDR      R0,[R0, #+0]
+   \   00000018   0xF050 0x5000      ORRS     R0,R0,#0x20000000
+   \   0000001C   0x....             LDR.N    R1,??DataTable4_1  ;; 0x4004803c
+   \   0000001E   0x6008             STR      R0,[R1, #+0]
+    128          }
+   \   00000020   0xBD01             POP      {R0,PC}          ;; return
+    129          
+    130          /*
+    131           * LPLD_RTC_IsRunning
+    132           * 判断RTC是否运行函数
+    133           * 
+    134           * 参数:
+    135           *    无
+    136           *
+    137           * 输出:
+    138           *    1，RTC计数器正在运行
+    139           *    0，RTC计数器以复位
+    140           */
+
+   \                                 In section .text, align 2, keep-with-next
+    141          uint8 LPLD_RTC_IsRunning(void)
+    142          {
+    143            uint8 request;
+    144            SIM->SCGC6 |= SIM_SCGC6_RTC_MASK;
+   \                     LPLD_RTC_IsRunning: (+1)
+   \   00000000   0x....             LDR.N    R0,??DataTable4_1  ;; 0x4004803c
+   \   00000002   0x6800             LDR      R0,[R0, #+0]
+   \   00000004   0xF050 0x5000      ORRS     R0,R0,#0x20000000
+   \   00000008   0x....             LDR.N    R1,??DataTable4_1  ;; 0x4004803c
+   \   0000000A   0x6008             STR      R0,[R1, #+0]
+    145            
+    146            if(RTC->SR & RTC_SR_TIF_MASK)
+   \   0000000C   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   0000000E   0x6800             LDR      R0,[R0, #+0]
+   \   00000010   0x07C0             LSLS     R0,R0,#+31
+   \   00000012   0xD501             BPL.N    ??LPLD_RTC_IsRunning_0
+    147            {
+    148              request = 0;
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0xE000             B.N      ??LPLD_RTC_IsRunning_1
+    149            }
+    150            else
+    151            {
+    152              request = 1;
+   \                     ??LPLD_RTC_IsRunning_0: (+1)
+   \   00000018   0x2001             MOVS     R0,#+1
+    153            }
+    154            return request;
+   \                     ??LPLD_RTC_IsRunning_1: (+1)
+   \   0000001A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000001C   0x4770             BX       LR               ;; return
+    155          }
+    156          
+    157          /*
+    158           * RTC中断处理函数
+    159           * 与启动文件startup_K60.s中的中断向量表关联
+    160           * 用户无需修改，程序自动进入对应通道中断函数
+    161           */
+
+   \                                 In section .text, align 2, keep-with-next
+    162          void RTC_IRQHandler(void)
+    163          {
+   \                     RTC_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    164          #if (UCOS_II > 0u)
+    165            OS_CPU_SR  cpu_sr = 0u;
+    166            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    167            OSIntEnter();
+    168            OS_EXIT_CRITICAL();
+    169          #endif
+    170            
+    171            if((RTC->SR & RTC_SR_TIF_MASK)== 0x01)
+   \   00000002   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x07C0             LSLS     R0,R0,#+31
+   \   00000008   0xD509             BPL.N    ??RTC_IRQHandler_0
+    172            {
+    173              //调用用户自定义中断服务
+    174              RTC_ISR[0](); 
+   \   0000000A   0x....             LDR.N    R0,??DataTable4_4
+   \   0000000C   0x6800             LDR      R0,[R0, #+0]
+   \   0000000E   0x4780             BLX      R0
+    175              //清除中断标志位
+    176              RTC->SR |= RTC_SR_TIF_MASK;
+   \   00000010   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   00000012   0x6800             LDR      R0,[R0, #+0]
+   \   00000014   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000018   0x....             LDR.N    R1,??DataTable4_8  ;; 0x4003d014
+   \   0000001A   0x6008             STR      R0,[R1, #+0]
+   \   0000001C   0xE01A             B.N      ??RTC_IRQHandler_1
+    177              
+    178            }	
+    179            else if((RTC->SR & RTC_SR_TOF_MASK) == 0x02)
+   \                     ??RTC_IRQHandler_0: (+1)
+   \   0000001E   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   00000020   0x6800             LDR      R0,[R0, #+0]
+   \   00000022   0x0780             LSLS     R0,R0,#+30
+   \   00000024   0xD509             BPL.N    ??RTC_IRQHandler_2
+    180            {
+    181              //调用用户自定义中断服务
+    182              RTC_ISR[1]();  
+   \   00000026   0x....             LDR.N    R0,??DataTable4_4
+   \   00000028   0x6840             LDR      R0,[R0, #+4]
+   \   0000002A   0x4780             BLX      R0
+    183              //清除中断标志位
+    184              RTC->SR |= RTC_SR_TOF_MASK;
+   \   0000002C   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   0000002E   0x6800             LDR      R0,[R0, #+0]
+   \   00000030   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   00000034   0x....             LDR.N    R1,??DataTable4_8  ;; 0x4003d014
+   \   00000036   0x6008             STR      R0,[R1, #+0]
+   \   00000038   0xE00C             B.N      ??RTC_IRQHandler_1
+    185            }	 	
+    186            else if((RTC->SR & RTC_SR_TAF_MASK) == 0x04)
+   \                     ??RTC_IRQHandler_2: (+1)
+   \   0000003A   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   0000003C   0x6800             LDR      R0,[R0, #+0]
+   \   0000003E   0x0740             LSLS     R0,R0,#+29
+   \   00000040   0xD508             BPL.N    ??RTC_IRQHandler_1
+    187            {
+    188              //调用用户自定义中断服务
+    189              RTC_ISR[2]();  
+   \   00000042   0x....             LDR.N    R0,??DataTable4_4
+   \   00000044   0x6880             LDR      R0,[R0, #+8]
+   \   00000046   0x4780             BLX      R0
+    190              //清除中断标志位
+    191              RTC->SR |= RTC_SR_TAF_MASK;
+   \   00000048   0x....             LDR.N    R0,??DataTable4_8  ;; 0x4003d014
+   \   0000004A   0x6800             LDR      R0,[R0, #+0]
+   \   0000004C   0xF050 0x0004      ORRS     R0,R0,#0x4
+   \   00000050   0x....             LDR.N    R1,??DataTable4_8  ;; 0x4003d014
+   \   00000052   0x6008             STR      R0,[R1, #+0]
+    192            }	
+    193            
+    194          #if (UCOS_II > 0u)
+    195            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    196          #endif
+    197          }
+   \                     ??RTC_IRQHandler_1: (+1)
+   \   00000054   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \   00000000   0xE000E180         DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \   00000000   0x4004803C         DC32     0x4004803c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \   00000000   0x4003D010         DC32     0x4003d010
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \   00000000   0x4003D01C         DC32     0x4003d01c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \   00000000   0x........         DC32     RTC_ISR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_5:
+   \   00000000   0x4003D00C         DC32     0x4003d00c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_6:
+   \   00000000   0x4003D000         DC32     0x4003d000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_7:
+   \   00000000   0x4003D008         DC32     0x4003d008
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_8:
+   \   00000000   0x4003D014         DC32     0x4003d014
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   LPLD_RTC_Deinit
+         8   -> NVIC_DisableIRQ
+      28   LPLD_RTC_Init
+       0   LPLD_RTC_IsRunning
+       0   NVIC_DisableIRQ
+       8   RTC_IRQHandler
+         8   -- Indirect call
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+       4  ??DataTable4_5
+       4  ??DataTable4_6
+       4  ??DataTable4_7
+       4  ??DataTable4_8
+      34  LPLD_RTC_Deinit
+     216  LPLD_RTC_Init
+      30  LPLD_RTC_IsRunning
+      20  NVIC_DisableIRQ
+      86  RTC_IRQHandler
+      12  RTC_ISR
+
+ 
+  12 bytes in section .bss
+ 422 bytes in section .text
+ 
+ 422 bytes of CODE memory
+  12 bytes of DATA memory
+
+Errors: none
+Warnings: none

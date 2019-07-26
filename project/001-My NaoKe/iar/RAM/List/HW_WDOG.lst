@@ -1,0 +1,336 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        26/Dec/2018  16:14:09
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\lib\LPLD\HW\HW_WDOG.c
+#    Command line =  
+#        D:\2019.IAR\lib\LPLD\HW\HW_WDOG.c -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\RAM\List\" -lB
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\RAM\List\" -o
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\RAM\Obj\" --no_cse
+#        --no_unroll --no_inline --no_code_motion --no_tbaa --no_clustering
+#        --no_scheduling --debug --endian=little --cpu=Cortex-M4 -e --fpu=None
+#        --dlib_config "D:\Embedded Workbench
+#        7.0\arm\INC\c\DLib_Config_Normal.h" -I "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\app\" -I "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\CPU\" -I "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\..\..\..\lib\LPLD\HW\"
+#        -I "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\..\..\..\lib\FatFs\"
+#        -I "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\(FatFS
+#        SDHC)LPLD_FatFs\iar\..\..\..\lib\USB\class\" -Ol -I "D:\Embedded
+#        Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  
+#        D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\RAM\List\HW_WDOG.lst
+#    Object file  =  
+#        D:\2019.IAR\project\(FatFS SDHC)LPLD_FatFs\iar\RAM\Obj\HW_WDOG.o
+#
+###############################################################################
+
+D:\2019.IAR\lib\LPLD\HW\HW_WDOG.c
+      1          /**
+      2           * @file HW_WDOG.c
+      3           * @version 3.0[By LPLD]
+      4           * @date 2013-06-18
+      5           * @brief WDOG底层模块相关函数
+      6           *
+      7           * 更改建议:不建议修改
+      8           *
+      9           * 版权所有:北京拉普兰德电子技术有限公司
+     10           * http://www.lpld.cn
+     11           * mail:support@lpld.cn
+     12           *
+     13           * @par
+     14           * 本代码由拉普兰德[LPLD]开发并维护，并向所有使用者开放源代码。
+     15           * 开发者可以随意修使用或改源代码。但本段及以上注释应予以保留。
+     16           * 不得更改或删除原版权所有者姓名，二次开发者可以加注二次版权所有者。
+     17           * 但应在遵守此协议的基础上，开放源代码、不得出售代码本身。
+     18           * 拉普兰德不负责由于使用本代码所带来的任何事故、法律责任或相关不良影响。
+     19           * 拉普兰德无义务解释、说明本代码的具体原理、功能、实现方法。
+     20           * 除非拉普兰德[LPLD]授权，开发者不得将本代码用于商业产品。
+     21           */
+     22          #include "common.h"
+     23          #include "HW_WDOG.h"
+     24          
+     25          static void LPLD_WDOG_Unlock(void);
+     26          
+     27          /*
+     28           * LPLD_WDOG_Init
+     29           * 看门狗初始化
+     30           * 
+     31           * 参数:
+     32           *    period_ms--看门狗复位周期
+     33           *      |__单位为毫秒
+     34           *
+     35           * 输出:
+     36           *    0--配置错误
+     37           *    1--配置成功
+     38           */
+
+   \                                 In section .text, align 2, keep-with-next
+     39          uint8 LPLD_WDOG_Init(uint32 period_ms)
+     40          {
+   \                     LPLD_WDOG_Init: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+     41            uint8 presc = 3;
+   \   00000002   0x2403             MOVS     R4,#+3
+     42            uint32 bus_khz = g_bus_clock / 1000;
+   \   00000004   0x....             LDR.N    R1,??DataTable4
+   \   00000006   0x6809             LDR      R1,[R1, #+0]
+   \   00000008   0xF44F 0x727A      MOV      R2,#+1000
+   \   0000000C   0xFBB1 0xF1F2      UDIV     R1,R1,R2
+     43            uint32 value;
+     44            
+     45            if(period_ms==0)
+   \   00000010   0x2800             CMP      R0,#+0
+   \   00000012   0xD101             BNE.N    ??LPLD_WDOG_Init_0
+     46            {
+     47              return 0;
+   \   00000014   0x2000             MOVS     R0,#+0
+   \   00000016   0xE018             B.N      ??LPLD_WDOG_Init_1
+     48            }
+     49              
+     50            value=(period_ms*bus_khz)/(presc+1);
+   \                     ??LPLD_WDOG_Init_0: (+1)
+   \   00000018   0x4348             MULS     R0,R1,R0
+   \   0000001A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000001C   0x1C61             ADDS     R1,R4,#+1
+   \   0000001E   0xFBB0 0xF5F1      UDIV     R5,R0,R1
+     51              
+     52            //先解锁寄存器
+     53            LPLD_WDOG_Unlock();
+   \   00000022   0x.... 0x....      BL       LPLD_WDOG_Unlock
+     54            //设置分频
+     55            WDOG->PRESC = WDOG_PRESC_PRESCVAL(presc);
+   \   00000026   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000028   0x0220             LSLS     R0,R4,#+8
+   \   0000002A   0xF410 0x60E0      ANDS     R0,R0,#0x700
+   \   0000002E   0x....             LDR.N    R1,??DataTable4_1  ;; 0x40052016
+   \   00000030   0x8008             STRH     R0,[R1, #+0]
+     56            //设置计时溢出值
+     57            WDOG->TOVALH = (value&0xFFFF0000)>>16;
+   \   00000032   0x0C28             LSRS     R0,R5,#+16
+   \   00000034   0x....             LDR.N    R1,??DataTable4_2  ;; 0x40052004
+   \   00000036   0x8008             STRH     R0,[R1, #+0]
+     58            WDOG->TOVALL = (value&0x0000FFFF)>>0;  
+   \   00000038   0x....             LDR.N    R0,??DataTable4_3  ;; 0x40052006
+   \   0000003A   0x8005             STRH     R5,[R0, #+0]
+     59            //使能WDOG
+     60            WDOG->STCTRLH |= WDOG_STCTRLH_WDOGEN_MASK;
+   \   0000003C   0x....             LDR.N    R0,??DataTable4_4  ;; 0x40052000
+   \   0000003E   0x8800             LDRH     R0,[R0, #+0]
+   \   00000040   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000044   0x....             LDR.N    R1,??DataTable4_4  ;; 0x40052000
+   \   00000046   0x8008             STRH     R0,[R1, #+0]
+     61            
+     62            return 1;
+   \   00000048   0x2001             MOVS     R0,#+1
+   \                     ??LPLD_WDOG_Init_1: (+1)
+   \   0000004A   0xBD32             POP      {R1,R4,R5,PC}    ;; return
+     63          }
+     64          
+     65          /*
+     66           * LPLD_WDOG_Enable
+     67           * 看门狗使能
+     68           * 
+     69           * 参数:
+     70           *    无
+     71           *
+     72           * 输出:
+     73           *    无
+     74           */
+
+   \                                 In section .text, align 2, keep-with-next
+     75          void LPLD_WDOG_Enable(void)
+     76          {
+   \                     LPLD_WDOG_Enable: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     77            //先解锁寄存器
+     78            LPLD_WDOG_Unlock();
+   \   00000002   0x.... 0x....      BL       LPLD_WDOG_Unlock
+     79            //使能WDOG
+     80            WDOG->STCTRLH |= WDOG_STCTRLH_WDOGEN_MASK;
+   \   00000006   0x....             LDR.N    R0,??DataTable4_4  ;; 0x40052000
+   \   00000008   0x8800             LDRH     R0,[R0, #+0]
+   \   0000000A   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   0000000E   0x....             LDR.N    R1,??DataTable4_4  ;; 0x40052000
+   \   00000010   0x8008             STRH     R0,[R1, #+0]
+     81          }
+   \   00000012   0xBD01             POP      {R0,PC}          ;; return
+     82          
+     83          /*
+     84           * LPLD_WDOG_Disable
+     85           * 看门狗禁用
+     86           * 
+     87           * 参数:
+     88           *    无
+     89           *
+     90           * 输出:
+     91           *    无
+     92           */
+
+   \                                 In section .text, align 2, keep-with-next
+     93          void LPLD_WDOG_Disable(void)
+     94          {
+   \                     LPLD_WDOG_Disable: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     95            //先解锁寄存器
+     96            LPLD_WDOG_Unlock();
+   \   00000002   0x.... 0x....      BL       LPLD_WDOG_Unlock
+     97            //禁用WDOG
+     98            WDOG->STCTRLH &= ~(WDOG_STCTRLH_WDOGEN_MASK);
+   \   00000006   0x....             LDR.N    R0,??DataTable4_4  ;; 0x40052000
+   \   00000008   0x8800             LDRH     R0,[R0, #+0]
+   \   0000000A   0xF64F 0x71FE      MOVW     R1,#+65534
+   \   0000000E   0x4008             ANDS     R0,R1,R0
+   \   00000010   0x....             LDR.N    R1,??DataTable4_4  ;; 0x40052000
+   \   00000012   0x8008             STRH     R0,[R1, #+0]
+     99          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    100          
+    101          /*
+    102           * LPLD_WDOG_Feed
+    103           * 喂狗
+    104           * 
+    105           * 参数:
+    106           *    无
+    107           *
+    108           * 输出:
+    109           *    无
+    110           */
+
+   \                                 In section .text, align 2, keep-with-next
+    111          void LPLD_WDOG_Feed(void)
+    112          {
+    113            WDOG->REFRESH = 0xA602;
+   \                     LPLD_WDOG_Feed: (+1)
+   \   00000000   0xF24A 0x6002      MOVW     R0,#+42498
+   \   00000004   0x....             LDR.N    R1,??DataTable4_5  ;; 0x4005200c
+   \   00000006   0x8008             STRH     R0,[R1, #+0]
+    114            WDOG->REFRESH = 0xB480;
+   \   00000008   0xF24B 0x4080      MOVW     R0,#+46208
+   \   0000000C   0x....             LDR.N    R1,??DataTable4_5  ;; 0x4005200c
+   \   0000000E   0x8008             STRH     R0,[R1, #+0]
+    115          }
+   \   00000010   0x4770             BX       LR               ;; return
+    116          
+    117          /*
+    118           * LPLD_WDOG_Unlock
+    119           * WDOG解锁函数，内部调用
+    120           * 
+    121           * 参数:
+    122           *    无
+    123           *
+    124           * 输出:
+    125           *    无
+    126           */
+
+   \                                 In section .text, align 2, keep-with-next
+    127          static void LPLD_WDOG_Unlock(void)
+    128          {
+    129            //以下代码必须在20个时钟周期内完成，否则会复位
+    130            DisableInterrupts;
+   \                     LPLD_WDOG_Unlock: (+1)
+   \   00000000   0xB672             CPSID    I
+    131            
+    132            //写0xC520来解锁寄存器
+    133            WDOG->UNLOCK = 0xC520;
+   \   00000002   0xF24C 0x5020      MOVW     R0,#+50464
+   \   00000006   0x....             LDR.N    R1,??DataTable4_6  ;; 0x4005200e
+   \   00000008   0x8008             STRH     R0,[R1, #+0]
+    134            
+    135            //接下来写0xD928完成解锁
+    136            WDOG->UNLOCK = 0xD928;
+   \   0000000A   0xF64D 0x1028      MOVW     R0,#+55592
+   \   0000000E   0x....             LDR.N    R1,??DataTable4_6  ;; 0x4005200e
+   \   00000010   0x8008             STRH     R0,[R1, #+0]
+    137            	
+    138            EnableInterrupts;
+   \   00000012   0xB662             CPSIE    I
+    139          }
+   \   00000014   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4:
+   \   00000000   0x........         DC32     g_bus_clock
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_1:
+   \   00000000   0x40052016         DC32     0x40052016
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_2:
+   \   00000000   0x40052004         DC32     0x40052004
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_3:
+   \   00000000   0x40052006         DC32     0x40052006
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_4:
+   \   00000000   0x40052000         DC32     0x40052000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_5:
+   \   00000000   0x4005200C         DC32     0x4005200c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable4_6:
+   \   00000000   0x4005200E         DC32     0x4005200e
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   LPLD_WDOG_Disable
+         8   -> LPLD_WDOG_Unlock
+       8   LPLD_WDOG_Enable
+         8   -> LPLD_WDOG_Unlock
+       0   LPLD_WDOG_Feed
+      16   LPLD_WDOG_Init
+        16   -> LPLD_WDOG_Unlock
+       0   LPLD_WDOG_Unlock
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable4
+       4  ??DataTable4_1
+       4  ??DataTable4_2
+       4  ??DataTable4_3
+       4  ??DataTable4_4
+       4  ??DataTable4_5
+       4  ??DataTable4_6
+      22  LPLD_WDOG_Disable
+      20  LPLD_WDOG_Enable
+      18  LPLD_WDOG_Feed
+      76  LPLD_WDOG_Init
+      22  LPLD_WDOG_Unlock
+
+ 
+ 186 bytes in section .text
+ 
+ 186 bytes of CODE memory
+
+Errors: none
+Warnings: none

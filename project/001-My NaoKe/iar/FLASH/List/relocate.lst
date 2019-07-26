@@ -1,0 +1,258 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        07/Feb/2019  15:37:43
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\lib\common\relocate.c
+#    Command line =  
+#        D:\2019.IAR\lib\common\relocate.c -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  
+#        D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\relocate.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\relocate.o
+#
+###############################################################################
+
+D:\2019.IAR\lib\common\relocate.c
+      1          /**
+      2           * @file relocate.c
+      3           * @version 3.0[By LPLD]
+      4           * @date 2013-06-18
+      5           * @brief Kinetis通用数据代码迁移函数
+      6           *
+      7           * 更改建议:不建议修改
+      8           *
+      9           * 实现数据、代码由ROM向RAM迁移的过程
+     10           *
+     11           * 版权所有:北京拉普兰德电子技术有限公司
+     12           * http://www.lpld.cn
+     13           * mail:support@lpld.cn
+     14           *
+     15           * @par
+     16           * 本代码由拉普兰德[LPLD]开发并维护，并向所有使用者开放源代码。
+     17           * 开发者可以随意修使用或改源代码。但本段及以上注释应予以保留。
+     18           * 不得更改或删除原版权所有者姓名，二次开发者可以加注二次版权所有者。
+     19           * 但应在遵守此协议的基础上，开放源代码、不得出售代码本身。
+     20           * 拉普兰德不负责由于使用本代码所带来的任何事故、法律责任或相关不良影响。
+     21           * 拉普兰德无义务解释、说明本代码的具体原理、功能、实现方法。
+     22           * 除非拉普兰德[LPLD]授权，开发者不得将本代码用于商业产品。
+     23           */
+     24          
+     25          #include "common.h"
+     26          
+     27          #if defined(__IAR_SYSTEMS_ICC__)
+     28            #pragma section = ".data"
+     29            #pragma section = ".data_init"
+     30            #pragma section = ".bss"
+     31            #pragma section = "CodeRelocate"
+     32            #pragma section = "CodeRelocateRam"
+     33          #endif
+     34             
+     35          /********************************************************************/
+
+   \                                 In section .text, align 4, keep-with-next
+     36          void common_relocate(void)
+     37          {
+     38              #ifndef __IAR_SYSTEMS_ICC__
+     39                #warning 非IAR编译器需确定此处地址
+     40                extern char __START_BSS[];
+     41                extern char __END_BSS[];
+     42                extern uint32 __DATA_ROM[];
+     43                extern uint32 __DATA_RAM[];
+     44                extern char __DATA_END[];
+     45              #endif
+     46            
+     47            /* 声明一个计数器在拷贝循环中使用 */
+     48            uint32 n;
+     49            
+     50            /* 为不同的数据段定义指针。
+     51            * 这些变量将由链接文件中获取的值初始化
+     52            */
+     53            uint8 * data_ram, * data_rom, * data_rom_end;
+     54            uint8 * bss_start, * bss_end;
+     55            
+     56            
+     57            /* 引进链接文件中的VECTOR_TABLE和VECTOR_RAM的地址 */
+     58            extern uint32 __VECTOR_TABLE[];
+     59            extern uint32 __VECTOR_RAM[];
+     60            
+     61            /* 将中断向量表复制到RAM中 */
+     62            if (__VECTOR_RAM != __VECTOR_TABLE)
+   \                     common_relocate: (+1)
+   \   00000000   0x481C             LDR.N    R0,??common_relocate_0
+   \   00000002   0x491D             LDR.N    R1,??common_relocate_0+0x4
+   \   00000004   0x4288             CMP      R0,R1
+   \   00000006   0xD00B             BEQ.N    ??common_relocate_1
+     63            {
+     64              for (n = 0; n < 0x410; n++)
+   \   00000008   0x2000             MOVS     R0,#+0
+   \   0000000A   0xE006             B.N      ??common_relocate_2
+     65                __VECTOR_RAM[n] = __VECTOR_TABLE[n];
+   \                     ??common_relocate_3: (+1)
+   \   0000000C   0x491A             LDR.N    R1,??common_relocate_0+0x4
+   \   0000000E   0xF851 0x1020      LDR      R1,[R1, R0, LSL #+2]
+   \   00000012   0x4A18             LDR.N    R2,??common_relocate_0
+   \   00000014   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000018   0x1C40             ADDS     R0,R0,#+1
+   \                     ??common_relocate_2: (+1)
+   \   0000001A   0xF5B0 0x6F82      CMP      R0,#+1040
+   \   0000001E   0xD3F5             BCC.N    ??common_relocate_3
+     66            }
+     67            /* 将新的中断向量表指针赋给VTOR寄存器 */
+     68            write_vtor((uint32)__VECTOR_RAM);
+   \                     ??common_relocate_1: (+1)
+   \   00000020   0x4814             LDR.N    R0,??common_relocate_0
+   \   00000022   0x4916             LDR.N    R1,??common_relocate_0+0x8  ;; 0xe000ed08
+   \   00000024   0x6008             STR      R0,[R1, #+0]
+     69            
+     70            /* 获得.data段的地址(已初始化的数据段) */
+     71            #if defined(__IAR_SYSTEMS_ICC__)
+     72              data_ram = __section_begin(".data");
+   \   00000026   0x4916             LDR.N    R1,??common_relocate_0+0xC
+     73              data_rom = __section_begin(".data_init");
+   \   00000028   0x4A16             LDR.N    R2,??common_relocate_0+0x10
+     74              data_rom_end = __section_end(".data_init");
+   \   0000002A   0x4817             LDR.N    R0,??common_relocate_0+0x14
+     75              n = data_rom_end - data_rom;	
+   \   0000002C   0x1A80             SUBS     R0,R0,R2
+   \   0000002E   0xE003             B.N      ??common_relocate_4
+     76            #else
+     77              #warning 非IAR编译器需确定此处地址
+     78              data_ram = (uint8 *)__DATA_RAM;
+     79              data_rom = (uint8 *)__DATA_ROM;
+     80              data_rom_end  = (uint8 *)__DATA_END; /* 该段在CodeWarrior编译器中为RAM地址 */
+     81              n = data_rom_end - data_rom;
+     82            #endif
+     83            
+     84            /* 从ROM复制已初始化的数据到RAM */
+     85            while (n--)
+     86              *data_ram++ = *data_rom++;
+   \                     ??common_relocate_5: (+1)
+   \   00000030   0x7813             LDRB     R3,[R2, #+0]
+   \   00000032   0x700B             STRB     R3,[R1, #+0]
+   \   00000034   0x1C52             ADDS     R2,R2,#+1
+   \   00000036   0x1C49             ADDS     R1,R1,#+1
+   \                     ??common_relocate_4: (+1)
+   \   00000038   0x0003             MOVS     R3,R0
+   \   0000003A   0x1E58             SUBS     R0,R3,#+1
+   \   0000003C   0x2B00             CMP      R3,#+0
+   \   0000003E   0xD1F7             BNE.N    ??common_relocate_5
+     87            
+     88            
+     89            /* 获得.bss段的地址 (初始化为0的数据) */
+     90            #if defined(__IAR_SYSTEMS_ICC__)
+     91            bss_start = __section_begin(".bss");
+   \   00000040   0x4912             LDR.N    R1,??common_relocate_0+0x18
+     92            bss_end = __section_end(".bss");  
+   \   00000042   0x4813             LDR.N    R0,??common_relocate_0+0x1C
+     93            #else
+     94            #warning 非IAR编译器需确定此处地址
+     95            bss_start = (uint8 *)__START_BSS;
+     96            bss_end = (uint8 *)__END_BSS;
+     97            #endif
+     98            
+     99            /* 清零初始化为0的数据段 */
+    100            n = bss_end - bss_start;
+   \   00000044   0x1A40             SUBS     R0,R0,R1
+   \   00000046   0xE002             B.N      ??common_relocate_6
+    101            while(n--)
+    102              *bss_start++ = 0;
+   \                     ??common_relocate_7: (+1)
+   \   00000048   0x2200             MOVS     R2,#+0
+   \   0000004A   0x700A             STRB     R2,[R1, #+0]
+   \   0000004C   0x1C49             ADDS     R1,R1,#+1
+   \                     ??common_relocate_6: (+1)
+   \   0000004E   0x0002             MOVS     R2,R0
+   \   00000050   0x1E50             SUBS     R0,R2,#+1
+   \   00000052   0x2A00             CMP      R2,#+0
+   \   00000054   0xD1F8             BNE.N    ??common_relocate_7
+    103            
+    104            /* 取得所有应该从ROM复制到RAM的代码段的地址。
+    105            * IAR有一个预定义的关键字可以标记独立的函数为从RAM执行。
+    106            * 在函数的返回类型前添加"__ramfunc"关键字可以将函数标记为从RAM中执行。
+    107            * 例如:__ramfunc void foo(void);
+    108            */
+    109            #if defined(__IAR_SYSTEMS_ICC__)
+    110            uint8* code_relocate_ram = __section_begin("CodeRelocateRam");
+   \   00000056   0x490F             LDR.N    R1,??common_relocate_0+0x20
+    111            uint8* code_relocate = __section_begin("CodeRelocate");
+   \   00000058   0x4A0F             LDR.N    R2,??common_relocate_0+0x24
+    112            uint8* code_relocate_end = __section_end("CodeRelocate");
+   \   0000005A   0x4810             LDR.N    R0,??common_relocate_0+0x28
+    113            
+    114            /* 将函数从ROM复制到RAM */
+    115            n = code_relocate_end - code_relocate;
+   \   0000005C   0x1A80             SUBS     R0,R0,R2
+   \   0000005E   0xE003             B.N      ??common_relocate_8
+    116            while (n--)
+    117              *code_relocate_ram++ = *code_relocate++;
+   \                     ??common_relocate_9: (+1)
+   \   00000060   0x7813             LDRB     R3,[R2, #+0]
+   \   00000062   0x700B             STRB     R3,[R1, #+0]
+   \   00000064   0x1C52             ADDS     R2,R2,#+1
+   \   00000066   0x1C49             ADDS     R1,R1,#+1
+   \                     ??common_relocate_8: (+1)
+   \   00000068   0x0003             MOVS     R3,R0
+   \   0000006A   0x1E58             SUBS     R0,R3,#+1
+   \   0000006C   0x2B00             CMP      R3,#+0
+   \   0000006E   0xD1F7             BNE.N    ??common_relocate_9
+    118            #endif
+    119          }
+   \   00000070   0x4770             BX       LR               ;; return
+   \   00000072   0xBF00             Nop      
+   \                     ??common_relocate_0:
+   \   00000074   0x........         DC32     __VECTOR_RAM
+   \   00000078   0x........         DC32     __VECTOR_TABLE
+   \   0000007C   0xE000ED08         DC32     0xe000ed08
+   \   00000080   0x........         DC32     SFB(`.data`)
+   \   00000084   0x........         DC32     SFB(`.data_init`)
+   \   00000088   0x........         DC32     SFE(`.data_init`)
+   \   0000008C   0x........         DC32     SFB(`.bss`)
+   \   00000090   0x........         DC32     SFE(`.bss`)
+   \   00000094   0x........         DC32     SFB(CodeRelocateRam)
+   \   00000098   0x........         DC32     SFB(CodeRelocate)
+   \   0000009C   0x........         DC32     SFE(CodeRelocate)
+    120          /********************************************************************/
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       0   common_relocate
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+     160  common_relocate
+
+ 
+ 160 bytes in section .text
+ 
+ 160 bytes of CODE memory
+
+Errors: none
+Warnings: none

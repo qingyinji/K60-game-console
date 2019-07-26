@@ -1,0 +1,1015 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        07/Feb/2019  15:37:24
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\lib\LPLD\HW\HW_DAC.c
+#    Command line =  
+#        D:\2019.IAR\lib\LPLD\HW\HW_DAC.c -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\HW_DAC.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_DAC.o
+#
+###############################################################################
+
+D:\2019.IAR\lib\LPLD\HW\HW_DAC.c
+      1          /**
+      2           * @file HW_DAC.c
+      3           * @version 3.0[By LPLD]
+      4           * @date 2013-06-18
+      5           * @brief DAC底层模块相关函数
+      6           *
+      7           * 更改建议:不建议修改
+      8           *
+      9           * 版权所有:北京拉普兰德电子技术有限公司
+     10           * http://www.lpld.cn
+     11           * mail:support@lpld.cn
+     12           *
+     13           * @par
+     14           * 本代码由拉普兰德[LPLD]开发并维护，并向所有使用者开放源代码。
+     15           * 开发者可以随意修使用或改源代码。但本段及以上注释应予以保留。
+     16           * 不得更改或删除原版权所有者姓名，二次开发者可以加注二次版权所有者。
+     17           * 但应在遵守此协议的基础上，开放源代码、不得出售代码本身。
+     18           * 拉普兰德不负责由于使用本代码所带来的任何事故、法律责任或相关不良影响。
+     19           * 拉普兰德无义务解释、说明本代码的具体原理、功能、实现方法。
+     20           * 除非拉普兰德[LPLD]授权，开发者不得将本代码用于商业产品。
+     21           */
+     22          #include "common.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_EnableIRQ(IRQn_Type)
+   \                     NVIC_EnableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x.... 0x....      LDR.W    R2,??DataTable9  ;; 0xe000e100
+   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000E   0x0940             LSRS     R0,R0,#+5
+   \   00000010   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000014   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
+   \                     NVIC_DisableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x.... 0x....      LDR.W    R2,??DataTable9_1  ;; 0xe000e180
+   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000E   0x0940             LSRS     R0,R0,#+5
+   \   00000010   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000014   0x4770             BX       LR               ;; return
+     23          #include "HW_DAC.h"
+     24          
+     25          //用户自定义中断服务函数数组
+
+   \                                 In section .bss, align 4
+     26          DAC_ISR_CALLBACK DAC_RDPTBOT_ISR[2];
+   \                     DAC_RDPTBOT_ISR:
+   \   00000000                      DS8 8
+
+   \                                 In section .bss, align 4
+     27          DAC_ISR_CALLBACK DAC_RDPTTOP_ISR[2];
+   \                     DAC_RDPTTOP_ISR:
+   \   00000000                      DS8 8
+
+   \                                 In section .bss, align 4
+     28          DAC_ISR_CALLBACK DAC_WATERMK_ISR[2];
+   \                     DAC_WATERMK_ISR:
+   \   00000000                      DS8 8
+     29          
+     30          
+     31          /*
+     32           * LPLD_DAC_Init
+     33           * DAC初始化函数，使能DAC各项功能
+     34           * 
+     35           * 参数:
+     36           *    dac_init_struct--DAC初始化结构体，
+     37           *                        具体定义见DAC_InitTypeDef
+     38           *
+     39           * 输出:
+     40           *    0--配置错误
+     41           *    1--配置成功
+     42           */
+
+   \                                 In section .text, align 2, keep-with-next
+     43          uint8 LPLD_DAC_Init(DAC_InitTypeDef dac_init_struct)
+     44          {
+   \                     LPLD_DAC_Init: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xE92D 0x47F0      PUSH     {R4-R10,LR}
+     45            uint8 x;
+     46            DAC_Type *dacx = dac_init_struct.DAC_Dacx;
+   \   00000006   0x9C08             LDR      R4,[SP, #+32]
+     47            uint8 work_mode = dac_init_struct.DAC_BufferWorkMode;
+   \   00000008   0xF89D 0x5025      LDRB     R5,[SP, #+37]
+     48            uint8 watermark = dac_init_struct.DAC_BufferWatermarkSel;
+   \   0000000C   0xF89D 0x6026      LDRB     R6,[SP, #+38]
+     49            uint8 upper = dac_init_struct.DAC_BufferUpperLimit;
+   \   00000010   0xF89D 0xA028      LDRB     R10,[SP, #+40]
+     50            DAC_ISR_CALLBACK rdptbot_isr = dac_init_struct.DAC_ReadPointerBottomIsr;
+   \   00000014   0x9F0C             LDR      R7,[SP, #+48]
+     51            DAC_ISR_CALLBACK rdpttop_isr = dac_init_struct.DAC_ReadPointerTopIsr;
+   \   00000016   0xF8DD 0x8034      LDR      R8,[SP, #+52]
+     52            DAC_ISR_CALLBACK watermk_isr = dac_init_struct.DAC_BufferWatermarkIsr;
+   \   0000001A   0xF8DD 0x9038      LDR      R9,[SP, #+56]
+     53            
+     54            upper = (upper==NULL?1:upper);
+   \   0000001E   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   00000022   0xF1BA 0x0F00      CMP      R10,#+0
+   \   00000026   0xD102             BNE.N    ??LPLD_DAC_Init_0
+   \   00000028   0xF05F 0x0A01      MOVS     R10,#+1
+   \   0000002C   0xE7FF             B.N      ??LPLD_DAC_Init_1
+     55              
+     56            //参数检查
+     57            ASSERT( work_mode <= BUFFER_MODE_ONETIMESCAN );  //判断模式选择
+   \                     ??LPLD_DAC_Init_0: (+1)
+   \                     ??LPLD_DAC_Init_1: (+1)
+   \   0000002E   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   00000030   0x2D03             CMP      R5,#+3
+   \   00000032   0xDB04             BLT.N    ??LPLD_DAC_Init_2
+   \   00000034   0x2139             MOVS     R1,#+57
+   \   00000036   0x.... 0x....      LDR.W    R0,??DataTable9_2
+   \   0000003A   0x.... 0x....      BL       assert_failed
+     58            ASSERT( watermark <= WATERMARK_4WORDS );      //判断缓冲区水印选择
+   \                     ??LPLD_DAC_Init_2: (+1)
+   \   0000003E   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000040   0x2E04             CMP      R6,#+4
+   \   00000042   0xDB04             BLT.N    ??LPLD_DAC_Init_3
+   \   00000044   0x213A             MOVS     R1,#+58
+   \   00000046   0x.... 0x....      LDR.W    R0,??DataTable9_2
+   \   0000004A   0x.... 0x....      BL       assert_failed
+     59            ASSERT( upper <= 16);         //判断缓冲区上限数值
+   \                     ??LPLD_DAC_Init_3: (+1)
+   \   0000004E   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   00000052   0xF1BA 0x0F11      CMP      R10,#+17
+   \   00000056   0xDB04             BLT.N    ??LPLD_DAC_Init_4
+   \   00000058   0x213B             MOVS     R1,#+59
+   \   0000005A   0x.... 0x....      LDR.W    R0,??DataTable9_2
+   \   0000005E   0x.... 0x....      BL       assert_failed
+     60              
+     61            //配置DAC时钟
+     62            if(dacx == DAC0)
+   \                     ??LPLD_DAC_Init_4: (+1)
+   \   00000062   0x.... 0x....      LDR.W    R0,??DataTable9_3  ;; 0x400cc000
+   \   00000066   0x4284             CMP      R4,R0
+   \   00000068   0xF040 0x8087      BNE.W    ??LPLD_DAC_Init_5
+     63            {
+     64              x = 0;
+   \   0000006C   0x2000             MOVS     R0,#+0
+     65              SIM->SCGC2 |= SIM_SCGC2_DAC0_MASK;   //开启DAC0时钟
+   \   0000006E   0x.... 0x....      LDR.W    R1,??DataTable9_4  ;; 0x4004802c
+   \   00000072   0x6809             LDR      R1,[R1, #+0]
+   \   00000074   0xF451 0x5180      ORRS     R1,R1,#0x1000
+   \   00000078   0x.... 0x....      LDR.W    R2,??DataTable9_4  ;; 0x4004802c
+   \   0000007C   0x6011             STR      R1,[R2, #+0]
+     66            }
+     67            else if(dacx == DAC1)
+     68            {
+     69              x = 1;
+     70              SIM->SCGC2 |= SIM_SCGC2_DAC1_MASK;   //开启DAC1时钟
+     71            }
+     72            else 
+     73            {
+     74              return 0;
+     75            }
+     76            
+     77            //配置C2寄存器
+     78            dacx->C2 = DAC_C2_DACBFUP(upper - 1);     //配置缓冲区上限数值
+   \                     ??LPLD_DAC_Init_6: (+1)
+   \   0000007E   0xF1BA 0x0101      SUBS     R1,R10,#+1
+   \   00000082   0xF011 0x010F      ANDS     R1,R1,#0xF
+   \   00000086   0xF884 0x1023      STRB     R1,[R4, #+35]
+     79            
+     80            //配置C1寄存器
+     81            dacx->C1 = 0;
+   \   0000008A   0x2100             MOVS     R1,#+0
+   \   0000008C   0xF884 0x1022      STRB     R1,[R4, #+34]
+     82            if(dac_init_struct.DAC_BufferEnable == TRUE)
+   \   00000090   0xF89D 0x1024      LDRB     R1,[SP, #+36]
+   \   00000094   0x2901             CMP      R1,#+1
+   \   00000096   0xD105             BNE.N    ??LPLD_DAC_Init_7
+     83            {
+     84              dacx->C1 |= DAC_C1_DACBFEN_MASK;    //使能缓冲区 
+   \   00000098   0xF894 0x1022      LDRB     R1,[R4, #+34]
+   \   0000009C   0xF051 0x0101      ORRS     R1,R1,#0x1
+   \   000000A0   0xF884 0x1022      STRB     R1,[R4, #+34]
+     85            }
+     86            dacx->C1 |= DAC_C1_DACBFMD(work_mode);        //缓冲区工作模式配置
+   \                     ??LPLD_DAC_Init_7: (+1)
+   \   000000A4   0xF894 0x1022      LDRB     R1,[R4, #+34]
+   \   000000A8   0x006A             LSLS     R2,R5,#+1
+   \   000000AA   0xF012 0x0206      ANDS     R2,R2,#0x6
+   \   000000AE   0x4311             ORRS     R1,R2,R1
+   \   000000B0   0xF884 0x1022      STRB     R1,[R4, #+34]
+     87            dacx->C1 |= DAC_C1_DACBFWM(watermark);        //缓冲区水印选择配置
+   \   000000B4   0xF894 0x1022      LDRB     R1,[R4, #+34]
+   \   000000B8   0x00F2             LSLS     R2,R6,#+3
+   \   000000BA   0xF012 0x0218      ANDS     R2,R2,#0x18
+   \   000000BE   0x4311             ORRS     R1,R2,R1
+   \   000000C0   0xF884 0x1022      STRB     R1,[R4, #+34]
+     88            if(dac_init_struct.DAC_DmaEnable == TRUE)
+   \   000000C4   0xF89D 0x1027      LDRB     R1,[SP, #+39]
+   \   000000C8   0x2901             CMP      R1,#+1
+   \   000000CA   0xD105             BNE.N    ??LPLD_DAC_Init_8
+     89            {
+     90              dacx->C1 |= DAC_C1_DMAEN_MASK;      //使能DMA
+   \   000000CC   0xF894 0x1022      LDRB     R1,[R4, #+34]
+   \   000000D0   0xF051 0x0180      ORRS     R1,R1,#0x80
+   \   000000D4   0xF884 0x1022      STRB     R1,[R4, #+34]
+     91            }
+     92            
+     93            //配置C0寄存器
+     94            dacx->C0 = 0;
+   \                     ??LPLD_DAC_Init_8: (+1)
+   \   000000D8   0x2100             MOVS     R1,#+0
+   \   000000DA   0xF884 0x1021      STRB     R1,[R4, #+33]
+     95            if(dac_init_struct.DAC_ReadPointerBottomIntEnable == TRUE && rdptbot_isr != NULL)
+   \   000000DE   0xF89D 0x102A      LDRB     R1,[SP, #+42]
+   \   000000E2   0x2901             CMP      R1,#+1
+   \   000000E4   0xD10C             BNE.N    ??LPLD_DAC_Init_9
+   \   000000E6   0x0039             MOVS     R1,R7
+   \   000000E8   0x2900             CMP      R1,#+0
+   \   000000EA   0xD009             BEQ.N    ??LPLD_DAC_Init_9
+     96            {
+     97              dacx->C0 |= DAC_C0_DACBBIEN_MASK;   //使能缓冲区底部中断
+   \   000000EC   0xF894 0x1021      LDRB     R1,[R4, #+33]
+   \   000000F0   0xF051 0x0101      ORRS     R1,R1,#0x1
+   \   000000F4   0xF884 0x1021      STRB     R1,[R4, #+33]
+     98              DAC_RDPTBOT_ISR[x] = rdptbot_isr;
+   \   000000F8   0x....             LDR.N    R1,??DataTable9_5
+   \   000000FA   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000000FC   0xF841 0x7020      STR      R7,[R1, R0, LSL #+2]
+     99            }
+    100            if(dac_init_struct.DAC_ReadPointerTopIntEnable == TRUE && rdpttop_isr != NULL)
+   \                     ??LPLD_DAC_Init_9: (+1)
+   \   00000100   0xF89D 0x102B      LDRB     R1,[SP, #+43]
+   \   00000104   0x2901             CMP      R1,#+1
+   \   00000106   0xD10C             BNE.N    ??LPLD_DAC_Init_10
+   \   00000108   0x4641             MOV      R1,R8
+   \   0000010A   0x2900             CMP      R1,#+0
+   \   0000010C   0xD009             BEQ.N    ??LPLD_DAC_Init_10
+    101            {
+    102              dacx->C0 |= DAC_C0_DACBTIEN_MASK;   //使能缓冲区顶部中断
+   \   0000010E   0xF894 0x1021      LDRB     R1,[R4, #+33]
+   \   00000112   0xF051 0x0102      ORRS     R1,R1,#0x2
+   \   00000116   0xF884 0x1021      STRB     R1,[R4, #+33]
+    103              DAC_RDPTTOP_ISR[x] = rdpttop_isr;
+   \   0000011A   0x....             LDR.N    R1,??DataTable9_6
+   \   0000011C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000011E   0xF841 0x8020      STR      R8,[R1, R0, LSL #+2]
+    104            }
+    105            if(dac_init_struct.DAC_BufferWatermarkIntEnable == TRUE && watermk_isr != NULL)
+   \                     ??LPLD_DAC_Init_10: (+1)
+   \   00000122   0xF89D 0x102C      LDRB     R1,[SP, #+44]
+   \   00000126   0x2901             CMP      R1,#+1
+   \   00000128   0xD10C             BNE.N    ??LPLD_DAC_Init_11
+   \   0000012A   0x4649             MOV      R1,R9
+   \   0000012C   0x2900             CMP      R1,#+0
+   \   0000012E   0xD009             BEQ.N    ??LPLD_DAC_Init_11
+    106            {
+    107              dacx->C0 |= DAC_C0_DACBWIEN_MASK;   //使能缓冲区水印中断
+   \   00000130   0xF894 0x1021      LDRB     R1,[R4, #+33]
+   \   00000134   0xF051 0x0104      ORRS     R1,R1,#0x4
+   \   00000138   0xF884 0x1021      STRB     R1,[R4, #+33]
+    108              DAC_WATERMK_ISR[x] = watermk_isr;
+   \   0000013C   0x....             LDR.N    R1,??DataTable9_7
+   \   0000013E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000140   0xF841 0x9020      STR      R9,[R1, R0, LSL #+2]
+    109            }
+    110            if(dac_init_struct.DAC_SoftTrgEnable == TRUE)
+   \                     ??LPLD_DAC_Init_11: (+1)
+   \   00000144   0xF89D 0x0029      LDRB     R0,[SP, #+41]
+   \   00000148   0x2801             CMP      R0,#+1
+   \   0000014A   0xD105             BNE.N    ??LPLD_DAC_Init_12
+    111            {
+    112              dacx->C0 |= DAC_C0_DACTRGSEL_MASK;  //使能软件触发缓冲区
+   \   0000014C   0xF894 0x0021      LDRB     R0,[R4, #+33]
+   \   00000150   0xF050 0x0020      ORRS     R0,R0,#0x20
+   \   00000154   0xF884 0x0021      STRB     R0,[R4, #+33]
+    113            }
+    114            dacx->C0 |= DAC_C0_DACRFS_MASK;       //使能DACREF_2(VDDA)为参考电压
+   \                     ??LPLD_DAC_Init_12: (+1)
+   \   00000158   0xF894 0x0021      LDRB     R0,[R4, #+33]
+   \   0000015C   0xF050 0x0040      ORRS     R0,R0,#0x40
+   \   00000160   0xF884 0x0021      STRB     R0,[R4, #+33]
+    115            
+    116            //使能DAC模块，可编程参考发生器开始工作
+    117            dacx->C0 |= DAC_C0_DACEN_MASK;
+   \   00000164   0xF894 0x0021      LDRB     R0,[R4, #+33]
+   \   00000168   0xF050 0x0080      ORRS     R0,R0,#0x80
+   \   0000016C   0xF884 0x0021      STRB     R0,[R4, #+33]
+    118            
+    119            return 1;
+   \   00000170   0x2001             MOVS     R0,#+1
+   \                     ??LPLD_DAC_Init_13: (+1)
+   \   00000172   0xE8BD 0x07F0      POP      {R4-R10}
+   \   00000176   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+   \                     ??LPLD_DAC_Init_5: (+1)
+   \   0000017A   0x....             LDR.N    R0,??DataTable9_8  ;; 0x400cd000
+   \   0000017C   0x4284             CMP      R4,R0
+   \   0000017E   0xD107             BNE.N    ??LPLD_DAC_Init_14
+   \   00000180   0x2001             MOVS     R0,#+1
+   \   00000182   0x....             LDR.N    R1,??DataTable9_4  ;; 0x4004802c
+   \   00000184   0x6809             LDR      R1,[R1, #+0]
+   \   00000186   0xF451 0x5100      ORRS     R1,R1,#0x2000
+   \   0000018A   0x....             LDR.N    R2,??DataTable9_4  ;; 0x4004802c
+   \   0000018C   0x6011             STR      R1,[R2, #+0]
+   \   0000018E   0xE776             B.N      ??LPLD_DAC_Init_6
+   \                     ??LPLD_DAC_Init_14: (+1)
+   \   00000190   0x2000             MOVS     R0,#+0
+   \   00000192   0xE7EE             B.N      ??LPLD_DAC_Init_13
+    120          }
+    121          
+    122          /*
+    123           * LPLD_DAC_Deinit
+    124           * DAC反初始化函数，禁用DAC模块
+    125           * 
+    126           * 参数:
+    127           *    dac_init_struct--DAC初始化结构体，
+    128           *                        具体定义见DAC_InitTypeDef
+    129           *
+    130           * 输出:
+    131           *    0--配置错误
+    132           *    1--配置成功
+    133           */
+
+   \                                 In section .text, align 2, keep-with-next
+    134          uint8 LPLD_DAC_Deinit(DAC_InitTypeDef dac_init_struct)
+    135          {
+   \                     LPLD_DAC_Deinit: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB580             PUSH     {R7,LR}
+    136            uint8 x;
+    137            DAC_Type *dacx = dac_init_struct.DAC_Dacx;
+   \   00000004   0x9802             LDR      R0,[SP, #+8]
+    138          
+    139            //关闭DAC模块
+    140            dacx->C0 &= ~(DAC_C0_DACEN_MASK);
+   \   00000006   0xF890 0x1021      LDRB     R1,[R0, #+33]
+   \   0000000A   0xF011 0x017F      ANDS     R1,R1,#0x7F
+   \   0000000E   0xF880 0x1021      STRB     R1,[R0, #+33]
+    141            
+    142            //关闭DAC时钟
+    143            if(dacx == DAC0)
+   \   00000012   0x....             LDR.N    R1,??DataTable9_3  ;; 0x400cc000
+   \   00000014   0x4288             CMP      R0,R1
+   \   00000016   0xD10E             BNE.N    ??LPLD_DAC_Deinit_0
+    144            {
+    145              x = 0;
+   \   00000018   0x2000             MOVS     R0,#+0
+    146              SIM->SCGC2 &= ~(SIM_SCGC2_DAC0_MASK);   
+   \   0000001A   0x....             LDR.N    R1,??DataTable9_4  ;; 0x4004802c
+   \   0000001C   0x6809             LDR      R1,[R1, #+0]
+   \   0000001E   0xF431 0x5180      BICS     R1,R1,#0x1000
+   \   00000022   0x....             LDR.N    R2,??DataTable9_4  ;; 0x4004802c
+   \   00000024   0x6011             STR      R1,[R2, #+0]
+    147            }
+    148            else if(dacx == DAC1)
+    149            {
+    150              x = 1;
+    151              SIM->SCGC2 &= ~(SIM_SCGC2_DAC1_MASK);   
+    152            }
+    153            else 
+    154            {
+    155              return 0;
+    156            }
+    157          
+    158            disable_irq((IRQn_Type)(DAC0_IRQn + x));
+   \                     ??LPLD_DAC_Deinit_1: (+1)
+   \   00000026   0x3051             ADDS     R0,R0,#+81
+   \   00000028   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000002A   0x.... 0x....      BL       NVIC_DisableIRQ
+    159            
+    160            return 1;
+   \   0000002E   0x2001             MOVS     R0,#+1
+   \                     ??LPLD_DAC_Deinit_2: (+1)
+   \   00000030   0xBC02             POP      {R1}
+   \   00000032   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+   \                     ??LPLD_DAC_Deinit_0: (+1)
+   \   00000036   0x....             LDR.N    R1,??DataTable9_8  ;; 0x400cd000
+   \   00000038   0x4288             CMP      R0,R1
+   \   0000003A   0xD107             BNE.N    ??LPLD_DAC_Deinit_3
+   \   0000003C   0x2001             MOVS     R0,#+1
+   \   0000003E   0x....             LDR.N    R1,??DataTable9_4  ;; 0x4004802c
+   \   00000040   0x6809             LDR      R1,[R1, #+0]
+   \   00000042   0xF431 0x5100      BICS     R1,R1,#0x2000
+   \   00000046   0x....             LDR.N    R2,??DataTable9_4  ;; 0x4004802c
+   \   00000048   0x6011             STR      R1,[R2, #+0]
+   \   0000004A   0xE7EC             B.N      ??LPLD_DAC_Deinit_1
+   \                     ??LPLD_DAC_Deinit_3: (+1)
+   \   0000004C   0x2000             MOVS     R0,#+0
+   \   0000004E   0xE7EF             B.N      ??LPLD_DAC_Deinit_2
+    161          }
+    162          
+    163          /*
+    164           * LPLD_DAC_EnableIrq
+    165           * 使能DACx中断
+    166           * 
+    167           * 参数:
+    168           *    dac_init_struct--DAC初始化结构体，
+    169           *                        具体定义见DAC_InitTypeDef
+    170           *
+    171           * 输出:
+    172           *    0--配置错误
+    173           *    1--配置成功
+    174           */
+
+   \                                 In section .text, align 2, keep-with-next
+    175          uint8 LPLD_DAC_EnableIrq(DAC_InitTypeDef dac_init_struct)
+    176          {
+   \                     LPLD_DAC_EnableIrq: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB580             PUSH     {R7,LR}
+    177            uint8 x;
+    178            DAC_Type *dacx = dac_init_struct.DAC_Dacx;
+   \   00000004   0x9802             LDR      R0,[SP, #+8]
+    179            
+    180            if(dacx == DAC0)
+   \   00000006   0x....             LDR.N    R1,??DataTable9_3  ;; 0x400cc000
+   \   00000008   0x4288             CMP      R0,R1
+   \   0000000A   0xD108             BNE.N    ??LPLD_DAC_EnableIrq_0
+    181              x = 0;
+   \   0000000C   0x2000             MOVS     R0,#+0
+    182            else if(dacx == DAC1)
+    183              x = 1;
+    184            else
+    185              return 0;
+    186          
+    187            enable_irq((IRQn_Type)(DAC0_IRQn + x));
+   \                     ??LPLD_DAC_EnableIrq_1: (+1)
+   \   0000000E   0x3051             ADDS     R0,R0,#+81
+   \   00000010   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000012   0x.... 0x....      BL       NVIC_EnableIRQ
+    188            
+    189            return 1;
+   \   00000016   0x2001             MOVS     R0,#+1
+   \                     ??LPLD_DAC_EnableIrq_2: (+1)
+   \   00000018   0xBC02             POP      {R1}
+   \   0000001A   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+   \                     ??LPLD_DAC_EnableIrq_0: (+1)
+   \   0000001E   0x....             LDR.N    R1,??DataTable9_8  ;; 0x400cd000
+   \   00000020   0x4288             CMP      R0,R1
+   \   00000022   0xD101             BNE.N    ??LPLD_DAC_EnableIrq_3
+   \   00000024   0x2001             MOVS     R0,#+1
+   \   00000026   0xE7F2             B.N      ??LPLD_DAC_EnableIrq_1
+   \                     ??LPLD_DAC_EnableIrq_3: (+1)
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xE7F5             B.N      ??LPLD_DAC_EnableIrq_2
+    190          }
+    191          
+    192          /*
+    193           * LPLD_DAC_DisableIrq
+    194           * 禁用DACx中断
+    195           * 
+    196           * 参数:
+    197           *    dac_init_struct--DAC初始化结构体，
+    198           *                        具体定义见DAC_InitTypeDef
+    199           *
+    200           * 输出:
+    201           *    0--配置错误
+    202           *    1--配置成功
+    203           */
+
+   \                                 In section .text, align 2, keep-with-next
+    204          uint8 LPLD_DAC_DisableIrq(DAC_InitTypeDef dac_init_struct)
+    205          {
+   \                     LPLD_DAC_DisableIrq: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB580             PUSH     {R7,LR}
+    206            uint8 x;
+    207            DAC_Type *dacx = dac_init_struct.DAC_Dacx;
+   \   00000004   0x9802             LDR      R0,[SP, #+8]
+    208            
+    209            if(dacx == DAC0)
+   \   00000006   0x....             LDR.N    R1,??DataTable9_3  ;; 0x400cc000
+   \   00000008   0x4288             CMP      R0,R1
+   \   0000000A   0xD108             BNE.N    ??LPLD_DAC_DisableIrq_0
+    210              x = 0;
+   \   0000000C   0x2000             MOVS     R0,#+0
+    211            else if(dacx == DAC1)
+    212              x = 1;
+    213            else
+    214              return 0;
+    215          
+    216            disable_irq((IRQn_Type)(DAC0_IRQn + x));
+   \                     ??LPLD_DAC_DisableIrq_1: (+1)
+   \   0000000E   0x3051             ADDS     R0,R0,#+81
+   \   00000010   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   00000012   0x.... 0x....      BL       NVIC_DisableIRQ
+    217            
+    218            return 1;
+   \   00000016   0x2001             MOVS     R0,#+1
+   \                     ??LPLD_DAC_DisableIrq_2: (+1)
+   \   00000018   0xBC02             POP      {R1}
+   \   0000001A   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+   \                     ??LPLD_DAC_DisableIrq_0: (+1)
+   \   0000001E   0x....             LDR.N    R1,??DataTable9_8  ;; 0x400cd000
+   \   00000020   0x4288             CMP      R0,R1
+   \   00000022   0xD101             BNE.N    ??LPLD_DAC_DisableIrq_3
+   \   00000024   0x2001             MOVS     R0,#+1
+   \   00000026   0xE7F2             B.N      ??LPLD_DAC_DisableIrq_1
+   \                     ??LPLD_DAC_DisableIrq_3: (+1)
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xE7F5             B.N      ??LPLD_DAC_DisableIrq_2
+    219          }
+    220          
+    221          /*
+    222           * LPLD_DAC_SetBufferDataN
+    223           * 设置DAC缓存区单个数据n
+    224           * 
+    225           * 参数:
+    226           *    dacx--DACx模块号
+    227           *      |__DAC0          --DAC0
+    228           *      |__DAC1          --DAC1
+    229           *    data--缓冲区输出数据
+    230           *      |__0~4095        --12位数据
+    231           *    num--指定缓冲区位置
+    232           *      |__1~16          --缓冲区第1至16个字
+    233           *
+    234           * 输出:
+    235           *    无
+    236           */
+
+   \                                 In section .text, align 2, keep-with-next
+    237          void LPLD_DAC_SetBufferDataN(DAC_Type *dacx, uint16 data, uint8 num)
+    238          {
+   \                     LPLD_DAC_SetBufferDataN: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+    239            //参数检查
+    240            ASSERT( (num <= 16)&&(num > 0) );  //判断数据序号
+   \   00000008   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   0000000A   0x2E11             CMP      R6,#+17
+   \   0000000C   0xDA02             BGE.N    ??LPLD_DAC_SetBufferDataN_0
+   \   0000000E   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000010   0x2E00             CMP      R6,#+0
+   \   00000012   0xD103             BNE.N    ??LPLD_DAC_SetBufferDataN_1
+   \                     ??LPLD_DAC_SetBufferDataN_0: (+1)
+   \   00000014   0x21F0             MOVS     R1,#+240
+   \   00000016   0x....             LDR.N    R0,??DataTable9_2
+   \   00000018   0x.... 0x....      BL       assert_failed
+    241          
+    242            dacx->DAT[num-1].DATL = data & 0x0FF;
+   \                     ??LPLD_DAC_SetBufferDataN_1: (+1)
+   \   0000001C   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   0000001E   0xEB14 0x0046      ADDS     R0,R4,R6, LSL #+1
+   \   00000022   0xF800 0x5C02      STRB     R5,[R0, #-2]
+    243            dacx->DAT[num-1].DATH = (data & 0xF00)>>8;
+   \   00000026   0xB2AD             UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+   \   00000028   0x1228             ASRS     R0,R5,#+8
+   \   0000002A   0xF010 0x000F      ANDS     R0,R0,#0xF
+   \   0000002E   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000030   0xEB14 0x0146      ADDS     R1,R4,R6, LSL #+1
+   \   00000034   0xF801 0x0C01      STRB     R0,[R1, #-1]
+    244          }
+   \   00000038   0xBD70             POP      {R4-R6,PC}       ;; return
+    245          
+    246          /*
+    247           * LPLD_DAC_SetBufferData
+    248           * 设置DAC缓存区所有数据
+    249           * 
+    250           * 参数:
+    251           *    dacx--DACx模块号
+    252           *      |__DAC0          --DAC0
+    253           *      |__DAC1          --DAC1
+    254           *    *data--缓冲区输出数据数组指针
+    255           *      |__*0~4095       --12位数据数组
+    256           *    len--数据数组长度
+    257           *      |__1~16          --长度为1~16
+    258           *
+    259           * 输出:
+    260           *    无
+    261           */
+
+   \                                 In section .text, align 2, keep-with-next
+    262          void LPLD_DAC_SetBufferData(DAC_Type *dacx, uint16 *data, uint8 len)
+    263          {
+   \                     LPLD_DAC_SetBufferData: (+1)
+   \   00000000   0xB570             PUSH     {R4-R6,LR}
+   \   00000002   0x0004             MOVS     R4,R0
+   \   00000004   0x000D             MOVS     R5,R1
+   \   00000006   0x0016             MOVS     R6,R2
+    264            //参数检查
+    265            ASSERT( (len <= 16)&&(len > 0) );  //判断数据长度
+   \   00000008   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   0000000A   0x2E11             CMP      R6,#+17
+   \   0000000C   0xDA02             BGE.N    ??LPLD_DAC_SetBufferData_0
+   \   0000000E   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000010   0x2E00             CMP      R6,#+0
+   \   00000012   0xD104             BNE.N    ??LPLD_DAC_SetBufferData_1
+   \                     ??LPLD_DAC_SetBufferData_0: (+1)
+   \   00000014   0xF240 0x1109      MOVW     R1,#+265
+   \   00000018   0x....             LDR.N    R0,??DataTable9_2
+   \   0000001A   0x.... 0x....      BL       assert_failed
+    266            
+    267            for(uint8 i=0; i < len; i++)
+   \                     ??LPLD_DAC_SetBufferData_1: (+1)
+   \   0000001E   0x2000             MOVS     R0,#+0
+   \   00000020   0xE010             B.N      ??LPLD_DAC_SetBufferData_2
+    268            {
+    269              dacx->DAT[i].DATL = data[i] & 0x0FF;
+   \                     ??LPLD_DAC_SetBufferData_3: (+1)
+   \   00000022   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000024   0xF835 0x1010      LDRH     R1,[R5, R0, LSL #+1]
+   \   00000028   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000002A   0xF804 0x1010      STRB     R1,[R4, R0, LSL #+1]
+    270              dacx->DAT[i].DATH = (data[i] & 0xF00)>>8;
+   \   0000002E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000030   0xF835 0x1010      LDRH     R1,[R5, R0, LSL #+1]
+   \   00000034   0x1209             ASRS     R1,R1,#+8
+   \   00000036   0xF011 0x010F      ANDS     R1,R1,#0xF
+   \   0000003A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000003C   0xEB14 0x0240      ADDS     R2,R4,R0, LSL #+1
+   \   00000040   0x7051             STRB     R1,[R2, #+1]
+    271            }
+   \   00000042   0x1C40             ADDS     R0,R0,#+1
+   \                     ??LPLD_DAC_SetBufferData_2: (+1)
+   \   00000044   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000046   0xB2F6             UXTB     R6,R6            ;; ZeroExt  R6,R6,#+24,#+24
+   \   00000048   0x42B0             CMP      R0,R6
+   \   0000004A   0xD3EA             BCC.N    ??LPLD_DAC_SetBufferData_3
+    272          }
+   \   0000004C   0xBD70             POP      {R4-R6,PC}       ;; return
+    273          
+    274          /*
+    275           * LPLD_DAC_SoftwareTrigger
+    276           * 软件触发DAC缓冲区工作
+    277           * 
+    278           * 参数:
+    279           *    dacx--DACx模块号
+    280           *      |__DAC0          --DAC0
+    281           *      |__DAC1          --DAC1
+    282           *
+    283           * 输出:
+    284           *    无
+    285           */
+
+   \                                 In section .text, align 2, keep-with-next
+    286          void LPLD_DAC_SoftwareTrigger(DAC_Type *dacx)
+    287          {
+    288            dacx->C0 |= DAC_C0_DACSWTRG_MASK;
+   \                     LPLD_DAC_SoftwareTrigger: (+1)
+   \   00000000   0xF890 0x1021      LDRB     R1,[R0, #+33]
+   \   00000004   0xF051 0x0110      ORRS     R1,R1,#0x10
+   \   00000008   0xF880 0x1021      STRB     R1,[R0, #+33]
+    289          }
+   \   0000000C   0x4770             BX       LR               ;; return
+    290          
+    291          /*
+    292           * DAC0--DAC1中断处理函数
+    293           * 与启动文件startup_K60.s中的中断向量表关联
+    294           * 用户无需修改，程序自动进入对应通道中断函数
+    295           */
+    296          
+
+   \                                 In section .text, align 2, keep-with-next
+    297          void DAC0_IRQHandler(void)
+    298          {
+   \                     DAC0_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    299          #if (UCOS_II > 0u)
+    300            OS_CPU_SR  cpu_sr = 0u;
+    301            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    302            OSIntEnter();
+    303            OS_EXIT_CRITICAL();
+    304          #endif
+    305            
+    306            //是否为指针底部中断
+    307            if((DAC0->SR & DAC_SR_DACBFRPBF_MASK) && (DAC0->C0 & DAC_C0_DACBBIEN_MASK))
+   \   00000002   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   00000004   0x7800             LDRB     R0,[R0, #+0]
+   \   00000006   0x07C0             LSLS     R0,R0,#+31
+   \   00000008   0xD50C             BPL.N    ??DAC0_IRQHandler_0
+   \   0000000A   0x....             LDR.N    R0,??DataTable9_10  ;; 0x400cc021
+   \   0000000C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000000E   0x07C0             LSLS     R0,R0,#+31
+   \   00000010   0xD508             BPL.N    ??DAC0_IRQHandler_0
+    308            {
+    309              //调用用户自定义中断服务
+    310              DAC_RDPTBOT_ISR[0]();  
+   \   00000012   0x....             LDR.N    R0,??DataTable9_5
+   \   00000014   0x6800             LDR      R0,[R0, #+0]
+   \   00000016   0x4780             BLX      R0
+    311              DAC0->SR &= ~(DAC_SR_DACBFRPBF_MASK);
+   \   00000018   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   0000001A   0x7800             LDRB     R0,[R0, #+0]
+   \   0000001C   0xF010 0x00FE      ANDS     R0,R0,#0xFE
+   \   00000020   0x....             LDR.N    R1,??DataTable9_9  ;; 0x400cc020
+   \   00000022   0x7008             STRB     R0,[R1, #+0]
+    312            }
+    313            //是否为指针顶部中断
+    314            if((DAC0->SR & DAC_SR_DACBFRPTF_MASK) && (DAC0->C0 & DAC_C0_DACBTIEN_MASK))
+   \                     ??DAC0_IRQHandler_0: (+1)
+   \   00000024   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   00000026   0x7800             LDRB     R0,[R0, #+0]
+   \   00000028   0x0780             LSLS     R0,R0,#+30
+   \   0000002A   0xD50C             BPL.N    ??DAC0_IRQHandler_1
+   \   0000002C   0x....             LDR.N    R0,??DataTable9_10  ;; 0x400cc021
+   \   0000002E   0x7800             LDRB     R0,[R0, #+0]
+   \   00000030   0x0780             LSLS     R0,R0,#+30
+   \   00000032   0xD508             BPL.N    ??DAC0_IRQHandler_1
+    315            {
+    316              //调用用户自定义中断服务
+    317              DAC_RDPTTOP_ISR[0]();  
+   \   00000034   0x....             LDR.N    R0,??DataTable9_6
+   \   00000036   0x6800             LDR      R0,[R0, #+0]
+   \   00000038   0x4780             BLX      R0
+    318              DAC0->SR &= ~(DAC_SR_DACBFRPTF_MASK);
+   \   0000003A   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   0000003C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000003E   0xF010 0x00FD      ANDS     R0,R0,#0xFD
+   \   00000042   0x....             LDR.N    R1,??DataTable9_9  ;; 0x400cc020
+   \   00000044   0x7008             STRB     R0,[R1, #+0]
+    319            }
+    320            //是否为水印中断
+    321            if((DAC0->SR & DAC_SR_DACBFWMF_MASK) && (DAC0->C0 & DAC_C0_DACBWIEN_MASK))
+   \                     ??DAC0_IRQHandler_1: (+1)
+   \   00000046   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   00000048   0x7800             LDRB     R0,[R0, #+0]
+   \   0000004A   0x0740             LSLS     R0,R0,#+29
+   \   0000004C   0xD50C             BPL.N    ??DAC0_IRQHandler_2
+   \   0000004E   0x....             LDR.N    R0,??DataTable9_10  ;; 0x400cc021
+   \   00000050   0x7800             LDRB     R0,[R0, #+0]
+   \   00000052   0x0740             LSLS     R0,R0,#+29
+   \   00000054   0xD508             BPL.N    ??DAC0_IRQHandler_2
+    322            {
+    323              //调用用户自定义中断服务
+    324              DAC_WATERMK_ISR[0]();  
+   \   00000056   0x....             LDR.N    R0,??DataTable9_7
+   \   00000058   0x6800             LDR      R0,[R0, #+0]
+   \   0000005A   0x4780             BLX      R0
+    325              DAC0->SR &= ~(DAC_SR_DACBFWMF_MASK);
+   \   0000005C   0x....             LDR.N    R0,??DataTable9_9  ;; 0x400cc020
+   \   0000005E   0x7800             LDRB     R0,[R0, #+0]
+   \   00000060   0xF010 0x00FB      ANDS     R0,R0,#0xFB
+   \   00000064   0x....             LDR.N    R1,??DataTable9_9  ;; 0x400cc020
+   \   00000066   0x7008             STRB     R0,[R1, #+0]
+    326            }
+    327            
+    328          #if (UCOS_II > 0u)
+    329            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    330          #endif
+    331          }
+   \                     ??DAC0_IRQHandler_2: (+1)
+   \   00000068   0xBD01             POP      {R0,PC}          ;; return
+    332          
+
+   \                                 In section .text, align 2, keep-with-next
+    333          void DAC1_IRQHandler(void)
+    334          {
+   \                     DAC1_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    335          #if (UCOS_II > 0u)
+    336            OS_CPU_SR  cpu_sr = 0u;
+    337            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    338            OSIntEnter();
+    339            OS_EXIT_CRITICAL();
+    340          #endif
+    341            
+    342            //是否为指针底部中断
+    343            if((DAC1->SR & DAC_SR_DACBFRPBF_MASK) && (DAC1->C0 & DAC_C0_DACBBIEN_MASK))
+   \   00000002   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   00000004   0x7800             LDRB     R0,[R0, #+0]
+   \   00000006   0x07C0             LSLS     R0,R0,#+31
+   \   00000008   0xD50C             BPL.N    ??DAC1_IRQHandler_0
+   \   0000000A   0x....             LDR.N    R0,??DataTable9_12  ;; 0x400cd021
+   \   0000000C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000000E   0x07C0             LSLS     R0,R0,#+31
+   \   00000010   0xD508             BPL.N    ??DAC1_IRQHandler_0
+    344            {
+    345              //调用用户自定义中断服务
+    346              DAC_RDPTBOT_ISR[1]();  
+   \   00000012   0x....             LDR.N    R0,??DataTable9_5
+   \   00000014   0x6840             LDR      R0,[R0, #+4]
+   \   00000016   0x4780             BLX      R0
+    347              DAC1->SR &= ~(DAC_SR_DACBFRPBF_MASK);
+   \   00000018   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   0000001A   0x7800             LDRB     R0,[R0, #+0]
+   \   0000001C   0xF010 0x00FE      ANDS     R0,R0,#0xFE
+   \   00000020   0x....             LDR.N    R1,??DataTable9_11  ;; 0x400cd020
+   \   00000022   0x7008             STRB     R0,[R1, #+0]
+    348            }
+    349            //是否为指针顶部中断
+    350            if((DAC1->SR & DAC_SR_DACBFRPTF_MASK) && (DAC1->C0 & DAC_C0_DACBTIEN_MASK))
+   \                     ??DAC1_IRQHandler_0: (+1)
+   \   00000024   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   00000026   0x7800             LDRB     R0,[R0, #+0]
+   \   00000028   0x0780             LSLS     R0,R0,#+30
+   \   0000002A   0xD50C             BPL.N    ??DAC1_IRQHandler_1
+   \   0000002C   0x....             LDR.N    R0,??DataTable9_12  ;; 0x400cd021
+   \   0000002E   0x7800             LDRB     R0,[R0, #+0]
+   \   00000030   0x0780             LSLS     R0,R0,#+30
+   \   00000032   0xD508             BPL.N    ??DAC1_IRQHandler_1
+    351            {
+    352              //调用用户自定义中断服务
+    353              DAC_RDPTTOP_ISR[1]();  
+   \   00000034   0x....             LDR.N    R0,??DataTable9_6
+   \   00000036   0x6840             LDR      R0,[R0, #+4]
+   \   00000038   0x4780             BLX      R0
+    354              DAC1->SR &= ~(DAC_SR_DACBFRPTF_MASK);
+   \   0000003A   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   0000003C   0x7800             LDRB     R0,[R0, #+0]
+   \   0000003E   0xF010 0x00FD      ANDS     R0,R0,#0xFD
+   \   00000042   0x....             LDR.N    R1,??DataTable9_11  ;; 0x400cd020
+   \   00000044   0x7008             STRB     R0,[R1, #+0]
+    355            }
+    356            //是否为水印中断
+    357            if((DAC1->SR & DAC_SR_DACBFWMF_MASK) && (DAC1->C0 & DAC_C0_DACBWIEN_MASK))
+   \                     ??DAC1_IRQHandler_1: (+1)
+   \   00000046   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   00000048   0x7800             LDRB     R0,[R0, #+0]
+   \   0000004A   0x0740             LSLS     R0,R0,#+29
+   \   0000004C   0xD50C             BPL.N    ??DAC1_IRQHandler_2
+   \   0000004E   0x....             LDR.N    R0,??DataTable9_12  ;; 0x400cd021
+   \   00000050   0x7800             LDRB     R0,[R0, #+0]
+   \   00000052   0x0740             LSLS     R0,R0,#+29
+   \   00000054   0xD508             BPL.N    ??DAC1_IRQHandler_2
+    358            {
+    359              //调用用户自定义中断服务
+    360              DAC_WATERMK_ISR[1]();  
+   \   00000056   0x....             LDR.N    R0,??DataTable9_7
+   \   00000058   0x6840             LDR      R0,[R0, #+4]
+   \   0000005A   0x4780             BLX      R0
+    361              DAC1->SR &= ~(DAC_SR_DACBFWMF_MASK);
+   \   0000005C   0x....             LDR.N    R0,??DataTable9_11  ;; 0x400cd020
+   \   0000005E   0x7800             LDRB     R0,[R0, #+0]
+   \   00000060   0xF010 0x00FB      ANDS     R0,R0,#0xFB
+   \   00000064   0x....             LDR.N    R1,??DataTable9_11  ;; 0x400cd020
+   \   00000066   0x7008             STRB     R0,[R1, #+0]
+    362            }
+    363            
+    364          #if (UCOS_II > 0u)
+    365            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    366          #endif
+    367          }
+   \                     ??DAC1_IRQHandler_2: (+1)
+   \   00000068   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_1:
+   \   00000000   0xE000E180         DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_2:
+   \   00000000   0x........         DC32     ?_0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_3:
+   \   00000000   0x400CC000         DC32     0x400cc000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_4:
+   \   00000000   0x4004802C         DC32     0x4004802c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_5:
+   \   00000000   0x........         DC32     DAC_RDPTBOT_ISR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_6:
+   \   00000000   0x........         DC32     DAC_RDPTTOP_ISR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_7:
+   \   00000000   0x........         DC32     DAC_WATERMK_ISR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_8:
+   \   00000000   0x400CD000         DC32     0x400cd000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_9:
+   \   00000000   0x400CC020         DC32     0x400cc020
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_10:
+   \   00000000   0x400CC021         DC32     0x400cc021
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_11:
+   \   00000000   0x400CD020         DC32     0x400cd020
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable9_12:
+   \   00000000   0x400CD021         DC32     0x400cd021
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \   00000000   0x44 0x3A          DC8 "D:\\2019.IAR\\lib\\LPLD\\HW\\HW_DAC.c"
+   \              0x5C 0x32    
+   \              0x30 0x31    
+   \              0x39 0x2E    
+   \              0x49 0x41    
+   \              0x52 0x5C    
+   \              0x6C 0x69    
+   \              0x62 0x5C    
+   \              0x4C 0x50    
+   \              0x4C 0x44    
+   \              0x5C 0x48    
+   \              0x57 0x5C    
+   \              0x48 0x57    
+   \              0x5F 0x44    
+   \              0x41 0x43    
+   \              0x2E 0x63    
+   \              0x00         
+   \   00000021   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   DAC0_IRQHandler
+         8   -- Indirect call
+       8   DAC1_IRQHandler
+         8   -- Indirect call
+      24   LPLD_DAC_Deinit
+        24   -> NVIC_DisableIRQ
+      24   LPLD_DAC_DisableIrq
+        24   -> NVIC_DisableIRQ
+      24   LPLD_DAC_EnableIrq
+        24   -> NVIC_EnableIRQ
+      48   LPLD_DAC_Init
+        48   -> assert_failed
+      16   LPLD_DAC_SetBufferData
+        16   -> assert_failed
+      16   LPLD_DAC_SetBufferDataN
+        16   -> assert_failed
+       0   LPLD_DAC_SoftwareTrigger
+       0   NVIC_DisableIRQ
+       0   NVIC_EnableIRQ
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable9
+       4  ??DataTable9_1
+       4  ??DataTable9_10
+       4  ??DataTable9_11
+       4  ??DataTable9_12
+       4  ??DataTable9_2
+       4  ??DataTable9_3
+       4  ??DataTable9_4
+       4  ??DataTable9_5
+       4  ??DataTable9_6
+       4  ??DataTable9_7
+       4  ??DataTable9_8
+       4  ??DataTable9_9
+      36  ?_0
+     106  DAC0_IRQHandler
+     106  DAC1_IRQHandler
+       8  DAC_RDPTBOT_ISR
+       8  DAC_RDPTTOP_ISR
+       8  DAC_WATERMK_ISR
+      80  LPLD_DAC_Deinit
+      44  LPLD_DAC_DisableIrq
+      44  LPLD_DAC_EnableIrq
+     404  LPLD_DAC_Init
+      78  LPLD_DAC_SetBufferData
+      58  LPLD_DAC_SetBufferDataN
+      14  LPLD_DAC_SoftwareTrigger
+      22  NVIC_DisableIRQ
+      22  NVIC_EnableIRQ
+
+ 
+    24 bytes in section .bss
+    36 bytes in section .rodata
+ 1 030 bytes in section .text
+ 
+ 1 030 bytes of CODE  memory
+    36 bytes of CONST memory
+    24 bytes of DATA  memory
+
+Errors: none
+Warnings: none

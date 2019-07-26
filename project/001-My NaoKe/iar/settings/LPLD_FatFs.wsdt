@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+  <CurrentConfigs><Project>LPLD_FatFs_K60/FLASH</Project></CurrentConfigs></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>278</Column0><Column1>20</Column1><Column2>16</Column2><Column3>0</Column3></ColumnWidths>
+      </Workspace>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>783</ColumnWidth1><ColumnWidth2>209</ColumnWidth2><ColumnWidth3>52</ColumnWidth3></Build>
+    <TerminalIO/><Debug-Log><ColumnWidth0>30</ColumnWidth0><ColumnWidth1>1035</ColumnWidth1></Debug-Log><Find-in-Files><ColumnWidth0>324</ColumnWidth0><ColumnWidth1>54</ColumnWidth1><ColumnWidth2>486</ColumnWidth2><ColumnWidth3>216</ColumnWidth3></Find-in-Files></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-4049-28392</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>LPLD_FatFs_K60</ExpandedNode><ExpandedNode>LPLD_FatFs_K60/app</ExpandedNode><ExpandedNode>LPLD_FatFs_K60/lib</ExpandedNode><ExpandedNode>LPLD_FatFs_K60/lib/FatFs</ExpandedNode><ExpandedNode>LPLD_FatFs_K60/lib/LPLD</ExpandedNode><ExpandedNode>LPLD_FatFs_K60/lib/LPLD/DEV</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd3>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-30544-28509</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-8487-22764</Identity><TabName>Debug Log</TabName><Factory>Debug-Log</Factory><Session/></Tab><Tab><Identity>TabID-13075-12744</Identity><TabName>Find in Files</TabName><Factory>Find-in-Files</Factory><Session/></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd3></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\huatu.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>86</SelStart2><SelEnd2>92</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\yingjian.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>189</YPos2><SelStart2>6626</SelStart2><SelEnd2>6626</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\LPLD_FatFs.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>56</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\lib\LPLD\HW\HW_UART.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>270</YPos2><SelStart2>7132</SelStart2><SelEnd2>7132</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\lib\CPU\startup_K60.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>322</YPos2><SelStart2>15701</SelStart2><SelEnd2>15701</SelEnd2></Tab><ActiveTab>4</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\..\lib\LPLD\HW\HW_GPIO.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>192</YPos2><SelStart2>4840</SelStart2><SelEnd2>4840</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\jianmian.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>105</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\LQ12864.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>222</YPos2><SelStart2>0</SelStart2><SelEnd2>0</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\app\tuixiangzi.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>337</SelStart2><SelEnd2>337</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-04626990><key>iaridepm.enu1</key></Toolbar-04626990></Sizes></Row0><Row1><Sizes/></Row1></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>355</Bottom><Right>351</Right><x>-2</x><y>-2</y><xscreen>662</xscreen><yscreen>533</yscreen><sizeHorzCX>682474</sizeHorzCX><sizeHorzCY>1028958</sizeHorzCY><sizeVertCX>363918</sizeVertCX><sizeVertCY>689189</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd3><Rect><Top>-2</Top><Left>-2</Left><Bottom>118</Bottom><Right>972</Right><x>-2</x><y>-2</y><xscreen>974</xscreen><yscreen>120</yscreen><sizeHorzCX>1004124</sizeHorzCX><sizeHorzCY>231660</sizeHorzCY><sizeVertCX>682474</sizeVertCX><sizeVertCY>1028958</sizeVertCY></Rect></Wnd3></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

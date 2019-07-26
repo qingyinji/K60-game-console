@@ -1,0 +1,1138 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        14/May/2019  18:35:26
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\project\001-My NaoKe\app\huatu.c
+#    Command line =  
+#        "D:\2019.IAR\project\001-My NaoKe\app\huatu.c" -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\huatu.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\huatu.o
+#
+###############################################################################
+
+D:\2019.IAR\project\001-My NaoKe\app\huatu.c
+      1          #include "common.h"
+      2          #include "LQ12864.h"
+      3          #include "yingjian.h"
+      4          #include "huatu.h"
+
+   \                                 In section .bss, align 4
+      5          uint16 huatu1[8][8]={0};
+   \                     huatu1:
+   \   00000000                      DS8 128
+
+   \                                 In section .data, align 4
+      6          uint16 dir1[4][2]={-1,0,1,0,0,-1,0,1};
+   \                     dir1:
+   \   00000000   0xFFFF 0x0000      DC16 65535, 0, 1, 0, 0, 65535, 0, 1
+   \              0x0001 0x0000
+   \              0x0000 0xFFFF
+   \              0x0000 0x0001
+
+   \                                 In section .data, align 2
+      7          uint16 cu_x=4;
+   \                     cu_x:
+   \   00000000   0x0004             DC16 4
+
+   \                                 In section .data, align 2
+      8          uint16 cu_y=4;
+   \                     cu_y:
+   \   00000000   0x0004             DC16 4
+
+   \                                 In section .bss, align 2
+      9          uint16 xuanzhetx,txshu=1;
+   \                     xuanzhetx:
+   \   00000000                      DS8 2
+
+   \                                 In section .data, align 2
+   \                     txshu:
+   \   00000000   0x0001             DC16 1
+     10          extern uint16 key_up,key_down,key_left,key_right;
+     11          extern uint16 gameing,xuanzhetx,mosixuanzi,gamestart;
+
+   \                                 In section .text, align 2, keep-with-next
+     12          void huatu(void){
+   \                     huatu: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+     13          LCD_CLS();
+   \   00000002   0x.... 0x....      BL       LCD_CLS
+     14          huatu1[2][2]=2;
+   \   00000006   0x2002             MOVS     R0,#+2
+   \   00000008   0x.... 0x....      LDR.W    R1,??DataTable3
+   \   0000000C   0x8488             STRH     R0,[R1, #+36]
+     15          for (uint16 i=0;i<2;++i){    //右面板
+   \   0000000E   0x2400             MOVS     R4,#+0
+   \   00000010   0xE00C             B.N      ??huatu_0
+     16                LCD_P14x16Ch1(72+i*14,0,i+46+1);
+   \                     ??huatu_1: (+1)
+   \   00000012   0xF114 0x022F      ADDS     R2,R4,#+47
+   \   00000016   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000018   0x2100             MOVS     R1,#+0
+   \   0000001A   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000001C   0x200E             MOVS     R0,#+14
+   \   0000001E   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000022   0x3048             ADDS     R0,R0,#+72
+   \   00000024   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000026   0x.... 0x....      BL       LCD_P14x16Ch1
+     17              }
+   \   0000002A   0x1C64             ADDS     R4,R4,#+1
+   \                     ??huatu_0: (+1)
+   \   0000002C   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000002E   0x2C02             CMP      R4,#+2
+   \   00000030   0xDBEF             BLT.N    ??huatu_1
+     18          for (uint16 i=0;i<2;++i){
+   \   00000032   0x2400             MOVS     R4,#+0
+   \   00000034   0xE00C             B.N      ??huatu_2
+     19                LCD_P14x16Ch(77+i*14,2,i+48+1);
+   \                     ??huatu_3: (+1)
+   \   00000036   0xF114 0x0231      ADDS     R2,R4,#+49
+   \   0000003A   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000003C   0x2102             MOVS     R1,#+2
+   \   0000003E   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000040   0x200E             MOVS     R0,#+14
+   \   00000042   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000046   0x304D             ADDS     R0,R0,#+77
+   \   00000048   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000004A   0x.... 0x....      BL       LCD_P14x16Ch
+     20              }
+   \   0000004E   0x1C64             ADDS     R4,R4,#+1
+   \                     ??huatu_2: (+1)
+   \   00000050   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000052   0x2C02             CMP      R4,#+2
+   \   00000054   0xDBEF             BLT.N    ??huatu_3
+     21          for (uint16 i=0;i<2;++i){
+   \   00000056   0x2400             MOVS     R4,#+0
+   \   00000058   0xE00C             B.N      ??huatu_4
+     22                LCD_P14x16Ch(82+i*14,4,i+50+1);
+   \                     ??huatu_5: (+1)
+   \   0000005A   0xF114 0x0233      ADDS     R2,R4,#+51
+   \   0000005E   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000060   0x2104             MOVS     R1,#+4
+   \   00000062   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000064   0x200E             MOVS     R0,#+14
+   \   00000066   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000006A   0x3052             ADDS     R0,R0,#+82
+   \   0000006C   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000006E   0x.... 0x....      BL       LCD_P14x16Ch
+     23              }
+   \   00000072   0x1C64             ADDS     R4,R4,#+1
+   \                     ??huatu_4: (+1)
+   \   00000074   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000076   0x2C02             CMP      R4,#+2
+   \   00000078   0xDBEF             BLT.N    ??huatu_5
+     24          for (uint16 i=0;i<2;++i){
+   \   0000007A   0x2400             MOVS     R4,#+0
+   \   0000007C   0xE00C             B.N      ??huatu_6
+     25                LCD_P14x16Ch(87+i*14,6,i+52+1);
+   \                     ??huatu_7: (+1)
+   \   0000007E   0xF114 0x0235      ADDS     R2,R4,#+53
+   \   00000082   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000084   0x2106             MOVS     R1,#+6
+   \   00000086   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000088   0x200E             MOVS     R0,#+14
+   \   0000008A   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000008E   0x3057             ADDS     R0,R0,#+87
+   \   00000090   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000092   0x.... 0x....      BL       LCD_P14x16Ch
+     26              }
+   \   00000096   0x1C64             ADDS     R4,R4,#+1
+   \                     ??huatu_6: (+1)
+   \   00000098   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000009A   0x2C02             CMP      R4,#+2
+   \   0000009C   0xDBEF             BLT.N    ??huatu_7
+     27          for(uint16 i=0;i<8;i++){
+   \   0000009E   0x2400             MOVS     R4,#+0
+   \   000000A0   0xE015             B.N      ??huatu_8
+     28                  for(uint16 j=0;j<8;j++){
+     29                  LCD_P16x8Ch(i*8,j,huatu1[i][j]);
+   \                     ??huatu_9: (+1)
+   \   000000A2   0x.... 0x....      LDR.W    R0,??DataTable3
+   \   000000A6   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000A8   0xEB10 0x1004      ADDS     R0,R0,R4, LSL #+4
+   \   000000AC   0xB2AD             UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+   \   000000AE   0xF830 0x2015      LDRH     R2,[R0, R5, LSL #+1]
+   \   000000B2   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   000000B4   0x0029             MOVS     R1,R5
+   \   000000B6   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   000000B8   0x0020             MOVS     R0,R4
+   \   000000BA   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000000BC   0x00C0             LSLS     R0,R0,#+3
+   \   000000BE   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000000C0   0x.... 0x....      BL       LCD_P16x8Ch
+     30                  }
+   \   000000C4   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??huatu_10: (+1)
+   \   000000C6   0xB2AD             UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+   \   000000C8   0x2D08             CMP      R5,#+8
+   \   000000CA   0xDBEA             BLT.N    ??huatu_9
+   \   000000CC   0x1C64             ADDS     R4,R4,#+1
+   \                     ??huatu_8: (+1)
+   \   000000CE   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000D0   0x2C08             CMP      R4,#+8
+   \   000000D2   0xF280 0x809C      BGE.W    ??huatu_11
+   \   000000D6   0x2500             MOVS     R5,#+0
+   \   000000D8   0xE7F5             B.N      ??huatu_10
+     31              }
+     32          
+     33            while(1){
+     34                if(gamestart==0){
+     35                    LCD_CLS();
+     36                    return;
+     37                }
+     38              huatu1[2][2]=2;
+   \                     ??huatu_12: (+1)
+   \   000000DA   0x2002             MOVS     R0,#+2
+   \   000000DC   0x.... 0x....      LDR.W    R1,??DataTable3
+   \   000000E0   0x8488             STRH     R0,[R1, #+36]
+     39              key();
+   \   000000E2   0x.... 0x....      BL       key
+     40              if(xuanzhetx)
+   \   000000E6   0x.... 0x....      LDR.W    R0,??DataTable3_1
+   \   000000EA   0x8800             LDRH     R0,[R0, #+0]
+   \   000000EC   0x2800             CMP      R0,#+0
+   \   000000EE   0xD001             BEQ.N    ??huatu_13
+     41                  xuanzhetxjm();
+   \   000000F0   0x.... 0x....      BL       xuanzhetxjm
+     42          
+     43              LCD_P16x8Ch(cu_x*8,cu_y,5);
+   \                     ??huatu_13: (+1)
+   \   000000F4   0x2205             MOVS     R2,#+5
+   \   000000F6   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   000000FA   0x8801             LDRH     R1,[R0, #+0]
+   \   000000FC   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   000000FE   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   00000102   0x8800             LDRH     R0,[R0, #+0]
+   \   00000104   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000106   0x00C0             LSLS     R0,R0,#+3
+   \   00000108   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000010A   0x.... 0x....      BL       LCD_P16x8Ch
+     44              delay(1000);
+   \   0000010E   0xF44F 0x707A      MOV      R0,#+1000
+   \   00000112   0x.... 0x....      BL       delay
+     45              if(key_up==0){
+   \   00000116   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   0000011A   0x8800             LDRH     R0,[R0, #+0]
+   \   0000011C   0x2800             CMP      R0,#+0
+   \   0000011E   0xD119             BNE.N    ??huatu_14
+     46                delay(500);
+   \   00000120   0xF44F 0x70FA      MOV      R0,#+500
+   \   00000124   0x.... 0x....      BL       delay
+     47                if(key_up==0){
+   \   00000128   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   0000012C   0x8800             LDRH     R0,[R0, #+0]
+   \   0000012E   0x2800             CMP      R0,#+0
+   \   00000130   0xD108             BNE.N    ??huatu_15
+     48                  move(cu_x,cu_y,2);
+   \   00000132   0x2202             MOVS     R2,#+2
+   \   00000134   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   00000138   0x8801             LDRH     R1,[R0, #+0]
+   \   0000013A   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   0000013E   0x8800             LDRH     R0,[R0, #+0]
+   \   00000140   0x.... 0x....      BL       move
+     49                }while(!key_up){key();}
+   \                     ??huatu_15: (+1)
+   \   00000144   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   00000148   0x8800             LDRH     R0,[R0, #+0]
+   \   0000014A   0x2800             CMP      R0,#+0
+   \   0000014C   0xD15F             BNE.N    ??huatu_11
+   \   0000014E   0x.... 0x....      BL       key
+   \   00000152   0xE7F7             B.N      ??huatu_15
+     50              }
+     51              else if(key_down==0){
+   \                     ??huatu_14: (+1)
+   \   00000154   0x.... 0x....      LDR.W    R0,??DataTable3_5
+   \   00000158   0x8800             LDRH     R0,[R0, #+0]
+   \   0000015A   0x2800             CMP      R0,#+0
+   \   0000015C   0xD119             BNE.N    ??huatu_16
+     52                delay(500);
+   \   0000015E   0xF44F 0x70FA      MOV      R0,#+500
+   \   00000162   0x.... 0x....      BL       delay
+     53                if(key_down==0){
+   \   00000166   0x.... 0x....      LDR.W    R0,??DataTable3_5
+   \   0000016A   0x8800             LDRH     R0,[R0, #+0]
+   \   0000016C   0x2800             CMP      R0,#+0
+   \   0000016E   0xD108             BNE.N    ??huatu_17
+     54                  move(cu_x,cu_y,3);
+   \   00000170   0x2203             MOVS     R2,#+3
+   \   00000172   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   00000176   0x8801             LDRH     R1,[R0, #+0]
+   \   00000178   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   0000017C   0x8800             LDRH     R0,[R0, #+0]
+   \   0000017E   0x.... 0x....      BL       move
+     55                }while(!key_down){key();}
+   \                     ??huatu_17: (+1)
+   \   00000182   0x.... 0x....      LDR.W    R0,??DataTable3_5
+   \   00000186   0x8800             LDRH     R0,[R0, #+0]
+   \   00000188   0x2800             CMP      R0,#+0
+   \   0000018A   0xD140             BNE.N    ??huatu_11
+   \   0000018C   0x.... 0x....      BL       key
+   \   00000190   0xE7F7             B.N      ??huatu_17
+     56              }
+     57              else if(key_left==0){
+   \                     ??huatu_16: (+1)
+   \   00000192   0x.... 0x....      LDR.W    R0,??DataTable3_6
+   \   00000196   0x8800             LDRH     R0,[R0, #+0]
+   \   00000198   0x2800             CMP      R0,#+0
+   \   0000019A   0xD119             BNE.N    ??huatu_18
+     58                delay(500);
+   \   0000019C   0xF44F 0x70FA      MOV      R0,#+500
+   \   000001A0   0x.... 0x....      BL       delay
+     59                if(key_left==0){
+   \   000001A4   0x.... 0x....      LDR.W    R0,??DataTable3_6
+   \   000001A8   0x8800             LDRH     R0,[R0, #+0]
+   \   000001AA   0x2800             CMP      R0,#+0
+   \   000001AC   0xD108             BNE.N    ??huatu_19
+     60                  move(cu_x,cu_y,0);
+   \   000001AE   0x2200             MOVS     R2,#+0
+   \   000001B0   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   000001B4   0x8801             LDRH     R1,[R0, #+0]
+   \   000001B6   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   000001BA   0x8800             LDRH     R0,[R0, #+0]
+   \   000001BC   0x.... 0x....      BL       move
+     61                }while(!key_left){key();}
+   \                     ??huatu_19: (+1)
+   \   000001C0   0x.... 0x....      LDR.W    R0,??DataTable3_6
+   \   000001C4   0x8800             LDRH     R0,[R0, #+0]
+   \   000001C6   0x2800             CMP      R0,#+0
+   \   000001C8   0xD121             BNE.N    ??huatu_11
+   \   000001CA   0x.... 0x....      BL       key
+   \   000001CE   0xE7F7             B.N      ??huatu_19
+     62              }
+     63              else if(key_right==0){
+   \                     ??huatu_18: (+1)
+   \   000001D0   0x.... 0x....      LDR.W    R0,??DataTable3_7
+   \   000001D4   0x8800             LDRH     R0,[R0, #+0]
+   \   000001D6   0x2800             CMP      R0,#+0
+   \   000001D8   0xD119             BNE.N    ??huatu_11
+     64                delay(500);
+   \   000001DA   0xF44F 0x70FA      MOV      R0,#+500
+   \   000001DE   0x.... 0x....      BL       delay
+     65                if(key_right==0){
+   \   000001E2   0x.... 0x....      LDR.W    R0,??DataTable3_7
+   \   000001E6   0x8800             LDRH     R0,[R0, #+0]
+   \   000001E8   0x2800             CMP      R0,#+0
+   \   000001EA   0xD10B             BNE.N    ??huatu_20
+     66                  move(cu_x,cu_y,1);
+   \   000001EC   0x2201             MOVS     R2,#+1
+   \   000001EE   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   000001F2   0x8801             LDRH     R1,[R0, #+0]
+   \   000001F4   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   000001F8   0x8800             LDRH     R0,[R0, #+0]
+   \   000001FA   0x.... 0x....      BL       move
+   \   000001FE   0xE001             B.N      ??huatu_20
+     67                }while(!key_right){key();}
+   \                     ??huatu_21: (+1)
+   \   00000200   0x.... 0x....      BL       key
+   \                     ??huatu_20: (+1)
+   \   00000204   0x.... 0x....      LDR.W    R0,??DataTable3_7
+   \   00000208   0x8800             LDRH     R0,[R0, #+0]
+   \   0000020A   0x2800             CMP      R0,#+0
+   \   0000020C   0xD0F8             BEQ.N    ??huatu_21
+     68              }
+   \                     ??huatu_11: (+1)
+   \   0000020E   0x.... 0x....      LDR.W    R0,??DataTable3_8
+   \   00000212   0x8800             LDRH     R0,[R0, #+0]
+   \   00000214   0x2800             CMP      R0,#+0
+   \   00000216   0xF47F 0xAF60      BNE.W    ??huatu_12
+   \   0000021A   0x.... 0x....      BL       LCD_CLS
+   \   0000021E   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+     69            }
+     70          }
+     71          
+
+   \                                 In section .text, align 2, keep-with-next
+     72          void move(uint16 x,uint16 y,uint16 id){
+   \                     move: (+1)
+   \   00000000   0xB538             PUSH     {R3-R5,LR}
+     73              uint16 xx1,yy1,key1;
+     74              xx1=x+dir1[id][0]; yy1=y+dir1[id][1];
+   \   00000002   0x.... 0x....      LDR.W    R3,??DataTable3_9
+   \   00000006   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000008   0xF833 0x3022      LDRH     R3,[R3, R2, LSL #+2]
+   \   0000000C   0x1818             ADDS     R0,R3,R0
+   \   0000000E   0x.... 0x....      LDR.W    R3,??DataTable3_9
+   \   00000012   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000014   0xEB13 0x0382      ADDS     R3,R3,R2, LSL #+2
+   \   00000018   0x885B             LDRH     R3,[R3, #+2]
+   \   0000001A   0x1859             ADDS     R1,R3,R1
+     75              if(xx1<0||xx1>=8||yy1<0||yy1>=8)
+   \   0000001C   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   0000001E   0x2808             CMP      R0,#+8
+   \   00000020   0xDA02             BGE.N    ??move_0
+   \   00000022   0xB289             UXTH     R1,R1            ;; ZeroExt  R1,R1,#+16,#+16
+   \   00000024   0x2908             CMP      R1,#+8
+   \   00000026   0xDB01             BLT.N    ??move_1
+     76                  key1=0;
+   \                     ??move_0: (+1)
+   \   00000028   0x2000             MOVS     R0,#+0
+   \   0000002A   0xE000             B.N      ??move_2
+     77              else
+     78                  key1=1;
+   \                     ??move_1: (+1)
+   \   0000002C   0x2001             MOVS     R0,#+1
+     79          
+     80              if(key1==1){//直接移动
+   \                     ??move_2: (+1)
+   \   0000002E   0xB280             UXTH     R0,R0            ;; ZeroExt  R0,R0,#+16,#+16
+   \   00000030   0x2801             CMP      R0,#+1
+   \   00000032   0xD135             BNE.N    ??move_3
+     81              cu_x+=dir1[id][0]; cu_y+=dir1[id][1];
+   \   00000034   0x.... 0x....      LDR.W    R0,??DataTable3_3
+   \   00000038   0x8800             LDRH     R0,[R0, #+0]
+   \   0000003A   0x.... 0x....      LDR.W    R1,??DataTable3_9
+   \   0000003E   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000040   0xF831 0x1022      LDRH     R1,[R1, R2, LSL #+2]
+   \   00000044   0x1808             ADDS     R0,R1,R0
+   \   00000046   0x.... 0x....      LDR.W    R1,??DataTable3_3
+   \   0000004A   0x8008             STRH     R0,[R1, #+0]
+   \   0000004C   0x.... 0x....      LDR.W    R0,??DataTable3_2
+   \   00000050   0x8800             LDRH     R0,[R0, #+0]
+   \   00000052   0x.... 0x....      LDR.W    R1,??DataTable3_9
+   \   00000056   0xB292             UXTH     R2,R2            ;; ZeroExt  R2,R2,#+16,#+16
+   \   00000058   0xEB11 0x0182      ADDS     R1,R1,R2, LSL #+2
+   \   0000005C   0x8849             LDRH     R1,[R1, #+2]
+   \   0000005E   0x1808             ADDS     R0,R1,R0
+   \   00000060   0x.... 0x....      LDR.W    R1,??DataTable3_2
+   \   00000064   0x8008             STRH     R0,[R1, #+0]
+     82              //huatu1[cu_x][cu_y]=2;
+     83          
+     84              for(uint16 i=0;i<8;i++){
+   \   00000066   0x2400             MOVS     R4,#+0
+   \   00000068   0xE015             B.N      ??move_4
+     85                  for(uint16 j=0;j<8;j++){
+     86                  LCD_P16x8Ch(i*8,j,huatu1[i][j]);
+   \                     ??move_5: (+1)
+   \   0000006A   0x.... 0x....      LDR.W    R0,??DataTable3
+   \   0000006E   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000070   0xEB10 0x1004      ADDS     R0,R0,R4, LSL #+4
+   \   00000074   0xB2AD             UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+   \   00000076   0xF830 0x2015      LDRH     R2,[R0, R5, LSL #+1]
+   \   0000007A   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000007C   0x0029             MOVS     R1,R5
+   \   0000007E   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   00000080   0x0020             MOVS     R0,R4
+   \   00000082   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000084   0x00C0             LSLS     R0,R0,#+3
+   \   00000086   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000088   0x.... 0x....      BL       LCD_P16x8Ch
+     87                  }
+   \   0000008C   0x1C6D             ADDS     R5,R5,#+1
+   \                     ??move_6: (+1)
+   \   0000008E   0xB2AD             UXTH     R5,R5            ;; ZeroExt  R5,R5,#+16,#+16
+   \   00000090   0x2D08             CMP      R5,#+8
+   \   00000092   0xDBEA             BLT.N    ??move_5
+   \   00000094   0x1C64             ADDS     R4,R4,#+1
+   \                     ??move_4: (+1)
+   \   00000096   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000098   0x2C08             CMP      R4,#+8
+   \   0000009A   0xDA01             BGE.N    ??move_3
+   \   0000009C   0x2500             MOVS     R5,#+0
+   \   0000009E   0xE7F6             B.N      ??move_6
+     88              }
+     89            }
+     90          }
+   \                     ??move_3: (+1)
+   \   000000A0   0xBD31             POP      {R0,R4,R5,PC}    ;; return
+     91          
+
+   \                                 In section .text, align 2, keep-with-next
+     92          void xuanzhetxjm(void){
+   \                     xuanzhetxjm: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+     93          uint16 d=1;
+   \   00000002   0x2401             MOVS     R4,#+1
+     94          while(d){
+   \                     ??xuanzhetxjm_0: (+1)
+   \   00000004   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000006   0x2C00             CMP      R4,#+0
+   \   00000008   0xF000 0x80AD      BEQ.W    ??xuanzhetxjm_1
+     95            /* if(gamestart==0)
+     96              return; */
+     97            key();
+   \   0000000C   0x.... 0x....      BL       key
+     98              if(key_up==0){
+   \   00000010   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   00000014   0x8800             LDRH     R0,[R0, #+0]
+   \   00000016   0x2800             CMP      R0,#+0
+   \   00000018   0xD11C             BNE.N    ??xuanzhetxjm_2
+     99                delay(500);
+   \   0000001A   0xF44F 0x70FA      MOV      R0,#+500
+   \   0000001E   0x.... 0x....      BL       delay
+    100                if(key_up==0){
+   \   00000022   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   00000026   0x8800             LDRH     R0,[R0, #+0]
+   \   00000028   0x2800             CMP      R0,#+0
+   \   0000002A   0xD10E             BNE.N    ??xuanzhetxjm_3
+    101                  txshu--;
+   \   0000002C   0x.... 0x....      LDR.W    R0,??DataTable3_10
+   \   00000030   0x8800             LDRH     R0,[R0, #+0]
+   \   00000032   0x1E40             SUBS     R0,R0,#+1
+   \   00000034   0x.... 0x....      LDR.W    R1,??DataTable3_10
+   \   00000038   0x8008             STRH     R0,[R1, #+0]
+    102                  playmusic(2);
+   \   0000003A   0x2002             MOVS     R0,#+2
+   \   0000003C   0x.... 0x....      BL       playmusic
+    103                  showtx();
+   \   00000040   0x.... 0x....      BL       showtx
+   \   00000044   0xE001             B.N      ??xuanzhetxjm_3
+    104                }while(!key_up){key();}
+   \                     ??xuanzhetxjm_4: (+1)
+   \   00000046   0x.... 0x....      BL       key
+   \                     ??xuanzhetxjm_3: (+1)
+   \   0000004A   0x.... 0x....      LDR.W    R0,??DataTable3_4
+   \   0000004E   0x8800             LDRH     R0,[R0, #+0]
+   \   00000050   0x2800             CMP      R0,#+0
+   \   00000052   0xD0F8             BEQ.N    ??xuanzhetxjm_4
+    105              }
+    106              if(key_down==0){
+   \                     ??xuanzhetxjm_2: (+1)
+   \   00000054   0x.... 0x....      LDR.W    R0,??DataTable3_5
+   \   00000058   0x8800             LDRH     R0,[R0, #+0]
+   \   0000005A   0x2800             CMP      R0,#+0
+   \   0000005C   0xD124             BNE.N    ??xuanzhetxjm_5
+    107                delay(500);
+   \   0000005E   0xF44F 0x70FA      MOV      R0,#+500
+   \   00000062   0x.... 0x....      BL       delay
+    108                if(key_down==0){
+   \   00000066   0x.... 0x....      LDR.W    R0,??DataTable3_5
+   \   0000006A   0x8800             LDRH     R0,[R0, #+0]
+   \   0000006C   0x2800             CMP      R0,#+0
+   \   0000006E   0xD117             BNE.N    ??xuanzhetxjm_6
+    109                  txshu++;
+   \   00000070   0x.... 0x....      LDR.W    R0,??DataTable3_10
+   \   00000074   0x8800             LDRH     R0,[R0, #+0]
+   \   00000076   0x1C40             ADDS     R0,R0,#+1
+   \   00000078   0x.... 0x....      LDR.W    R1,??DataTable3_10
+   \   0000007C   0x8008             STRH     R0,[R1, #+0]
+    110                  playmusic(2);
+   \   0000007E   0x2002             MOVS     R0,#+2
+   \   00000080   0x.... 0x....      BL       playmusic
+    111                  if(txshu==5)
+   \   00000084   0x.... 0x....      LDR.W    R0,??DataTable3_10
+   \   00000088   0x8800             LDRH     R0,[R0, #+0]
+   \   0000008A   0x2805             CMP      R0,#+5
+   \   0000008C   0xD103             BNE.N    ??xuanzhetxjm_7
+    112                    txshu=1;
+   \   0000008E   0x2001             MOVS     R0,#+1
+   \   00000090   0x.... 0x....      LDR.W    R1,??DataTable3_10
+   \   00000094   0x8008             STRH     R0,[R1, #+0]
+    113                  showtx();
+   \                     ??xuanzhetxjm_7: (+1)
+   \   00000096   0x.... 0x....      BL       showtx
+   \   0000009A   0xE001             B.N      ??xuanzhetxjm_6
+    114                }while(!key_down){key();}
+   \                     ??xuanzhetxjm_8: (+1)
+   \   0000009C   0x.... 0x....      BL       key
+   \                     ??xuanzhetxjm_6: (+1)
+   \   000000A0   0x....             LDR.N    R0,??DataTable3_5
+   \   000000A2   0x8800             LDRH     R0,[R0, #+0]
+   \   000000A4   0x2800             CMP      R0,#+0
+   \   000000A6   0xD0F9             BEQ.N    ??xuanzhetxjm_8
+    115              }
+    116              if(key_left==0||key_right==0){
+   \                     ??xuanzhetxjm_5: (+1)
+   \   000000A8   0x....             LDR.N    R0,??DataTable3_6
+   \   000000AA   0x8800             LDRH     R0,[R0, #+0]
+   \   000000AC   0x2800             CMP      R0,#+0
+   \   000000AE   0xD003             BEQ.N    ??xuanzhetxjm_9
+   \   000000B0   0x....             LDR.N    R0,??DataTable3_7
+   \   000000B2   0x8800             LDRH     R0,[R0, #+0]
+   \   000000B4   0x2800             CMP      R0,#+0
+   \   000000B6   0xD1A5             BNE.N    ??xuanzhetxjm_0
+    117                delay(500);
+   \                     ??xuanzhetxjm_9: (+1)
+   \   000000B8   0xF44F 0x70FA      MOV      R0,#+500
+   \   000000BC   0x.... 0x....      BL       delay
+    118                if(key_left==0||key_right==0){
+   \   000000C0   0x....             LDR.N    R0,??DataTable3_6
+   \   000000C2   0x8800             LDRH     R0,[R0, #+0]
+   \   000000C4   0x2800             CMP      R0,#+0
+   \   000000C6   0xD003             BEQ.N    ??xuanzhetxjm_10
+   \   000000C8   0x....             LDR.N    R0,??DataTable3_7
+   \   000000CA   0x8800             LDRH     R0,[R0, #+0]
+   \   000000CC   0x2800             CMP      R0,#+0
+   \   000000CE   0xD13E             BNE.N    ??xuanzhetxjm_11
+    119                  d=0;xuanzhetx=0;
+   \                     ??xuanzhetxjm_10: (+1)
+   \   000000D0   0x2400             MOVS     R4,#+0
+   \   000000D2   0x2000             MOVS     R0,#+0
+   \   000000D4   0x....             LDR.N    R1,??DataTable3_1
+   \   000000D6   0x8008             STRH     R0,[R1, #+0]
+    120                  if(txshu==1)
+   \   000000D8   0x....             LDR.N    R0,??DataTable3_10
+   \   000000DA   0x8800             LDRH     R0,[R0, #+0]
+   \   000000DC   0x2801             CMP      R0,#+1
+   \   000000DE   0xD109             BNE.N    ??xuanzhetxjm_12
+    121                  huatu1[cu_x][cu_y]=0;
+   \   000000E0   0x....             LDR.N    R0,??DataTable3
+   \   000000E2   0x....             LDR.N    R1,??DataTable3_3
+   \   000000E4   0x8809             LDRH     R1,[R1, #+0]
+   \   000000E6   0xEB10 0x1001      ADDS     R0,R0,R1, LSL #+4
+   \   000000EA   0x....             LDR.N    R1,??DataTable3_2
+   \   000000EC   0x8809             LDRH     R1,[R1, #+0]
+   \   000000EE   0x2200             MOVS     R2,#+0
+   \   000000F0   0xF820 0x2011      STRH     R2,[R0, R1, LSL #+1]
+    122                  if(txshu==2)
+   \                     ??xuanzhetxjm_12: (+1)
+   \   000000F4   0x....             LDR.N    R0,??DataTable3_10
+   \   000000F6   0x8800             LDRH     R0,[R0, #+0]
+   \   000000F8   0x2802             CMP      R0,#+2
+   \   000000FA   0xD109             BNE.N    ??xuanzhetxjm_13
+    123                  huatu1[cu_x][cu_y]=1;
+   \   000000FC   0x....             LDR.N    R0,??DataTable3
+   \   000000FE   0x....             LDR.N    R1,??DataTable3_3
+   \   00000100   0x8809             LDRH     R1,[R1, #+0]
+   \   00000102   0xEB10 0x1001      ADDS     R0,R0,R1, LSL #+4
+   \   00000106   0x....             LDR.N    R1,??DataTable3_2
+   \   00000108   0x8809             LDRH     R1,[R1, #+0]
+   \   0000010A   0x2201             MOVS     R2,#+1
+   \   0000010C   0xF820 0x2011      STRH     R2,[R0, R1, LSL #+1]
+    124                  if(txshu==3)
+   \                     ??xuanzhetxjm_13: (+1)
+   \   00000110   0x....             LDR.N    R0,??DataTable3_10
+   \   00000112   0x8800             LDRH     R0,[R0, #+0]
+   \   00000114   0x2803             CMP      R0,#+3
+   \   00000116   0xD109             BNE.N    ??xuanzhetxjm_14
+    125                  huatu1[cu_x][cu_y]=3;
+   \   00000118   0x....             LDR.N    R0,??DataTable3
+   \   0000011A   0x....             LDR.N    R1,??DataTable3_3
+   \   0000011C   0x8809             LDRH     R1,[R1, #+0]
+   \   0000011E   0xEB10 0x1001      ADDS     R0,R0,R1, LSL #+4
+   \   00000122   0x....             LDR.N    R1,??DataTable3_2
+   \   00000124   0x8809             LDRH     R1,[R1, #+0]
+   \   00000126   0x2203             MOVS     R2,#+3
+   \   00000128   0xF820 0x2011      STRH     R2,[R0, R1, LSL #+1]
+    126                  if(txshu==4)
+   \                     ??xuanzhetxjm_14: (+1)
+   \   0000012C   0x....             LDR.N    R0,??DataTable3_10
+   \   0000012E   0x8800             LDRH     R0,[R0, #+0]
+   \   00000130   0x2804             CMP      R0,#+4
+   \   00000132   0xD109             BNE.N    ??xuanzhetxjm_15
+    127                  huatu1[cu_x][cu_y]=4;
+   \   00000134   0x....             LDR.N    R0,??DataTable3
+   \   00000136   0x....             LDR.N    R1,??DataTable3_3
+   \   00000138   0x8809             LDRH     R1,[R1, #+0]
+   \   0000013A   0xEB10 0x1001      ADDS     R0,R0,R1, LSL #+4
+   \   0000013E   0x....             LDR.N    R1,??DataTable3_2
+   \   00000140   0x8809             LDRH     R1,[R1, #+0]
+   \   00000142   0x2204             MOVS     R2,#+4
+   \   00000144   0xF820 0x2011      STRH     R2,[R0, R1, LSL #+1]
+    128                  huatu1[2][2]=2;
+   \                     ??xuanzhetxjm_15: (+1)
+   \   00000148   0x2002             MOVS     R0,#+2
+   \   0000014A   0x....             LDR.N    R1,??DataTable3
+   \   0000014C   0x8488             STRH     R0,[R1, #+36]
+    129                }while(!key_left||!key_right){key();}
+   \                     ??xuanzhetxjm_11: (+1)
+   \   0000014E   0x....             LDR.N    R0,??DataTable3_6
+   \   00000150   0x8800             LDRH     R0,[R0, #+0]
+   \   00000152   0x2800             CMP      R0,#+0
+   \   00000154   0xD004             BEQ.N    ??xuanzhetxjm_16
+   \   00000156   0x....             LDR.N    R0,??DataTable3_7
+   \   00000158   0x8800             LDRH     R0,[R0, #+0]
+   \   0000015A   0x2800             CMP      R0,#+0
+   \   0000015C   0xF47F 0xAF52      BNE.W    ??xuanzhetxjm_0
+   \                     ??xuanzhetxjm_16: (+1)
+   \   00000160   0x.... 0x....      BL       key
+   \   00000164   0xE7F3             B.N      ??xuanzhetxjm_11
+    130              }
+    131            }
+    132          }
+   \                     ??xuanzhetxjm_1: (+1)
+   \   00000166   0xBD10             POP      {R4,PC}          ;; return
+    133          
+
+   \                                 In section .text, align 2, keep-with-next
+    134          void showtx(void){
+   \                     showtx: (+1)
+   \   00000000   0xB510             PUSH     {R4,LR}
+    135              if(txshu==0)
+   \   00000002   0x....             LDR.N    R0,??DataTable3_10
+   \   00000004   0x8800             LDRH     R0,[R0, #+0]
+   \   00000006   0x2800             CMP      R0,#+0
+   \   00000008   0xD102             BNE.N    ??showtx_0
+    136                    txshu=4;
+   \   0000000A   0x2004             MOVS     R0,#+4
+   \   0000000C   0x....             LDR.N    R1,??DataTable3_10
+   \   0000000E   0x8008             STRH     R0,[R1, #+0]
+    137                  if(txshu==1){
+   \                     ??showtx_0: (+1)
+   \   00000010   0x....             LDR.N    R0,??DataTable3_10
+   \   00000012   0x8800             LDRH     R0,[R0, #+0]
+   \   00000014   0x2801             CMP      R0,#+1
+   \   00000016   0xD147             BNE.N    ??showtx_1
+    138                      for (uint16 i=0;i<2;++i){    //右面板
+   \   00000018   0x2400             MOVS     R4,#+0
+   \   0000001A   0xE00C             B.N      ??showtx_2
+    139                          LCD_P14x16Ch1(72+i*14,0,i+46+1);
+   \                     ??showtx_3: (+1)
+   \   0000001C   0xF114 0x022F      ADDS     R2,R4,#+47
+   \   00000020   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000022   0x2100             MOVS     R1,#+0
+   \   00000024   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000026   0x200E             MOVS     R0,#+14
+   \   00000028   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000002C   0x3048             ADDS     R0,R0,#+72
+   \   0000002E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000030   0x.... 0x....      BL       LCD_P14x16Ch1
+    140                          }
+   \   00000034   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_2: (+1)
+   \   00000036   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000038   0x2C02             CMP      R4,#+2
+   \   0000003A   0xDBEF             BLT.N    ??showtx_3
+    141                      for (uint16 i=0;i<2;++i){
+   \   0000003C   0x2400             MOVS     R4,#+0
+   \   0000003E   0xE00C             B.N      ??showtx_4
+    142                          LCD_P14x16Ch(77+i*14,2,i+48+1);
+   \                     ??showtx_5: (+1)
+   \   00000040   0xF114 0x0231      ADDS     R2,R4,#+49
+   \   00000044   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000046   0x2102             MOVS     R1,#+2
+   \   00000048   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000004A   0x200E             MOVS     R0,#+14
+   \   0000004C   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000050   0x304D             ADDS     R0,R0,#+77
+   \   00000052   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000054   0x.... 0x....      BL       LCD_P14x16Ch
+    143                          }
+   \   00000058   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_4: (+1)
+   \   0000005A   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000005C   0x2C02             CMP      R4,#+2
+   \   0000005E   0xDBEF             BLT.N    ??showtx_5
+    144                      for (uint16 i=0;i<2;++i){
+   \   00000060   0x2400             MOVS     R4,#+0
+   \   00000062   0xE00C             B.N      ??showtx_6
+    145                          LCD_P14x16Ch(82+i*14,4,i+50+1);
+   \                     ??showtx_7: (+1)
+   \   00000064   0xF114 0x0233      ADDS     R2,R4,#+51
+   \   00000068   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000006A   0x2104             MOVS     R1,#+4
+   \   0000006C   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000006E   0x200E             MOVS     R0,#+14
+   \   00000070   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000074   0x3052             ADDS     R0,R0,#+82
+   \   00000076   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000078   0x.... 0x....      BL       LCD_P14x16Ch
+    146                          }
+   \   0000007C   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_6: (+1)
+   \   0000007E   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000080   0x2C02             CMP      R4,#+2
+   \   00000082   0xDBEF             BLT.N    ??showtx_7
+    147                      for (uint16 i=0;i<2;++i){
+   \   00000084   0x2400             MOVS     R4,#+0
+   \   00000086   0xE00C             B.N      ??showtx_8
+    148                          LCD_P14x16Ch(87+i*14,6,i+52+1);
+   \                     ??showtx_9: (+1)
+   \   00000088   0xF114 0x0235      ADDS     R2,R4,#+53
+   \   0000008C   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000008E   0x2106             MOVS     R1,#+6
+   \   00000090   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000092   0x200E             MOVS     R0,#+14
+   \   00000094   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000098   0x3057             ADDS     R0,R0,#+87
+   \   0000009A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000009C   0x.... 0x....      BL       LCD_P14x16Ch
+    149                          }
+   \   000000A0   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_8: (+1)
+   \   000000A2   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000A4   0x2C02             CMP      R4,#+2
+   \   000000A6   0xDBEF             BLT.N    ??showtx_9
+    150                  }
+    151                  if(txshu==2){
+   \                     ??showtx_1: (+1)
+   \   000000A8   0x....             LDR.N    R0,??DataTable3_10
+   \   000000AA   0x8800             LDRH     R0,[R0, #+0]
+   \   000000AC   0x2802             CMP      R0,#+2
+   \   000000AE   0xD147             BNE.N    ??showtx_10
+    152                      for (uint16 i=0;i<2;++i){    //右面板
+   \   000000B0   0x2400             MOVS     R4,#+0
+   \   000000B2   0xE00C             B.N      ??showtx_11
+    153                          LCD_P14x16Ch(72+i*14,0,i+46+1);
+   \                     ??showtx_12: (+1)
+   \   000000B4   0xF114 0x022F      ADDS     R2,R4,#+47
+   \   000000B8   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   000000BA   0x2100             MOVS     R1,#+0
+   \   000000BC   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000BE   0x200E             MOVS     R0,#+14
+   \   000000C0   0xFB00 0xF004      MUL      R0,R0,R4
+   \   000000C4   0x3048             ADDS     R0,R0,#+72
+   \   000000C6   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000000C8   0x.... 0x....      BL       LCD_P14x16Ch
+    154                          }
+   \   000000CC   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_11: (+1)
+   \   000000CE   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000D0   0x2C02             CMP      R4,#+2
+   \   000000D2   0xDBEF             BLT.N    ??showtx_12
+    155                      for (uint16 i=0;i<2;++i){
+   \   000000D4   0x2400             MOVS     R4,#+0
+   \   000000D6   0xE00C             B.N      ??showtx_13
+    156                          LCD_P14x16Ch1(77+i*14,2,i+48+1);
+   \                     ??showtx_14: (+1)
+   \   000000D8   0xF114 0x0231      ADDS     R2,R4,#+49
+   \   000000DC   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   000000DE   0x2102             MOVS     R1,#+2
+   \   000000E0   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000E2   0x200E             MOVS     R0,#+14
+   \   000000E4   0xFB00 0xF004      MUL      R0,R0,R4
+   \   000000E8   0x304D             ADDS     R0,R0,#+77
+   \   000000EA   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000000EC   0x.... 0x....      BL       LCD_P14x16Ch1
+    157                          }
+   \   000000F0   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_13: (+1)
+   \   000000F2   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000000F4   0x2C02             CMP      R4,#+2
+   \   000000F6   0xDBEF             BLT.N    ??showtx_14
+    158                      for (uint16 i=0;i<2;++i){
+   \   000000F8   0x2400             MOVS     R4,#+0
+   \   000000FA   0xE00C             B.N      ??showtx_15
+    159                          LCD_P14x16Ch(82+i*14,4,i+50+1);
+   \                     ??showtx_16: (+1)
+   \   000000FC   0xF114 0x0233      ADDS     R2,R4,#+51
+   \   00000100   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000102   0x2104             MOVS     R1,#+4
+   \   00000104   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000106   0x200E             MOVS     R0,#+14
+   \   00000108   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000010C   0x3052             ADDS     R0,R0,#+82
+   \   0000010E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000110   0x.... 0x....      BL       LCD_P14x16Ch
+    160                          }
+   \   00000114   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_15: (+1)
+   \   00000116   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000118   0x2C02             CMP      R4,#+2
+   \   0000011A   0xDBEF             BLT.N    ??showtx_16
+    161                      for (uint16 i=0;i<2;++i){
+   \   0000011C   0x2400             MOVS     R4,#+0
+   \   0000011E   0xE00C             B.N      ??showtx_17
+    162                          LCD_P14x16Ch(87+i*14,6,i+52+1);
+   \                     ??showtx_18: (+1)
+   \   00000120   0xF114 0x0235      ADDS     R2,R4,#+53
+   \   00000124   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000126   0x2106             MOVS     R1,#+6
+   \   00000128   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000012A   0x200E             MOVS     R0,#+14
+   \   0000012C   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000130   0x3057             ADDS     R0,R0,#+87
+   \   00000132   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000134   0x.... 0x....      BL       LCD_P14x16Ch
+    163                          }
+   \   00000138   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_17: (+1)
+   \   0000013A   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000013C   0x2C02             CMP      R4,#+2
+   \   0000013E   0xDBEF             BLT.N    ??showtx_18
+    164                  }
+    165                  if(txshu==3){
+   \                     ??showtx_10: (+1)
+   \   00000140   0x....             LDR.N    R0,??DataTable3_10
+   \   00000142   0x8800             LDRH     R0,[R0, #+0]
+   \   00000144   0x2803             CMP      R0,#+3
+   \   00000146   0xD147             BNE.N    ??showtx_19
+    166                      for (uint16 i=0;i<2;++i){    //右面板
+   \   00000148   0x2400             MOVS     R4,#+0
+   \   0000014A   0xE00C             B.N      ??showtx_20
+    167                          LCD_P14x16Ch(72+i*14,0,i+46+1);
+   \                     ??showtx_21: (+1)
+   \   0000014C   0xF114 0x022F      ADDS     R2,R4,#+47
+   \   00000150   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000152   0x2100             MOVS     R1,#+0
+   \   00000154   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000156   0x200E             MOVS     R0,#+14
+   \   00000158   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000015C   0x3048             ADDS     R0,R0,#+72
+   \   0000015E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000160   0x.... 0x....      BL       LCD_P14x16Ch
+    168                          }
+   \   00000164   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_20: (+1)
+   \   00000166   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000168   0x2C02             CMP      R4,#+2
+   \   0000016A   0xDBEF             BLT.N    ??showtx_21
+    169                      for (uint16 i=0;i<2;++i){
+   \   0000016C   0x2400             MOVS     R4,#+0
+   \   0000016E   0xE00C             B.N      ??showtx_22
+    170                          LCD_P14x16Ch(77+i*14,2,i+48+1);
+   \                     ??showtx_23: (+1)
+   \   00000170   0xF114 0x0231      ADDS     R2,R4,#+49
+   \   00000174   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000176   0x2102             MOVS     R1,#+2
+   \   00000178   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000017A   0x200E             MOVS     R0,#+14
+   \   0000017C   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000180   0x304D             ADDS     R0,R0,#+77
+   \   00000182   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000184   0x.... 0x....      BL       LCD_P14x16Ch
+    171                          }
+   \   00000188   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_22: (+1)
+   \   0000018A   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000018C   0x2C02             CMP      R4,#+2
+   \   0000018E   0xDBEF             BLT.N    ??showtx_23
+    172                      for (uint16 i=0;i<2;++i){
+   \   00000190   0x2400             MOVS     R4,#+0
+   \   00000192   0xE00C             B.N      ??showtx_24
+    173                          LCD_P14x16Ch1(82+i*14,4,i+50+1);
+   \                     ??showtx_25: (+1)
+   \   00000194   0xF114 0x0233      ADDS     R2,R4,#+51
+   \   00000198   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000019A   0x2104             MOVS     R1,#+4
+   \   0000019C   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000019E   0x200E             MOVS     R0,#+14
+   \   000001A0   0xFB00 0xF004      MUL      R0,R0,R4
+   \   000001A4   0x3052             ADDS     R0,R0,#+82
+   \   000001A6   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000001A8   0x.... 0x....      BL       LCD_P14x16Ch1
+    174                          }
+   \   000001AC   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_24: (+1)
+   \   000001AE   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000001B0   0x2C02             CMP      R4,#+2
+   \   000001B2   0xDBEF             BLT.N    ??showtx_25
+    175                      for (uint16 i=0;i<2;++i){
+   \   000001B4   0x2400             MOVS     R4,#+0
+   \   000001B6   0xE00C             B.N      ??showtx_26
+    176                          LCD_P14x16Ch(87+i*14,6,i+52+1);
+   \                     ??showtx_27: (+1)
+   \   000001B8   0xF114 0x0235      ADDS     R2,R4,#+53
+   \   000001BC   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   000001BE   0x2106             MOVS     R1,#+6
+   \   000001C0   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000001C2   0x200E             MOVS     R0,#+14
+   \   000001C4   0xFB00 0xF004      MUL      R0,R0,R4
+   \   000001C8   0x3057             ADDS     R0,R0,#+87
+   \   000001CA   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000001CC   0x.... 0x....      BL       LCD_P14x16Ch
+    177                          }
+   \   000001D0   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_26: (+1)
+   \   000001D2   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000001D4   0x2C02             CMP      R4,#+2
+   \   000001D6   0xDBEF             BLT.N    ??showtx_27
+    178                  }
+    179                  if(txshu==4){
+   \                     ??showtx_19: (+1)
+   \   000001D8   0x....             LDR.N    R0,??DataTable3_10
+   \   000001DA   0x8800             LDRH     R0,[R0, #+0]
+   \   000001DC   0x2804             CMP      R0,#+4
+   \   000001DE   0xD147             BNE.N    ??showtx_28
+    180                      for (uint16 i=0;i<2;++i){    //右面板
+   \   000001E0   0x2400             MOVS     R4,#+0
+   \   000001E2   0xE00C             B.N      ??showtx_29
+    181                          LCD_P14x16Ch(72+i*14,0,i+46+1);
+   \                     ??showtx_30: (+1)
+   \   000001E4   0xF114 0x022F      ADDS     R2,R4,#+47
+   \   000001E8   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   000001EA   0x2100             MOVS     R1,#+0
+   \   000001EC   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   000001EE   0x200E             MOVS     R0,#+14
+   \   000001F0   0xFB00 0xF004      MUL      R0,R0,R4
+   \   000001F4   0x3048             ADDS     R0,R0,#+72
+   \   000001F6   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   000001F8   0x.... 0x....      BL       LCD_P14x16Ch
+    182                          }
+   \   000001FC   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_29: (+1)
+   \   000001FE   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000200   0x2C02             CMP      R4,#+2
+   \   00000202   0xDBEF             BLT.N    ??showtx_30
+    183                      for (uint16 i=0;i<2;++i){
+   \   00000204   0x2400             MOVS     R4,#+0
+   \   00000206   0xE00C             B.N      ??showtx_31
+    184                          LCD_P14x16Ch(77+i*14,2,i+48+1);
+   \                     ??showtx_32: (+1)
+   \   00000208   0xF114 0x0231      ADDS     R2,R4,#+49
+   \   0000020C   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   0000020E   0x2102             MOVS     R1,#+2
+   \   00000210   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000212   0x200E             MOVS     R0,#+14
+   \   00000214   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000218   0x304D             ADDS     R0,R0,#+77
+   \   0000021A   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   0000021C   0x.... 0x....      BL       LCD_P14x16Ch
+    185                          }
+   \   00000220   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_31: (+1)
+   \   00000222   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000224   0x2C02             CMP      R4,#+2
+   \   00000226   0xDBEF             BLT.N    ??showtx_32
+    186                      for (uint16 i=0;i<2;++i){
+   \   00000228   0x2400             MOVS     R4,#+0
+   \   0000022A   0xE00C             B.N      ??showtx_33
+    187                          LCD_P14x16Ch(82+i*14,4,i+50+1);
+   \                     ??showtx_34: (+1)
+   \   0000022C   0xF114 0x0233      ADDS     R2,R4,#+51
+   \   00000230   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000232   0x2104             MOVS     R1,#+4
+   \   00000234   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000236   0x200E             MOVS     R0,#+14
+   \   00000238   0xFB00 0xF004      MUL      R0,R0,R4
+   \   0000023C   0x3052             ADDS     R0,R0,#+82
+   \   0000023E   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000240   0x.... 0x....      BL       LCD_P14x16Ch
+    188                          }
+   \   00000244   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_33: (+1)
+   \   00000246   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   00000248   0x2C02             CMP      R4,#+2
+   \   0000024A   0xDBEF             BLT.N    ??showtx_34
+    189                      for (uint16 i=0;i<2;++i){
+   \   0000024C   0x2400             MOVS     R4,#+0
+   \   0000024E   0xE00C             B.N      ??showtx_35
+    190                          LCD_P14x16Ch1(87+i*14,6,i+52+1);
+   \                     ??showtx_36: (+1)
+   \   00000250   0xF114 0x0235      ADDS     R2,R4,#+53
+   \   00000254   0xB2D2             UXTB     R2,R2            ;; ZeroExt  R2,R2,#+24,#+24
+   \   00000256   0x2106             MOVS     R1,#+6
+   \   00000258   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000025A   0x200E             MOVS     R0,#+14
+   \   0000025C   0xFB00 0xF004      MUL      R0,R0,R4
+   \   00000260   0x3057             ADDS     R0,R0,#+87
+   \   00000262   0xB2C0             UXTB     R0,R0            ;; ZeroExt  R0,R0,#+24,#+24
+   \   00000264   0x.... 0x....      BL       LCD_P14x16Ch1
+    191                          }
+   \   00000268   0x1C64             ADDS     R4,R4,#+1
+   \                     ??showtx_35: (+1)
+   \   0000026A   0xB2A4             UXTH     R4,R4            ;; ZeroExt  R4,R4,#+16,#+16
+   \   0000026C   0x2C02             CMP      R4,#+2
+   \   0000026E   0xDBEF             BLT.N    ??showtx_36
+    192                  }
+    193          }
+   \                     ??showtx_28: (+1)
+   \   00000270   0xBD10             POP      {R4,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3:
+   \   00000000   0x........         DC32     huatu1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_1:
+   \   00000000   0x........         DC32     xuanzhetx
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_2:
+   \   00000000   0x........         DC32     cu_y
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_3:
+   \   00000000   0x........         DC32     cu_x
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_4:
+   \   00000000   0x........         DC32     key_up
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_5:
+   \   00000000   0x........         DC32     key_down
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_6:
+   \   00000000   0x........         DC32     key_left
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_7:
+   \   00000000   0x........         DC32     key_right
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_8:
+   \   00000000   0x........         DC32     gamestart
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_9:
+   \   00000000   0x........         DC32     dir1
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable3_10:
+   \   00000000   0x........         DC32     txshu
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+      16   huatu
+        16   -> LCD_CLS
+        16   -> LCD_P14x16Ch
+        16   -> LCD_P14x16Ch1
+        16   -> LCD_P16x8Ch
+        16   -> delay
+        16   -> key
+        16   -> move
+        16   -> xuanzhetxjm
+      16   move
+        16   -> LCD_P16x8Ch
+       8   showtx
+         8   -> LCD_P14x16Ch
+         8   -> LCD_P14x16Ch1
+       8   xuanzhetxjm
+         8   -> delay
+         8   -> key
+         8   -> playmusic
+         8   -> showtx
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable3
+       4  ??DataTable3_1
+       4  ??DataTable3_10
+       4  ??DataTable3_2
+       4  ??DataTable3_3
+       4  ??DataTable3_4
+       4  ??DataTable3_5
+       4  ??DataTable3_6
+       4  ??DataTable3_7
+       4  ??DataTable3_8
+       4  ??DataTable3_9
+       2  cu_x
+       2  cu_y
+      16  dir1
+     544  huatu
+     128  huatu1
+     162  move
+     626  showtx
+       2  txshu
+       2  xuanzhetx
+     360  xuanzhetxjm
+
+ 
+   130 bytes in section .bss
+    22 bytes in section .data
+ 1 736 bytes in section .text
+ 
+ 1 736 bytes of CODE memory
+   152 bytes of DATA memory
+
+Errors: none
+Warnings: 2

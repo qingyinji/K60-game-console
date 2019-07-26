@@ -1,0 +1,1286 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        07/Feb/2019  15:37:25
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\lib\LPLD\HW\HW_DMA.c
+#    Command line =  
+#        D:\2019.IAR\lib\LPLD\HW\HW_DMA.c -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\HW_DMA.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_DMA.o
+#
+###############################################################################
+
+D:\2019.IAR\lib\LPLD\HW\HW_DMA.c
+      1          /**
+      2           * @file HW_DMA.c
+      3           * @version 3.0[By LPLD]
+      4           * @date 2013-06-18
+      5           * @brief DMA底层模块相关函数
+      6           *
+      7           * 更改建议:不建议修改
+      8           *
+      9           * 版权所有:北京拉普兰德电子技术有限公司
+     10           * http://www.lpld.cn
+     11           * mail:support@lpld.cn
+     12           *
+     13           * @par
+     14           * 本代码由拉普兰德[LPLD]开发并维护，并向所有使用者开放源代码。
+     15           * 开发者可以随意修使用或改源代码。但本段及以上注释应予以保留。
+     16           * 不得更改或删除原版权所有者姓名，二次开发者可以加注二次版权所有者。
+     17           * 但应在遵守此协议的基础上，开放源代码、不得出售代码本身。
+     18           * 拉普兰德不负责由于使用本代码所带来的任何事故、法律责任或相关不良影响。
+     19           * 拉普兰德无义务解释、说明本代码的具体原理、功能、实现方法。
+     20           * 除非拉普兰德[LPLD]授权，开发者不得将本代码用于商业产品。
+     21           */
+     22          #include "common.h"
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_EnableIRQ(IRQn_Type)
+   \                     NVIC_EnableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x.... 0x....      LDR.W    R2,??DataTable18  ;; 0xe000e100
+   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000E   0x0940             LSRS     R0,R0,#+5
+   \   00000010   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000014   0x4770             BX       LR               ;; return
+
+   \                                 In section .text, align 2, keep-with-next
+   \   static __interwork __softfp void NVIC_DisableIRQ(IRQn_Type)
+   \                     NVIC_DisableIRQ: (+1)
+   \   00000000   0x2101             MOVS     R1,#+1
+   \   00000002   0xF010 0x021F      ANDS     R2,R0,#0x1F
+   \   00000006   0x4091             LSLS     R1,R1,R2
+   \   00000008   0x.... 0x....      LDR.W    R2,??DataTable18_1  ;; 0xe000e180
+   \   0000000C   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000E   0x0940             LSRS     R0,R0,#+5
+   \   00000010   0xF842 0x1020      STR      R1,[R2, R0, LSL #+2]
+   \   00000014   0x4770             BX       LR               ;; return
+     23          #include "HW_DMA.h"
+     24          
+     25          //用户自定义中断服务函数数组
+
+   \                                 In section .bss, align 4
+     26          DMA_ISR_CALLBACK DMA_ISR[16];
+   \                     DMA_ISR:
+   \   00000000                      DS8 64
+     27          
+     28          
+     29          /*
+     30           * LPLD_DMA_Init
+     31           * 初始化eDMA模块
+     32           * 
+     33           * 参数:
+     34           *    dma_init_struct--eDMA初始化结构体，
+     35           *                        具体定义见DMA_InitTypeDef
+     36           *
+     37           * 输出:
+     38           *    0--配置错误
+     39           *    1--配置成功
+     40           */
+
+   \                                 In section .text, align 2, keep-with-next
+     41          uint8 LPLD_DMA_Init(DMA_InitTypeDef dma_init_struct)
+     42          {
+   \                     LPLD_DMA_Init: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xE92D 0x4FF0      PUSH     {R4-R11,LR}
+   \   00000006   0xB085             SUB      SP,SP,#+20
+     43            uint8 chx = dma_init_struct.DMA_CHx;
+   \   00000008   0xF89D 0x4038      LDRB     R4,[SP, #+56]
+     44            uint8 req = dma_init_struct.DMA_Req;
+   \   0000000C   0xF89D 0x5039      LDRB     R5,[SP, #+57]
+     45            boolean periodic_trigg = dma_init_struct.DMA_PeriodicTriggerEnable;
+   \   00000010   0xF89D 0x003A      LDRB     R0,[SP, #+58]
+   \   00000014   0xF88D 0x0010      STRB     R0,[SP, #+16]
+     46            uint16 major_cnt = dma_init_struct.DMA_MajorLoopCnt;
+   \   00000018   0xF8BD 0x603C      LDRH     R6,[SP, #+60]
+     47            uint32 minor_cnt = dma_init_struct.DMA_MinorByteCnt;
+   \   0000001C   0x9810             LDR      R0,[SP, #+64]
+   \   0000001E   0x9003             STR      R0,[SP, #+12]
+     48            uint32 src_addr = dma_init_struct.DMA_SourceAddr;
+   \   00000020   0x9F11             LDR      R7,[SP, #+68]
+     49            uint8 src_dsize = dma_init_struct.DMA_SourceDataSize;
+   \   00000022   0xF89D 0x8048      LDRB     R8,[SP, #+72]
+     50            int16 src_addroffset = dma_init_struct.DMA_SourceAddrOffset;
+   \   00000026   0xF9BD 0x004A      LDRSH    R0,[SP, #+74]
+   \   0000002A   0xF8AD 0x0002      STRH     R0,[SP, #+2]
+     51            int32 src_lastadj = dma_init_struct.DMA_LastSourceAddrAdj;
+   \   0000002E   0x9813             LDR      R0,[SP, #+76]
+   \   00000030   0x9002             STR      R0,[SP, #+8]
+     52            uint32 dst_addr = dma_init_struct.DMA_DestAddr;
+   \   00000032   0xF8DD 0x9050      LDR      R9,[SP, #+80]
+     53            uint8 dst_dsize = dma_init_struct.DMA_DestDataSize;
+   \   00000036   0xF89D 0xA054      LDRB     R10,[SP, #+84]
+     54            int16 dst_addroffset = dma_init_struct.DMA_DestAddrOffset;
+   \   0000003A   0xF9BD 0x0056      LDRSH    R0,[SP, #+86]
+   \   0000003E   0xF8AD 0x0000      STRH     R0,[SP, #+0]
+     55            int32 dst_lastadj = dma_init_struct.DMA_LastDestAddrAdj;
+   \   00000042   0x9816             LDR      R0,[SP, #+88]
+   \   00000044   0x9001             STR      R0,[SP, #+4]
+     56            boolean auto_disable = dma_init_struct.DMA_AutoDisableReq;
+   \   00000046   0xF89D 0xB05C      LDRB     R11,[SP, #+92]
+     57            
+     58            //参数检查
+     59            ASSERT( chx <= DMA_CH15 );       //eDMA通道选择
+   \   0000004A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000004C   0x2C10             CMP      R4,#+16
+   \   0000004E   0xDB04             BLT.N    ??LPLD_DMA_Init_0
+   \   00000050   0x213B             MOVS     R1,#+59
+   \   00000052   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   00000056   0x.... 0x....      BL       assert_failed
+     60            ASSERT( req <= DMA_MUX_63 );     //请求源选择
+   \                     ??LPLD_DMA_Init_0: (+1)
+   \   0000005A   0xB2ED             UXTB     R5,R5            ;; ZeroExt  R5,R5,#+24,#+24
+   \   0000005C   0x2D40             CMP      R5,#+64
+   \   0000005E   0xDB04             BLT.N    ??LPLD_DMA_Init_1
+   \   00000060   0x213C             MOVS     R1,#+60
+   \   00000062   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   00000066   0x.... 0x....      BL       assert_failed
+     61            ASSERT( major_cnt <= 0x7FFF );   //主计数判断
+   \                     ??LPLD_DMA_Init_1: (+1)
+   \   0000006A   0xB2B6             UXTH     R6,R6            ;; ZeroExt  R6,R6,#+16,#+16
+   \   0000006C   0xF5B6 0x4F00      CMP      R6,#+32768
+   \   00000070   0xDB04             BLT.N    ??LPLD_DMA_Init_2
+   \   00000072   0x213D             MOVS     R1,#+61
+   \   00000074   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   00000078   0x.... 0x....      BL       assert_failed
+     62            ASSERT( src_addr != NULL );      //源地址判断
+   \                     ??LPLD_DMA_Init_2: (+1)
+   \   0000007C   0x2F00             CMP      R7,#+0
+   \   0000007E   0xD104             BNE.N    ??LPLD_DMA_Init_3
+   \   00000080   0x213E             MOVS     R1,#+62
+   \   00000082   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   00000086   0x.... 0x....      BL       assert_failed
+     63            ASSERT( (src_dsize <= DMA_SRC_32BIT)||(src_dsize == DMA_SRC_16BYTE) );     //源数据传输大小判断
+   \                     ??LPLD_DMA_Init_3: (+1)
+   \   0000008A   0xFA5F 0xF888      UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+   \   0000008E   0xF1B8 0x0F03      CMP      R8,#+3
+   \   00000092   0xDB09             BLT.N    ??LPLD_DMA_Init_4
+   \   00000094   0xFA5F 0xF888      UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+   \   00000098   0xF1B8 0x0F04      CMP      R8,#+4
+   \   0000009C   0xD004             BEQ.N    ??LPLD_DMA_Init_4
+   \   0000009E   0x213F             MOVS     R1,#+63
+   \   000000A0   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   000000A4   0x.... 0x....      BL       assert_failed
+     64            ASSERT( dst_addr != NULL );      //目的地址判断
+   \                     ??LPLD_DMA_Init_4: (+1)
+   \   000000A8   0xF1B9 0x0F00      CMP      R9,#+0
+   \   000000AC   0xD104             BNE.N    ??LPLD_DMA_Init_5
+   \   000000AE   0x2140             MOVS     R1,#+64
+   \   000000B0   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   000000B4   0x.... 0x....      BL       assert_failed
+     65            ASSERT( (dst_dsize <= DMA_DST_32BIT)||(dst_dsize == DMA_DST_16BYTE) );     //目的数据传输大小判断
+   \                     ??LPLD_DMA_Init_5: (+1)
+   \   000000B8   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   000000BC   0xF1BA 0x0F03      CMP      R10,#+3
+   \   000000C0   0xDB09             BLT.N    ??LPLD_DMA_Init_6
+   \   000000C2   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   000000C6   0xF1BA 0x0F04      CMP      R10,#+4
+   \   000000CA   0xD004             BEQ.N    ??LPLD_DMA_Init_6
+   \   000000CC   0x2141             MOVS     R1,#+65
+   \   000000CE   0x.... 0x....      LDR.W    R0,??DataTable18_2
+   \   000000D2   0x.... 0x....      BL       assert_failed
+     66           
+     67            SIM->SCGC6 |= SIM_SCGC6_DMAMUX_MASK;  //打开DMA通道多路复用器时钟   
+   \                     ??LPLD_DMA_Init_6: (+1)
+   \   000000D6   0x.... 0x....      LDR.W    R0,??DataTable18_3  ;; 0x4004803c
+   \   000000DA   0x6800             LDR      R0,[R0, #+0]
+   \   000000DC   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   000000E0   0x.... 0x....      LDR.W    R1,??DataTable18_3  ;; 0x4004803c
+   \   000000E4   0x6008             STR      R0,[R1, #+0]
+     68            SIM->SCGC7 |= SIM_SCGC7_DMA_MASK;     //打开DMA模块时钟
+   \   000000E6   0x.... 0x....      LDR.W    R0,??DataTable18_4  ;; 0x40048040
+   \   000000EA   0x6800             LDR      R0,[R0, #+0]
+   \   000000EC   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   000000F0   0x.... 0x....      LDR.W    R1,??DataTable18_4  ;; 0x40048040
+   \   000000F4   0x6008             STR      R0,[R1, #+0]
+     69            
+     70            //关闭通道x硬件DMA请求 
+     71            DMA0->ERQ &= ~(1<<chx);
+   \   000000F6   0x.... 0x....      LDR.W    R0,??DataTable18_5  ;; 0x4000800c
+   \   000000FA   0x6800             LDR      R0,[R0, #+0]
+   \   000000FC   0x2101             MOVS     R1,#+1
+   \   000000FE   0x40A1             LSLS     R1,R1,R4
+   \   00000100   0x4388             BICS     R0,R0,R1
+   \   00000102   0x.... 0x....      LDR.W    R1,??DataTable18_5  ;; 0x4000800c
+   \   00000106   0x6008             STR      R0,[R1, #+0]
+     72            
+     73            //选择 通道x 配置外设的DMA源请求编号
+     74            DMAMUX->CHCFG[chx] = DMAMUX_CHCFG_SOURCE(req);
+   \   00000108   0xF015 0x003F      ANDS     R0,R5,#0x3F
+   \   0000010C   0x.... 0x....      LDR.W    R1,??DataTable18_6  ;; 0x40021000
+   \   00000110   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000112   0x5460             STRB     R0,[R4, R1]
+     75            //是否使能周期触发功能
+     76            if(periodic_trigg == TRUE)
+   \   00000114   0xF89D 0x0010      LDRB     R0,[SP, #+16]
+   \   00000118   0x2801             CMP      R0,#+1
+   \   0000011A   0xD10A             BNE.N    ??LPLD_DMA_Init_7
+     77            {
+     78              DMAMUX->CHCFG[chx] |= DMAMUX_CHCFG_TRIG_MASK;
+   \   0000011C   0x.... 0x....      LDR.W    R0,??DataTable18_6  ;; 0x40021000
+   \   00000120   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000122   0x5C20             LDRB     R0,[R4, R0]
+   \   00000124   0xF050 0x0040      ORRS     R0,R0,#0x40
+   \   00000128   0x.... 0x....      LDR.W    R1,??DataTable18_6  ;; 0x40021000
+   \   0000012C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000012E   0x5460             STRB     R0,[R4, R1]
+   \   00000130   0xE009             B.N      ??LPLD_DMA_Init_8
+     79            }
+     80            else
+     81            {
+     82              DMAMUX->CHCFG[chx] &= ~(DMAMUX_CHCFG_TRIG_MASK);
+   \                     ??LPLD_DMA_Init_7: (+1)
+   \   00000132   0x.... 0x....      LDR.W    R0,??DataTable18_6  ;; 0x40021000
+   \   00000136   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000138   0x5C20             LDRB     R0,[R4, R0]
+   \   0000013A   0xF010 0x00BF      ANDS     R0,R0,#0xBF
+   \   0000013E   0x.... 0x....      LDR.W    R1,??DataTable18_6  ;; 0x40021000
+   \   00000142   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000144   0x5460             STRB     R0,[R4, R1]
+     83            }
+     84            
+     85            
+     86            //设置源地址   
+     87            DMA0->TCD[chx].SADDR = DMA_SADDR_SADDR(src_addr);
+   \                     ??LPLD_DMA_Init_8: (+1)
+   \   00000146   0x.... 0x....      LDR.W    R0,??DataTable18_7  ;; 0x40009000
+   \   0000014A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000014C   0x0161             LSLS     R1,R4,#+5
+   \   0000014E   0x500F             STR      R7,[R1, R0]
+     88            //在执行完针对源地址的操作之后，在源地址的基础上增加/减少偏移地址
+     89            DMA0->TCD[chx].SOFF = DMA_SOFF_SOFF(src_addroffset);
+   \   00000150   0xF8BD 0x0002      LDRH     R0,[SP, #+2]
+   \   00000154   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000156   0x0161             LSLS     R1,R4,#+5
+   \   00000158   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   0000015C   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000160   0x8088             STRH     R0,[R1, #+4]
+     90            //设置源地址的传输大小
+     91            DMA0->TCD[chx].ATTR = 0 | DMA_ATTR_SSIZE(src_dsize);
+   \   00000162   0xFA5F 0xF888      UXTB     R8,R8            ;; ZeroExt  R8,R8,#+24,#+24
+   \   00000166   0xEA5F 0x2008      LSLS     R0,R8,#+8
+   \   0000016A   0xF410 0x60E0      ANDS     R0,R0,#0x700
+   \   0000016E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000170   0x0161             LSLS     R1,R4,#+5
+   \   00000172   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000176   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   0000017A   0x80C8             STRH     R0,[R1, #+6]
+     92            //主的计数次数（major iteration count）达到后，重新调整源地址
+     93            DMA0->TCD[chx].SLAST = DMA_SLAST_SLAST(src_lastadj);
+   \   0000017C   0x9802             LDR      R0,[SP, #+8]
+   \   0000017E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000180   0x0161             LSLS     R1,R4,#+5
+   \   00000182   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000186   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   0000018A   0x60C8             STR      R0,[R1, #+12]
+     94            
+     95            //设置目的地址 
+     96            DMA0->TCD[chx].DADDR = DMA_DADDR_DADDR(dst_addr);
+   \   0000018C   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000018E   0x0160             LSLS     R0,R4,#+5
+   \   00000190   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   00000194   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   00000198   0xF8C0 0x9010      STR      R9,[R0, #+16]
+     97            //在执行完针对目的地址的操作之后，在目的地址的基础上增加/减少偏移地址
+     98            DMA0->TCD[chx].DOFF = DMA_DOFF_DOFF(dst_addroffset);
+   \   0000019C   0xF8BD 0x0000      LDRH     R0,[SP, #+0]
+   \   000001A0   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001A2   0x0161             LSLS     R1,R4,#+5
+   \   000001A4   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000001A8   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000001AC   0x8288             STRH     R0,[R1, #+20]
+     99            //设置目的地址的传输宽度
+    100            DMA0->TCD[chx].ATTR |= DMA_ATTR_DSIZE(dst_dsize);
+   \   000001AE   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001B0   0x0160             LSLS     R0,R4,#+5
+   \   000001B2   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   000001B6   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   000001BA   0x88C0             LDRH     R0,[R0, #+6]
+   \   000001BC   0xFA5F 0xFA8A      UXTB     R10,R10          ;; ZeroExt  R10,R10,#+24,#+24
+   \   000001C0   0xF01A 0x0107      ANDS     R1,R10,#0x7
+   \   000001C4   0x4308             ORRS     R0,R1,R0
+   \   000001C6   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001C8   0x0161             LSLS     R1,R4,#+5
+   \   000001CA   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000001CE   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000001D2   0x80C8             STRH     R0,[R1, #+6]
+    101            //主的计数次数（major iteration count）达到后，重新调整目的地址
+    102            DMA0->TCD[chx].DLAST_SGA = DMA_DLAST_SGA_DLASTSGA(dst_lastadj);
+   \   000001D4   0x9801             LDR      R0,[SP, #+4]
+   \   000001D6   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001D8   0x0161             LSLS     R1,R4,#+5
+   \   000001DA   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000001DE   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000001E2   0x6188             STR      R0,[R1, #+24]
+    103            
+    104            //默认为禁用通道链接功能，后续更新添加此功能
+    105            if( 1 == 1)
+    106            {
+    107              //===============设置主计数器长度，循环次数====================================
+    108              //设置主循环计数器 current major loop count
+    109              DMA0->TCD[chx].CITER_ELINKNO = DMA_CITER_ELINKNO_CITER(major_cnt);
+   \   000001E4   0x0470             LSLS     R0,R6,#+17       ;; ZeroExtS R0,R6,#+17,#+17
+   \   000001E6   0x0C40             LSRS     R0,R0,#+17
+   \   000001E8   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001EA   0x0161             LSLS     R1,R4,#+5
+   \   000001EC   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000001F0   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000001F4   0x82C8             STRH     R0,[R1, #+22]
+    110              //起始循环计数器，当主循环计数器为零的时候，将装载起始循环计数器的值
+    111              DMA0->TCD[chx].BITER_ELINKNO = DMA_CITER_ELINKNO_CITER(major_cnt);
+   \   000001F6   0x0470             LSLS     R0,R6,#+17       ;; ZeroExtS R0,R6,#+17,#+17
+   \   000001F8   0x0C40             LSRS     R0,R0,#+17
+   \   000001FA   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000001FC   0x0161             LSLS     R1,R4,#+5
+   \   000001FE   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000202   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000206   0x83C8             STRH     R0,[R1, #+30]
+    112            }
+    113            
+    114            //默认为禁用次循环地址偏移功能，后续更新添加此功能
+    115            if( 1 == 1)
+    116            {
+    117              //次循环一次传输字节的个数
+    118              DMA0->TCD[chx].NBYTES_MLNO = DMA_NBYTES_MLNO_NBYTES(minor_cnt);
+   \   00000208   0x9803             LDR      R0,[SP, #+12]
+   \   0000020A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000020C   0x0161             LSLS     R1,R4,#+5
+   \   0000020E   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000212   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000216   0x6088             STR      R0,[R1, #+8]
+    119            }
+    120            
+    121            //清空TCD控制寄存器     
+    122            DMA0->TCD[chx].CSR = 0;
+   \   00000218   0x2000             MOVS     R0,#+0
+   \   0000021A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000021C   0x0161             LSLS     R1,R4,#+5
+   \   0000021E   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000222   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000226   0x8388             STRH     R0,[R1, #+28]
+    123            
+    124            //配置eDMA中断
+    125            if((dma_init_struct.DMA_Isr != NULL) && 
+    126               (dma_init_struct.DMA_MajorCompleteIntEnable == TRUE))
+   \   00000228   0x9818             LDR      R0,[SP, #+96]
+   \   0000022A   0x2800             CMP      R0,#+0
+   \   0000022C   0xD018             BEQ.N    ??LPLD_DMA_Init_9
+   \   0000022E   0xF89D 0x005D      LDRB     R0,[SP, #+93]
+   \   00000232   0x2801             CMP      R0,#+1
+   \   00000234   0xD114             BNE.N    ??LPLD_DMA_Init_9
+    127            {
+    128          
+    129                 DMA0->TCD[chx].CSR |= DMA_CSR_INTMAJOR_MASK; //使能DMA 主循环计数器减到零 中断
+   \   00000236   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000238   0x0160             LSLS     R0,R4,#+5
+   \   0000023A   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   0000023E   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   00000242   0x8B80             LDRH     R0,[R0, #+28]
+   \   00000244   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   00000248   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000024A   0x0161             LSLS     R1,R4,#+5
+   \   0000024C   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000250   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000254   0x8388             STRH     R0,[R1, #+28]
+    130                 DMA_ISR[chx] = dma_init_struct.DMA_Isr;
+   \   00000256   0x9818             LDR      R0,[SP, #+96]
+   \   00000258   0x....             LDR.N    R1,??DataTable18_8
+   \   0000025A   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   0000025C   0xF841 0x0024      STR      R0,[R1, R4, LSL #+2]
+    131            }
+    132            if((dma_init_struct.DMA_Isr != NULL) && 
+    133               (dma_init_struct.DMA_MajorHalfCompleteIntEnable == TRUE))
+   \                     ??LPLD_DMA_Init_9: (+1)
+   \   00000260   0x9818             LDR      R0,[SP, #+96]
+   \   00000262   0x2800             CMP      R0,#+0
+   \   00000264   0xD018             BEQ.N    ??LPLD_DMA_Init_10
+   \   00000266   0xF89D 0x005E      LDRB     R0,[SP, #+94]
+   \   0000026A   0x2801             CMP      R0,#+1
+   \   0000026C   0xD114             BNE.N    ??LPLD_DMA_Init_10
+    134            {
+    135          
+    136                 DMA0->TCD[chx].CSR |= DMA_CSR_INTHALF_MASK; //使能DMA 主循环计数器减到一半 中断
+   \   0000026E   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000270   0x0160             LSLS     R0,R4,#+5
+   \   00000272   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   00000276   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   0000027A   0x8B80             LDRH     R0,[R0, #+28]
+   \   0000027C   0xF050 0x0004      ORRS     R0,R0,#0x4
+   \   00000280   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000282   0x0161             LSLS     R1,R4,#+5
+   \   00000284   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000288   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   0000028C   0x8388             STRH     R0,[R1, #+28]
+    137                 DMA_ISR[chx] = dma_init_struct.DMA_Isr;
+   \   0000028E   0x9818             LDR      R0,[SP, #+96]
+   \   00000290   0x....             LDR.N    R1,??DataTable18_8
+   \   00000292   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   00000294   0xF841 0x0024      STR      R0,[R1, R4, LSL #+2]
+    138            }
+    139              
+    140            if(auto_disable == TRUE)
+   \                     ??LPLD_DMA_Init_10: (+1)
+   \   00000298   0xFA5F 0xFB8B      UXTB     R11,R11          ;; ZeroExt  R11,R11,#+24,#+24
+   \   0000029C   0xF1BB 0x0F01      CMP      R11,#+1
+   \   000002A0   0xD110             BNE.N    ??LPLD_DMA_Init_11
+    141            {
+    142               DMA0->TCD[chx].CSR |= DMA_CSR_DREQ_MASK; //主循环计数器等于零后，自动关闭DMA 
+   \   000002A2   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002A4   0x0160             LSLS     R0,R4,#+5
+   \   000002A6   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   000002AA   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   000002AE   0x8B80             LDRH     R0,[R0, #+28]
+   \   000002B0   0xF050 0x0008      ORRS     R0,R0,#0x8
+   \   000002B4   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002B6   0x0161             LSLS     R1,R4,#+5
+   \   000002B8   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000002BC   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000002C0   0x8388             STRH     R0,[R1, #+28]
+   \   000002C2   0xE010             B.N      ??LPLD_DMA_Init_12
+    143            }
+    144            else
+    145            {
+    146               DMA0->TCD[chx].CSR &= ~(DMA_CSR_DREQ_MASK); //主循环计数器等于零后，不关闭DMA
+   \                     ??LPLD_DMA_Init_11: (+1)
+   \   000002C4   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002C6   0x0160             LSLS     R0,R4,#+5
+   \   000002C8   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   000002CC   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   000002D0   0x8B80             LDRH     R0,[R0, #+28]
+   \   000002D2   0xF64F 0x71F7      MOVW     R1,#+65527
+   \   000002D6   0x4008             ANDS     R0,R1,R0
+   \   000002D8   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002DA   0x0161             LSLS     R1,R4,#+5
+   \   000002DC   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   000002E0   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   000002E4   0x8388             STRH     R0,[R1, #+28]
+    147            } 
+    148           
+    149            //DMA通道使能
+    150            DMAMUX->CHCFG[chx] |= DMAMUX_CHCFG_ENBL_MASK;
+   \                     ??LPLD_DMA_Init_12: (+1)
+   \   000002E6   0x....             LDR.N    R0,??DataTable18_6  ;; 0x40021000
+   \   000002E8   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002EA   0x5C20             LDRB     R0,[R4, R0]
+   \   000002EC   0xF050 0x0080      ORRS     R0,R0,#0x80
+   \   000002F0   0x....             LDR.N    R1,??DataTable18_6  ;; 0x40021000
+   \   000002F2   0xB2E4             UXTB     R4,R4            ;; ZeroExt  R4,R4,#+24,#+24
+   \   000002F4   0x5460             STRB     R0,[R4, R1]
+    151              
+    152            return 1;
+   \   000002F6   0x2001             MOVS     R0,#+1
+   \   000002F8   0xB005             ADD      SP,SP,#+20
+   \   000002FA   0xE8BD 0x0FF0      POP      {R4-R11}
+   \   000002FE   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+    153          }
+    154          
+    155          /*
+    156           * LPLD_DMA_EnableIrq
+    157           * 使能eDMA中断
+    158           * 
+    159           * 参数:
+    160           *    dma_init_struct--eDMA初始化结构体，
+    161           *                        具体定义见DMA_InitTypeDef
+    162           *
+    163           * 输出:
+    164           *    0--失败
+    165           *    1--成功
+    166           */
+
+   \                                 In section .text, align 2, keep-with-next
+    167          uint8 LPLD_DMA_EnableIrq(DMA_InitTypeDef dma_init_struct)
+    168          {
+   \                     LPLD_DMA_EnableIrq: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB580             PUSH     {R7,LR}
+    169            enable_irq((IRQn_Type)(dma_init_struct.DMA_CHx + DMA0_IRQn));  
+   \   00000004   0xF99D 0x0008      LDRSB    R0,[SP, #+8]
+   \   00000008   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000A   0x.... 0x....      BL       NVIC_EnableIRQ
+    170            return 1;
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0xBC02             POP      {R1}
+   \   00000012   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+    171          }
+    172          
+    173          /*
+    174           * LPLD_DMA_DisableIrq
+    175           * 禁用eDMA中断
+    176           * 
+    177           * 参数:
+    178           *    dma_init_struct--eDMA初始化结构体，
+    179           *                        具体定义见DMA_InitTypeDef
+    180           *
+    181           * 输出:
+    182           *    0--失败
+    183           *    1--成功
+    184           */
+
+   \                                 In section .text, align 2, keep-with-next
+    185          uint8 LPLD_DMA_DisableIrq(DMA_InitTypeDef dma_init_struct)
+    186          {
+   \                     LPLD_DMA_DisableIrq: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+   \   00000002   0xB580             PUSH     {R7,LR}
+    187            disable_irq((IRQn_Type)(dma_init_struct.DMA_CHx + DMA0_IRQn));
+   \   00000004   0xF99D 0x0008      LDRSB    R0,[SP, #+8]
+   \   00000008   0xB240             SXTB     R0,R0            ;; SignExt  R0,R0,#+24,#+24
+   \   0000000A   0x.... 0x....      BL       NVIC_DisableIRQ
+    188            return 1;
+   \   0000000E   0x2001             MOVS     R0,#+1
+   \   00000010   0xBC02             POP      {R1}
+   \   00000012   0xF85D 0xFB14      LDR      PC,[SP], #+20    ;; return
+    189          }
+    190          
+    191          /*
+    192           * LPLD_DMA_SoftwareStartService
+    193           * DMA服务请求软件开始
+    194           * 
+    195           * 参数:
+    196           *    dma_init_struct--eDMA初始化结构体，
+    197           *                        具体定义见DMA_InitTypeDef
+    198           *
+    199           * 输出:
+    200           *    无
+    201           */
+
+   \                                 In section .text, align 2, keep-with-next
+    202          __INLINE void LPLD_DMA_SoftwareStartService(DMA_InitTypeDef dma_init_struct)
+    203          {
+   \                     LPLD_DMA_SoftwareStartService: (+1)
+   \   00000000   0xB40F             PUSH     {R0-R3}
+    204            DMA0->TCD[dma_init_struct.DMA_CHx].CSR |= DMA_CSR_START_MASK; 
+   \   00000002   0xF89D 0x0000      LDRB     R0,[SP, #+0]
+   \   00000006   0x0140             LSLS     R0,R0,#+5
+   \   00000008   0xF100 0x4080      ADD      R0,R0,#+1073741824
+   \   0000000C   0xF510 0x4010      ADDS     R0,R0,#+36864
+   \   00000010   0x8B80             LDRH     R0,[R0, #+28]
+   \   00000012   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000016   0xF89D 0x1000      LDRB     R1,[SP, #+0]
+   \   0000001A   0x0149             LSLS     R1,R1,#+5
+   \   0000001C   0xF101 0x4180      ADD      R1,R1,#+1073741824
+   \   00000020   0xF511 0x4110      ADDS     R1,R1,#+36864
+   \   00000024   0x8388             STRH     R0,[R1, #+28]
+    205          }
+   \   00000026   0xB004             ADD      SP,SP,#+16
+   \   00000028   0x4770             BX       LR               ;; return
+    206          
+    207          /*
+    208           * eDMA中断处理函数
+    209           * 与启动文件startup_K60.s中的中断向量表关联
+    210           * 用户无需修改，程序自动进入对应通道中断函数
+    211           */
+
+   \                                 In section .text, align 2, keep-with-next
+    212          void DMA0_IRQHandler(void)
+    213          {
+   \                     DMA0_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    214          #if (UCOS_II > 0u)
+    215            OS_CPU_SR  cpu_sr = 0u;
+    216            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    217            OSIntEnter();
+    218            OS_EXIT_CRITICAL();
+    219          #endif  
+    220            
+    221            //调用用户自定义中断服务
+    222            DMA_ISR[0]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6800             LDR      R0,[R0, #+0]
+   \   00000006   0x4780             BLX      R0
+    223            //清除中断标志位
+    224            DMA0->INT |= 0x1u<<0;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    225            
+    226          #if (UCOS_II > 0u)
+    227            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    228          #endif
+    229          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    230          
+
+   \                                 In section .text, align 2, keep-with-next
+    231          void DMA1_IRQHandler(void)
+    232          {
+   \                     DMA1_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    233          #if (UCOS_II > 0u)
+    234            OS_CPU_SR  cpu_sr = 0u;
+    235            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    236            OSIntEnter();
+    237            OS_EXIT_CRITICAL();
+    238          #endif  
+    239            
+    240            //调用用户自定义中断服务
+    241            DMA_ISR[1]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6840             LDR      R0,[R0, #+4]
+   \   00000006   0x4780             BLX      R0
+    242            //清除中断标志位
+    243            DMA0->INT |= 0x1u<<1;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0002      ORRS     R0,R0,#0x2
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    244            
+    245          #if (UCOS_II > 0u)
+    246            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    247          #endif
+    248          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    249          
+
+   \                                 In section .text, align 2, keep-with-next
+    250          void DMA2_IRQHandler(void)
+    251          {
+   \                     DMA2_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    252          #if (UCOS_II > 0u)
+    253            OS_CPU_SR  cpu_sr = 0u;
+    254            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    255            OSIntEnter();
+    256            OS_EXIT_CRITICAL();
+    257          #endif  
+    258            
+    259            //调用用户自定义中断服务
+    260            DMA_ISR[2]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6880             LDR      R0,[R0, #+8]
+   \   00000006   0x4780             BLX      R0
+    261            //清除中断标志位
+    262            DMA0->INT |= 0x1u<<2;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0004      ORRS     R0,R0,#0x4
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    263            
+    264          #if (UCOS_II > 0u)
+    265            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    266          #endif
+    267          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    268          
+
+   \                                 In section .text, align 2, keep-with-next
+    269          void DMA3_IRQHandler(void)
+    270          {
+   \                     DMA3_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    271          #if (UCOS_II > 0u)
+    272            OS_CPU_SR  cpu_sr = 0u;
+    273            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    274            OSIntEnter();
+    275            OS_EXIT_CRITICAL();
+    276          #endif  
+    277            
+    278            //调用用户自定义中断服务
+    279            DMA_ISR[3]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x68C0             LDR      R0,[R0, #+12]
+   \   00000006   0x4780             BLX      R0
+    280            //清除中断标志位
+    281            DMA0->INT |= 0x1u<<3;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0008      ORRS     R0,R0,#0x8
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    282            
+    283          #if (UCOS_II > 0u)
+    284            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    285          #endif
+    286          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    287          
+
+   \                                 In section .text, align 2, keep-with-next
+    288          void DMA4_IRQHandler(void)
+    289          {
+   \                     DMA4_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    290          #if (UCOS_II > 0u)
+    291            OS_CPU_SR  cpu_sr = 0u;
+    292            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    293            OSIntEnter();
+    294            OS_EXIT_CRITICAL();
+    295          #endif  
+    296            
+    297            //调用用户自定义中断服务
+    298            DMA_ISR[4]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6900             LDR      R0,[R0, #+16]
+   \   00000006   0x4780             BLX      R0
+    299            //清除中断标志位
+    300            DMA0->INT |= 0x1u<<4;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0010      ORRS     R0,R0,#0x10
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    301            
+    302          #if (UCOS_II > 0u)
+    303            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    304          #endif
+    305          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    306          
+
+   \                                 In section .text, align 2, keep-with-next
+    307          void DMA5_IRQHandler(void)
+    308          {
+   \                     DMA5_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    309          #if (UCOS_II > 0u)
+    310            OS_CPU_SR  cpu_sr = 0u;
+    311            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    312            OSIntEnter();
+    313            OS_EXIT_CRITICAL();
+    314          #endif  
+    315            
+    316            //调用用户自定义中断服务
+    317            DMA_ISR[5]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6940             LDR      R0,[R0, #+20]
+   \   00000006   0x4780             BLX      R0
+    318            //清除中断标志位
+    319            DMA0->INT |= 0x1u<<5;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0020      ORRS     R0,R0,#0x20
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    320            
+    321          #if (UCOS_II > 0u)
+    322            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    323          #endif
+    324          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    325          
+
+   \                                 In section .text, align 2, keep-with-next
+    326          void DMA6_IRQHandler(void)
+    327          {
+   \                     DMA6_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    328          #if (UCOS_II > 0u)
+    329            OS_CPU_SR  cpu_sr = 0u;
+    330            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    331            OSIntEnter();
+    332            OS_EXIT_CRITICAL();
+    333          #endif  
+    334            
+    335            //调用用户自定义中断服务
+    336            DMA_ISR[6]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6980             LDR      R0,[R0, #+24]
+   \   00000006   0x4780             BLX      R0
+    337            //清除中断标志位
+    338            DMA0->INT |= 0x1u<<6;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0040      ORRS     R0,R0,#0x40
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    339            
+    340          #if (UCOS_II > 0u)
+    341            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    342          #endif
+    343          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    344          
+
+   \                                 In section .text, align 2, keep-with-next
+    345          void DMA7_IRQHandler(void)
+    346          {
+   \                     DMA7_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    347          #if (UCOS_II > 0u)
+    348            OS_CPU_SR  cpu_sr = 0u;
+    349            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    350            OSIntEnter();
+    351            OS_EXIT_CRITICAL();
+    352          #endif  
+    353            
+    354            //调用用户自定义中断服务
+    355            DMA_ISR[7]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x69C0             LDR      R0,[R0, #+28]
+   \   00000006   0x4780             BLX      R0
+    356            //清除中断标志位
+    357            DMA0->INT |= 0x1u<<7;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0080      ORRS     R0,R0,#0x80
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    358            
+    359          #if (UCOS_II > 0u)
+    360            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    361          #endif
+    362          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    363          
+
+   \                                 In section .text, align 2, keep-with-next
+    364          void DMA8_IRQHandler(void)
+    365          {
+   \                     DMA8_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    366          #if (UCOS_II > 0u)
+    367            OS_CPU_SR  cpu_sr = 0u;
+    368            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    369            OSIntEnter();
+    370            OS_EXIT_CRITICAL();
+    371          #endif  
+    372            
+    373            //调用用户自定义中断服务
+    374            DMA_ISR[8]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6A00             LDR      R0,[R0, #+32]
+   \   00000006   0x4780             BLX      R0
+    375            //清除中断标志位
+    376            DMA0->INT |= 0x1u<<8;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x7080      ORRS     R0,R0,#0x100
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    377            
+    378          #if (UCOS_II > 0u)
+    379            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    380          #endif
+    381          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    382          
+
+   \                                 In section .text, align 2, keep-with-next
+    383          void DMA9_IRQHandler(void)
+    384          {
+   \                     DMA9_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    385          #if (UCOS_II > 0u)
+    386            OS_CPU_SR  cpu_sr = 0u;
+    387            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    388            OSIntEnter();
+    389            OS_EXIT_CRITICAL();
+    390          #endif  
+    391            
+    392            //调用用户自定义中断服务
+    393            DMA_ISR[9]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6A40             LDR      R0,[R0, #+36]
+   \   00000006   0x4780             BLX      R0
+    394            //清除中断标志位
+    395            DMA0->INT |= 0x1u<<9;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x7000      ORRS     R0,R0,#0x200
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    396            
+    397          #if (UCOS_II > 0u)
+    398            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    399          #endif
+    400          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    401          
+
+   \                                 In section .text, align 2, keep-with-next
+    402          void DMA10_IRQHandler(void)
+    403          {
+   \                     DMA10_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    404          #if (UCOS_II > 0u)
+    405            OS_CPU_SR  cpu_sr = 0u;
+    406            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    407            OSIntEnter();
+    408            OS_EXIT_CRITICAL();
+    409          #endif  
+    410            
+    411            //调用用户自定义中断服务
+    412            DMA_ISR[10]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6A80             LDR      R0,[R0, #+40]
+   \   00000006   0x4780             BLX      R0
+    413            //清除中断标志位
+    414            DMA0->INT |= 0x1u<10;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF050 0x0001      ORRS     R0,R0,#0x1
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    415            
+    416          #if (UCOS_II > 0u)
+    417            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    418          #endif
+    419          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    420          
+
+   \                                 In section .text, align 2, keep-with-next
+    421          void DMA11_IRQHandler(void)
+    422          {
+   \                     DMA11_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    423          #if (UCOS_II > 0u)
+    424            OS_CPU_SR  cpu_sr = 0u;
+    425            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    426            OSIntEnter();
+    427            OS_EXIT_CRITICAL();
+    428          #endif  
+    429            
+    430            //调用用户自定义中断服务
+    431            DMA_ISR[11]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6AC0             LDR      R0,[R0, #+44]
+   \   00000006   0x4780             BLX      R0
+    432            //清除中断标志位
+    433            DMA0->INT |= 0x1u<<11;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x6000      ORRS     R0,R0,#0x800
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    434            
+    435          #if (UCOS_II > 0u)
+    436            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    437          #endif
+    438          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    439          
+
+   \                                 In section .text, align 2, keep-with-next
+    440          void DMA12_IRQHandler(void)
+    441          {
+   \                     DMA12_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    442          #if (UCOS_II > 0u)
+    443            OS_CPU_SR  cpu_sr = 0u;
+    444            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    445            OSIntEnter();
+    446            OS_EXIT_CRITICAL();
+    447          #endif  
+    448            
+    449            //调用用户自定义中断服务
+    450            DMA_ISR[12]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6B00             LDR      R0,[R0, #+48]
+   \   00000006   0x4780             BLX      R0
+    451            //清除中断标志位
+    452            DMA0->INT |= 0x1u<<12;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x5080      ORRS     R0,R0,#0x1000
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    453            
+    454          #if (UCOS_II > 0u)
+    455            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    456          #endif
+    457          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    458          
+
+   \                                 In section .text, align 2, keep-with-next
+    459          void DMA13_IRQHandler(void)
+    460          {
+   \                     DMA13_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    461          #if (UCOS_II > 0u)
+    462            OS_CPU_SR  cpu_sr = 0u;
+    463            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    464            OSIntEnter();
+    465            OS_EXIT_CRITICAL();
+    466          #endif  
+    467            
+    468            //调用用户自定义中断服务
+    469            DMA_ISR[13]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6B40             LDR      R0,[R0, #+52]
+   \   00000006   0x4780             BLX      R0
+    470            //清除中断标志位
+    471            DMA0->INT |= 0x1u<<13;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x5000      ORRS     R0,R0,#0x2000
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    472            
+    473          #if (UCOS_II > 0u)
+    474            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    475          #endif
+    476          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    477          
+
+   \                                 In section .text, align 2, keep-with-next
+    478          void DMA14_IRQHandler(void)
+    479          {
+   \                     DMA14_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    480          #if (UCOS_II > 0u)
+    481            OS_CPU_SR  cpu_sr = 0u;
+    482            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    483            OSIntEnter();
+    484            OS_EXIT_CRITICAL();
+    485          #endif  
+    486            
+    487            //调用用户自定义中断服务
+    488            DMA_ISR[14]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6B80             LDR      R0,[R0, #+56]
+   \   00000006   0x4780             BLX      R0
+    489            //清除中断标志位
+    490            DMA0->INT |= 0x1u<<14;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x4080      ORRS     R0,R0,#0x4000
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    491            
+    492          #if (UCOS_II > 0u)
+    493            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    494          #endif
+    495          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+    496          
+
+   \                                 In section .text, align 2, keep-with-next
+    497          void DMA15_IRQHandler(void)
+    498          {
+   \                     DMA15_IRQHandler: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+    499          #if (UCOS_II > 0u)
+    500            OS_CPU_SR  cpu_sr = 0u;
+    501            OS_ENTER_CRITICAL(); //告知系统此时已经进入了中断服务子函数
+    502            OSIntEnter();
+    503            OS_EXIT_CRITICAL();
+    504          #endif  
+    505            
+    506            //调用用户自定义中断服务
+    507            DMA_ISR[15]();
+   \   00000002   0x....             LDR.N    R0,??DataTable18_8
+   \   00000004   0x6BC0             LDR      R0,[R0, #+60]
+   \   00000006   0x4780             BLX      R0
+    508            //清除中断标志位
+    509            DMA0->INT |= 0x1u<<15;
+   \   00000008   0x....             LDR.N    R0,??DataTable18_9  ;; 0x40008024
+   \   0000000A   0x6800             LDR      R0,[R0, #+0]
+   \   0000000C   0xF450 0x4000      ORRS     R0,R0,#0x8000
+   \   00000010   0x....             LDR.N    R1,??DataTable18_9  ;; 0x40008024
+   \   00000012   0x6008             STR      R0,[R1, #+0]
+    510            
+    511          #if (UCOS_II > 0u)
+    512            OSIntExit();          //告知系统此时即将离开中断服务子函数
+    513          #endif
+    514          }
+   \   00000014   0xBD01             POP      {R0,PC}          ;; return
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18:
+   \   00000000   0xE000E100         DC32     0xe000e100
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_1:
+   \   00000000   0xE000E180         DC32     0xe000e180
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_2:
+   \   00000000   0x........         DC32     ?_0
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_3:
+   \   00000000   0x4004803C         DC32     0x4004803c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_4:
+   \   00000000   0x40048040         DC32     0x40048040
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_5:
+   \   00000000   0x4000800C         DC32     0x4000800c
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_6:
+   \   00000000   0x40021000         DC32     0x40021000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_7:
+   \   00000000   0x40009000         DC32     0x40009000
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_8:
+   \   00000000   0x........         DC32     DMA_ISR
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable18_9:
+   \   00000000   0x40008024         DC32     0x40008024
+
+   \                                 In section .rodata, align 4
+   \                     ?_0:
+   \   00000000   0x44 0x3A          DC8 "D:\\2019.IAR\\lib\\LPLD\\HW\\HW_DMA.c"
+   \              0x5C 0x32    
+   \              0x30 0x31    
+   \              0x39 0x2E    
+   \              0x49 0x41    
+   \              0x52 0x5C    
+   \              0x6C 0x69    
+   \              0x62 0x5C    
+   \              0x4C 0x50    
+   \              0x4C 0x44    
+   \              0x5C 0x48    
+   \              0x57 0x5C    
+   \              0x48 0x57    
+   \              0x5F 0x44    
+   \              0x4D 0x41    
+   \              0x2E 0x63    
+   \              0x00         
+   \   00000021   0x00 0x00          DC8 0, 0, 0
+   \              0x00         
+    515          
+    516          
+    517          
+    518          
+    519          
+    520          
+    521          
+    522          
+    523          
+    524          
+    525          
+    526          
+    527          
+    528          
+    529          
+    530          
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+       8   DMA0_IRQHandler
+         8   -- Indirect call
+       8   DMA10_IRQHandler
+         8   -- Indirect call
+       8   DMA11_IRQHandler
+         8   -- Indirect call
+       8   DMA12_IRQHandler
+         8   -- Indirect call
+       8   DMA13_IRQHandler
+         8   -- Indirect call
+       8   DMA14_IRQHandler
+         8   -- Indirect call
+       8   DMA15_IRQHandler
+         8   -- Indirect call
+       8   DMA1_IRQHandler
+         8   -- Indirect call
+       8   DMA2_IRQHandler
+         8   -- Indirect call
+       8   DMA3_IRQHandler
+         8   -- Indirect call
+       8   DMA4_IRQHandler
+         8   -- Indirect call
+       8   DMA5_IRQHandler
+         8   -- Indirect call
+       8   DMA6_IRQHandler
+         8   -- Indirect call
+       8   DMA7_IRQHandler
+         8   -- Indirect call
+       8   DMA8_IRQHandler
+         8   -- Indirect call
+       8   DMA9_IRQHandler
+         8   -- Indirect call
+      24   LPLD_DMA_DisableIrq
+        24   -> NVIC_DisableIRQ
+      24   LPLD_DMA_EnableIrq
+        24   -> NVIC_EnableIRQ
+      72   LPLD_DMA_Init
+        72   -> assert_failed
+      16   LPLD_DMA_SoftwareStartService
+       0   NVIC_DisableIRQ
+       0   NVIC_EnableIRQ
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable18
+       4  ??DataTable18_1
+       4  ??DataTable18_2
+       4  ??DataTable18_3
+       4  ??DataTable18_4
+       4  ??DataTable18_5
+       4  ??DataTable18_6
+       4  ??DataTable18_7
+       4  ??DataTable18_8
+       4  ??DataTable18_9
+      36  ?_0
+      22  DMA0_IRQHandler
+      22  DMA10_IRQHandler
+      22  DMA11_IRQHandler
+      22  DMA12_IRQHandler
+      22  DMA13_IRQHandler
+      22  DMA14_IRQHandler
+      22  DMA15_IRQHandler
+      22  DMA1_IRQHandler
+      22  DMA2_IRQHandler
+      22  DMA3_IRQHandler
+      22  DMA4_IRQHandler
+      22  DMA5_IRQHandler
+      22  DMA6_IRQHandler
+      22  DMA7_IRQHandler
+      22  DMA8_IRQHandler
+      22  DMA9_IRQHandler
+      64  DMA_ISR
+      22  LPLD_DMA_DisableIrq
+      22  LPLD_DMA_EnableIrq
+     770  LPLD_DMA_Init
+      42  LPLD_DMA_SoftwareStartService
+      22  NVIC_DisableIRQ
+      22  NVIC_EnableIRQ
+
+ 
+    64 bytes in section .bss
+    36 bytes in section .rodata
+ 1 292 bytes in section .text
+ 
+ 1 292 bytes of CODE  memory
+    36 bytes of CONST memory
+    64 bytes of DATA  memory
+
+Errors: none
+Warnings: none

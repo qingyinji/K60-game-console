@@ -1,0 +1,895 @@
+###############################################################################
+#
+# IAR ELF Linker V7.20.5.7591/W32 for ARM                 14/May/2019  19:13:51
+# Copyright 2007-2014 IAR Systems AB.
+#
+#    Output file  =  
+#        D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Exe\LPLD_FatFs_K60.out
+#    Map file     =  
+#        D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\LPLD_FatFs_K60.map
+#    Command line =  
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\alloc.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\assert.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\cc936.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\DEV_LCD.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\diskio.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\ff.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\huatu.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_ADC.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_CAN.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_DAC.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_DMA.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_ENET.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_FLASH.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_FLEXBUS.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_FTM.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_GPIO.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_I2C.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_LPTMR.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_MCG.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_PDB.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_PIT.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_RTC.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_SDHC.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_SPI.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_TSI.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_UART.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\HW_WDOG.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\io.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\jianmian.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\LPLD_FatFs.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\LQ12864.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\printf.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\queue.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\relocate.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\saolei.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\startup_K60.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\stdlib.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\syscall.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\system_MK60DZ10.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\tuixiangzi.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\uif.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\wuziqi.o"
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\yingjian.o" --redirect
+#        _Printf=_PrintfFull --redirect _Scanf=_ScanfFull -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Exe\LPLD_FatFs_K60.out"
+#        --map "D:\2019.IAR\project\001-My
+#        NaoKe\iar\FLASH\List\LPLD_FatFs_K60.map" --config
+#        "D:\2019.IAR\project\001-My
+#        NaoKe\iar\..\..\..\lib\iar_config_files\LPLD_K60DN512_FLASH.icf"
+#        --semihosting --entry __iar_program_start "D:\Embedded Workbench
+#        7.0\arm\CMSIS\Lib\IAR\iar_cortexM4l_math.a" --merge_duplicate_sections
+#        --vfe
+#
+###############################################################################
+
+*******************************************************************************
+*** RUNTIME MODEL ATTRIBUTES
+***
+
+CppFlavor       = *
+__SystemLibrary = DLib
+
+
+*******************************************************************************
+*** PLACEMENT SUMMARY
+***
+
+"A1":  place at 0x00000000 { ro section .intvec };
+"A2":  place at 0x00000410 { ro section .noinit };
+"P1":  place in [from 0x00000000 to 0x00080000] { ro, block CodeRelocate };
+"P2":  place in [from 0x1fff0410 to 0x20010000] {
+          rw, block CodeRelocateRam, block CSTACK, block HEAP };
+
+  Section              Kind        Address     Size  Object
+  -------              ----        -------     ----  ------
+"A1":                                         0x400
+  .intvec              ro code  0x00000000    0x400  startup_K60.o [1]
+                              - 0x00000400    0x400
+
+"P1", part 1 of 2:                              0x0
+  .rodata              const    0x00000400      0x0  zero_init3.o [5]
+
+"A2":                                          0x14
+  .noinit              ro code  0x00000410     0x10  startup_K60.o [1]
+  .noinit              ro code  0x00000420      0x4  startup_K60.o [1]
+                              - 0x00000424     0x14
+
+"P1", part 2 of 2:                          0x3650c
+  .rodata              const    0x00000424  0x15484  cc936.o [1]
+  .rodata              const    0x000158a8  0x15484  cc936.o [1]
+  .text                ro code  0x0002ad2c   0x1bb6  ff.o [1]
+  .text                ro code  0x0002c8e2     0x22  zero_init3.o [5]
+  .text                ro code  0x0002c904     0xbc  diskio.o [1]
+  .text                ro code  0x0002c9c0     0xa4  cc936.o [1]
+  .text                ro code  0x0002ca64     0x10  syscall.o [1]
+  .text                ro code  0x0002ca74    0x6fc  LPLD_FatFs.o [1]
+  .text                ro code  0x0002d170    0xf78  HW_SDHC.o [1]
+  .text                ro code  0x0002e0e8     0xe4  alloc.o [1]
+  .text                ro code  0x0002e1cc    0x7c0  yingjian.o [1]
+  .text                ro code  0x0002e98c    0x824  LQ12864.o [1]
+  .text                ro code  0x0002f1b0    0x438  jianmian.o [1]
+  .text                ro code  0x0002f5e8    0xd40  tuixiangzi.o [1]
+  .text                ro code  0x00030328    0xc08  saolei.o [1]
+  .text                ro code  0x00030f30    0x3c8  wuziqi.o [1]
+  .text                ro code  0x000312f8     0x76  ABImemcpy_unaligned.o [5]
+  .rodata              const    0x0003136e      0x2  tuixiangzi.o [1]
+  .text                ro code  0x00031370    0x478  HW_ADC.o [1]
+  .text                ro code  0x000317e8    0x930  HW_FTM.o [1]
+  .text                ro code  0x00032118    0x204  HW_GPIO.o [1]
+  .text                ro code  0x0003231c    0x174  HW_PIT.o [1]
+  .text                ro code  0x00032490     0x3a  stdlib.o [1]
+  .text                ro code  0x000324cc    0x6c8  huatu.o [1]
+  .text                ro code  0x00032b94    0x50a  printf.o [1]
+  .text                ro code  0x000330a0     0x14  assert.o [1]
+  .rodata              const    0x000330b4    0x930  LQ12864.o [1]
+  .rodata              const    0x000339e4    0x5f0  LQ12864.o [1]
+  .text                ro code  0x00033fd4    0x508  HW_UART.o [1]
+  .rodata              const    0x000344dc    0x400  LQ12864.o [1]
+  .rodata              const    0x000348dc    0x400  LQ12864.o [1]
+  .rodata              const    0x00034cdc    0x280  LQ12864.o [1]
+  .rodata              const    0x00034f5c    0x228  LQ12864.o [1]
+  .text                ro code  0x00035184    0x218  HW_SPI.o [1]
+  .rodata              const    0x0003539c    0x1e0  cc936.o [1]
+  .rodata              const    0x0003557c    0x1e0  cc936.o [1]
+  .data_init                    0x0003575c    0x1e0  <Block>
+    Initializer bytes  ro data  0x0003575c    0x1e0  <for .data-1>
+  .text                ro code  0x0003593c    0x1ba  HW_CAN.o [1]
+  .text                ro code  0x00035af8    0x19c  system_MK60DZ10.o [1]
+  .text                ro code  0x00035c94     0xa0  relocate.o [1]
+  Veneer               ro code  0x00035d34      0x8  - Linker created -
+  .text                ro code  0x00035d3c    0x198  HW_MCG.o [1]
+  .text                ro code  0x00035ed4    0x168  HW_DMA.o [1]
+  .text                ro code  0x0003603c     0xf4  HW_DAC.o [1]
+  .text                ro code  0x00036130     0xcc  HW_I2C.o [1]
+  .text                ro code  0x000361fc     0x80  HW_ENET.o [1]
+  .text                ro code  0x0003627c     0x80  HW_PDB.o [1]
+  .text                ro code  0x000362fc     0x70  HW_TSI.o [1]
+  .text                ro code  0x0003636c     0x60  HW_RTC.o [1]
+  .rodata              const    0x000363cc     0x5c  LQ12864.o [1]
+  CodeRelocate                  0x00036428     0x4c  <Block>
+    Initializer bytes  ro data  0x00036428     0x4c  <for CodeRelocateRam-1>
+  .rodata              const    0x00036474     0x48  system_MK60DZ10.o [1]
+  .rodata              const    0x000364bc     0x44  system_MK60DZ10.o [1]
+  .rodata              const    0x00036500     0x44  system_MK60DZ10.o [1]
+  .rodata              const    0x00036544     0x30  assert.o [1]
+  .rodata              const    0x00036574     0x30  LQ12864.o [1]
+  .rodata              const    0x000365a4     0x30  system_MK60DZ10.o [1]
+  .rodata              const    0x000365d4     0x30  system_MK60DZ10.o [1]
+  .text                ro code  0x00036604     0x28  data_init.o [5]
+  .rodata              const    0x0003662c     0x24  HW_ADC.o [1]
+  .rodata              const    0x00036650     0x24  HW_FTM.o [1]
+  .rodata              const    0x00036674     0x24  HW_GPIO.o [1]
+  .rodata              const    0x00036698     0x24  HW_PIT.o [1]
+  .rodata              const    0x000366bc     0x24  system_MK60DZ10.o [1]
+  .rodata              const    0x000366e0     0x24  system_MK60DZ10.o [1]
+  .iar.init_table      const    0x00036704     0x10  - Linker created -
+  .rodata              const    0x00036714     0x20  system_MK60DZ10.o [1]
+  .text                ro code  0x00036734     0x20  HW_LPTMR.o [1]
+  .text                ro code  0x00036754     0x1a  cmain.o [5]
+  .text                ro code  0x0003676e      0x4  low_level_init.o [3]
+  .text                ro code  0x00036772      0x4  exit.o [3]
+  .text                ro code  0x00036778      0xa  cexit.o [5]
+  .text                ro code  0x00036784     0x14  exit.o [6]
+  .rodata              const    0x00036798     0x18  LPLD_FatFs.o [1]
+  .rodata              const    0x000367b0     0x14  LPLD_FatFs.o [1]
+  .text                ro code  0x000367c4     0x14  io.o [1]
+  .rodata              const    0x000367d8     0x10  ff.o [1]
+  .rodata              const    0x000367e8     0x10  LPLD_FatFs.o [1]
+  .rodata              const    0x000367f8     0x10  saolei.o [1]
+  .rodata              const    0x00036808     0x10  saolei.o [1]
+  .rodata              const    0x00036818      0xc  ff.o [1]
+  .rodata              const    0x00036824      0xc  jianmian.o [1]
+  .rodata              const    0x00036830      0xc  LPLD_FatFs.o [1]
+  .rodata              const    0x0003683c      0xc  LPLD_FatFs.o [1]
+  .rodata              const    0x00036848      0xc  LPLD_FatFs.o [1]
+  .rodata              const    0x00036854      0xc  LPLD_FatFs.o [1]
+  .rodata              const    0x00036860      0xc  saolei.o [1]
+  .rodata              const    0x0003686c      0xc  saolei.o [1]
+  .text                ro code  0x00036878      0xc  cstartup_M.o [5]
+  .rodata              const    0x00036884      0x8  ff.o [1]
+  .rodata              const    0x0003688c      0x8  jianmian.o [1]
+  .rodata              const    0x00036894      0x8  jianmian.o [1]
+  .rodata              const    0x0003689c      0x8  LPLD_FatFs.o [1]
+  .rodata              const    0x000368a4      0x8  LQ12864.o [1]
+  .rodata              const    0x000368ac      0x8  LQ12864.o [1]
+  .rodata              const    0x000368b4      0x8  LQ12864.o [1]
+  .rodata              const    0x000368bc      0x8  LQ12864.o [1]
+  .rodata              const    0x000368c4      0x8  LQ12864.o [1]
+  .rodata              const    0x000368cc      0x8  saolei.o [1]
+  .rodata              const    0x000368d4      0x8  system_MK60DZ10.o [1]
+  .rodata              const    0x000368dc      0x8  tuixiangzi.o [1]
+  .rodata              const    0x000368e4      0x8  tuixiangzi.o [1]
+  .rodata              const    0x000368ec      0x8  tuixiangzi.o [1]
+  .rodata              const    0x000368f4      0x8  tuixiangzi.o [1]
+  .rodata              const    0x000368fc      0x8  tuixiangzi.o [1]
+  .rodata              const    0x00036904      0x8  tuixiangzi.o [1]
+  .rodata              const    0x0003690c      0x8  tuixiangzi.o [1]
+  .rodata              const    0x00036914      0x8  wuziqi.o [1]
+  .rodata              const    0x0003691c      0x8  wuziqi.o [1]
+  .rodata              const    0x00036924      0x8  wuziqi.o [1]
+  .rodata              const    0x0003692c      0x4  LQ12864.o [1]
+                              - 0x00036930  0x3650c
+
+"P2":                                        0x2530
+  .data                         0x1fff0410    0x1e0  <Block>
+    .data-1                     0x1fff0410    0x1e0  <Init block>
+      .data            inited   0x1fff0410     0x10  huatu.o [1]
+      .data            inited   0x1fff0420      0x2  huatu.o [1]
+      .data            inited   0x1fff0422      0x2  huatu.o [1]
+      .data            inited   0x1fff0424      0x2  huatu.o [1]
+      .data            inited   0x1fff0428      0x4  HW_MCG.o [1]
+      .data            inited   0x1fff042c      0x4  HW_MCG.o [1]
+      .data            inited   0x1fff0430      0x4  HW_MCG.o [1]
+      .data            inited   0x1fff0434      0x4  HW_MCG.o [1]
+      .data            inited   0x1fff0438      0x1  jianmian.o [1]
+      .data            inited   0x1fff043a      0x2  LPLD_FatFs.o [1]
+      .data            inited   0x1fff043c      0x1  LPLD_FatFs.o [1]
+      .data            inited   0x1fff043e      0x2  LPLD_FatFs.o [1]
+      .data            inited   0x1fff0440      0x2  LPLD_FatFs.o [1]
+      .data            inited   0x1fff0442      0x2  saolei.o [1]
+      .data            inited   0x1fff0444      0x2  saolei.o [1]
+      .data            inited   0x1fff0446      0x2  saolei.o [1]
+      .data            inited   0x1fff0448      0x2  saolei.o [1]
+      .data            inited   0x1fff044c      0x4  system_MK60DZ10.o [1]
+      .data            inited   0x1fff0450     0x10  tuixiangzi.o [1]
+      .data            inited   0x1fff0460     0x80  tuixiangzi.o [1]
+      .data            inited   0x1fff04e0     0x80  tuixiangzi.o [1]
+      .data            inited   0x1fff0560     0x80  tuixiangzi.o [1]
+      .data            inited   0x1fff05e0      0x2  tuixiangzi.o [1]
+      .data            inited   0x1fff05e2      0x1  wuziqi.o [1]
+      .data            inited   0x1fff05e4      0xc  yingjian.o [1]
+  CodeRelocateRam               0x1fff05f0     0x4c  <Block>
+    CodeRelocateRam-1           0x1fff05f0     0x4c  <Init block>
+      .textrw          inited   0x1fff05f0     0x4c  HW_MCG.o [1]
+  .bss                          0x1fff063c   0x1100  <Block>
+    .bss               zero     0x1fff063c     0x10  alloc.o [1]
+    .bss               zero     0x1fff064c      0x4  alloc.o [1]
+    .bss               zero     0x1fff0650      0x4  ff.o [1]
+    .bss               zero     0x1fff0654     0x60  ff.o [1]
+    .bss               zero     0x1fff06b4     0x80  huatu.o [1]
+    .bss               zero     0x1fff0734      0x8  HW_ADC.o [1]
+    .bss               zero     0x1fff073c    0x100  HW_CAN.o [1]
+    .bss               zero     0x1fff083c     0x40  HW_CAN.o [1]
+    .bss               zero     0x1fff087c     0x40  HW_CAN.o [1]
+    .bss               zero     0x1fff08bc      0x8  HW_DAC.o [1]
+    .bss               zero     0x1fff08c4      0x8  HW_DAC.o [1]
+    .bss               zero     0x1fff08cc      0x8  HW_DAC.o [1]
+    .bss               zero     0x1fff08d4     0x40  HW_DMA.o [1]
+    .bss               zero     0x1fff0914     0x10  HW_ENET.o [1]
+    .bss               zero     0x1fff0924      0xc  HW_FTM.o [1]
+    .bss               zero     0x1fff0930     0x14  HW_GPIO.o [1]
+    .bss               zero     0x1fff0944      0x8  HW_I2C.o [1]
+    .bss               zero     0x1fff094c      0x4  HW_LPTMR.o [1]
+    .bss               zero     0x1fff0950      0x4  HW_PDB.o [1]
+    .bss               zero     0x1fff0954      0x4  HW_PDB.o [1]
+    .bss               zero     0x1fff0958     0x10  HW_PIT.o [1]
+    .bss               zero     0x1fff0968      0xc  HW_RTC.o [1]
+    .bss               zero     0x1fff0974      0x4  HW_SDHC.o [1]
+    .bss               zero     0x1fff0978     0x18  HW_SPI.o [1]
+    .bss               zero     0x1fff0990     0x18  HW_SPI.o [1]
+    .bss               zero     0x1fff09a8     0x18  HW_SPI.o [1]
+    .bss               zero     0x1fff09c0      0x8  HW_TSI.o [1]
+    .bss               zero     0x1fff09c8     0x18  HW_UART.o [1]
+    .bss               zero     0x1fff09e0     0x18  HW_UART.o [1]
+    .bss               zero     0x1fff09f8    0x238  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff0c30      0x4  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff0c34    0x22c  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff0e60      0x4  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff0e64    0x2b0  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1114    0x390  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff14a4     0x40  LQ12864.o [1]
+    .bss               zero     0x1fff14e4     0x40  saolei.o [1]
+    .bss               zero     0x1fff1524     0x40  saolei.o [1]
+    .bss               zero     0x1fff1564      0x8  saolei.o [1]
+    .bss               zero     0x1fff156c      0x8  tuixiangzi.o [1]
+    .bss               zero     0x1fff1574      0x8  tuixiangzi.o [1]
+    .bss               zero     0x1fff157c     0x80  tuixiangzi.o [1]
+    .bss               zero     0x1fff15fc     0x80  tuixiangzi.o [1]
+    .bss               zero     0x1fff167c     0x14  yingjian.o [1]
+    .bss               zero     0x1fff1690     0x14  yingjian.o [1]
+    .bss               zero     0x1fff16a4     0x14  yingjian.o [1]
+    .bss               zero     0x1fff16b8     0x14  yingjian.o [1]
+    .bss               zero     0x1fff16cc     0x1c  yingjian.o [1]
+    .bss               zero     0x1fff16e8      0x2  ff.o [1]
+    .bss               zero     0x1fff16ea      0x2  huatu.o [1]
+    .bss               zero     0x1fff16ec      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16ee      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16f0      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16f2      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16f4      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16f6      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16f8      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16fa      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16fc      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff16fe      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1700      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1702      0x2  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1704      0x2  saolei.o [1]
+    .bss               zero     0x1fff1706      0x2  saolei.o [1]
+    .bss               zero     0x1fff1708      0x2  saolei.o [1]
+    .bss               zero     0x1fff170a      0x2  saolei.o [1]
+    .bss               zero     0x1fff170c      0x2  saolei.o [1]
+    .bss               zero     0x1fff170e      0x2  saolei.o [1]
+    .bss               zero     0x1fff1710      0x2  saolei.o [1]
+    .bss               zero     0x1fff1712      0x2  saolei.o [1]
+    .bss               zero     0x1fff1714      0x2  saolei.o [1]
+    .bss               zero     0x1fff1716      0x2  saolei.o [1]
+    .bss               zero     0x1fff1718      0x2  saolei.o [1]
+    .bss               zero     0x1fff171a      0x2  saolei.o [1]
+    .bss               zero     0x1fff171c      0x2  saolei.o [1]
+    .bss               zero     0x1fff171e      0x2  saolei.o [1]
+    .bss               zero     0x1fff1720      0x2  saolei.o [1]
+    .bss               zero     0x1fff1722      0x2  saolei.o [1]
+    .bss               zero     0x1fff1724      0x2  saolei.o [1]
+    .bss               zero     0x1fff1726      0x2  saolei.o [1]
+    .bss               zero     0x1fff1728      0x2  saolei.o [1]
+    .bss               zero     0x1fff172a      0x2  tuixiangzi.o [1]
+    .bss               zero     0x1fff172c      0x2  tuixiangzi.o [1]
+    .bss               zero     0x1fff172e      0x2  tuixiangzi.o [1]
+    .bss               zero     0x1fff1730      0x2  tuixiangzi.o [1]
+    .bss               zero     0x1fff1732      0x2  yingjian.o [1]
+    .bss               zero     0x1fff1734      0x1  ff.o [1]
+    .bss               zero     0x1fff1735      0x1  jianmian.o [1]
+    .bss               zero     0x1fff1736      0x1  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1737      0x1  LPLD_FatFs.o [1]
+    .bss               zero     0x1fff1738      0x1  LQ12864.o [1]
+    .bss               zero     0x1fff1739      0x1  LQ12864.o [1]
+    .bss               zero     0x1fff173a      0x1  wuziqi.o [1]
+  CSTACK                        0x1fff1740   0x1000  <Block>
+    CSTACK             uninit   0x1fff1740   0x1000  <Block tail>
+  HEAP                          0x1fff2740    0x200  <Block>
+    HEAP               uninit   0x1fff2740    0x200  <Block tail>
+                              - 0x1fff2940   0x2530
+
+
+*******************************************************************************
+*** INIT TABLE
+***
+
+          Address     Size
+          -------     ----
+Zero (__iar_zero_init3)
+    1 destination range, total size 0x10ff:
+          0x1fff063c  0x10ff
+
+
+
+*******************************************************************************
+*** MODULE SUMMARY
+***
+
+    Module                 ro code  rw code  ro data  rw data
+    ------                 -------  -------  -------  -------
+D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj: [1]
+    HW_ADC.o                 1 144                36        8
+    HW_CAN.o                   442                        384
+    HW_DAC.o                   244                         24
+    HW_DMA.o                   360                         64
+    HW_ENET.o                  128                         16
+    HW_FTM.o                 2 352                36       12
+    HW_GPIO.o                  516                36       20
+    HW_I2C.o                   204                          8
+    HW_LPTMR.o                  32                          4
+    HW_MCG.o                   408       76       94       16
+    HW_PDB.o                   128                          8
+    HW_PIT.o                   372                36       16
+    HW_RTC.o                    96                         12
+    HW_SDHC.o                3 960                          4
+    HW_SPI.o                   536                         72
+    HW_TSI.o                   112                          8
+    HW_UART.o                1 288                         48
+    LPLD_FatFs.o             1 788               125    2 765
+    LQ12864.o                2 084             7 296       66
+    alloc.o                    228                         20
+    assert.o                    20                48
+    cc936.o                    164           175 304
+    diskio.o                   188
+    ff.o                     7 094                36      103
+    huatu.o                  1 736                22      152
+    io.o                        20
+    jianmian.o               1 080                29        2
+    printf.o                 1 290
+    relocate.o                 160
+    saolei.o                 3 080                72      182
+    startup_K60.o            1 044
+    stdlib.o                    58
+    syscall.o                   16
+    system_MK60DZ10.o          412               422        4
+    tuixiangzi.o             3 392               460      682
+    wuziqi.o                   968                25        2
+    yingjian.o               1 984                13      122
+    ---------------------------------------------------------
+    Total:                  39 128       76  184 090    4 824
+
+command line: [2]
+    ---------------------------------------------------------
+    Total:
+
+dl7M_tln.a: [3]
+    exit.o                       4
+    low_level_init.o             4
+    ---------------------------------------------------------
+    Total:                       8
+
+m7M_tl.a: [4]
+    ---------------------------------------------------------
+    Total:
+
+rt7M_tl.a: [5]
+    ABImemcpy_unaligned.o      118
+    cexit.o                     10
+    cmain.o                     26
+    cstartup_M.o                12
+    data_init.o                 40
+    zero_init3.o                34
+    ---------------------------------------------------------
+    Total:                     240
+
+shb_l.a: [6]
+    exit.o                      20
+    ---------------------------------------------------------
+    Total:                      20
+
+    Gaps                        10                          7
+    Linker created               8                16    4 608
+-------------------------------------------------------------
+    Grand Total:            39 414       76  184 106    9 439
+
+
+*******************************************************************************
+*** ENTRY LIST
+***
+
+Entry                      Address     Size  Type      Object
+-----                      -------     ----  ----      ------
+.bss$$Base              0x1fff063c            --   Gb  - Linker created -
+.bss$$Limit             0x1fff173c            --   Gb  - Linker created -
+.data$$Base             0x1fff0410            --   Gb  - Linker created -
+.data$$Limit            0x1fff05f0            --   Gb  - Linker created -
+.data_init$$Base        0x0003575c            --   Gb  - Linker created -
+.data_init$$Limit       0x0003593c            --   Gb  - Linker created -
+?main                   0x00036755           Code  Gb  cmain.o [5]
+ADC0_IRQHandler         0x000317af      0xa  Code  Gb  HW_ADC.o [1]
+ADC1_IRQHandler         0x000317b9      0xa  Code  Gb  HW_ADC.o [1]
+ADC_ISR                 0x1fff0734      0x8  Data  Gb  HW_ADC.o [1]
+ASSERT_FAILED_STR       0x00036544     0x30  Data  Gb  assert.o [1]
+C1                      0x000368ac      0x8  Data  Gb  LQ12864.o [1]
+C2                      0x000368b4      0x8  Data  Gb  LQ12864.o [1]
+CAN0_BUS_OFF_IRQHandler
+                        0x00035abd      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_ERR_IRQHandler     0x00035abf      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_IMEU_IRQHandler    0x00035ac7      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_ISR                0x1fff083c     0x40  Data  Gb  HW_CAN.o [1]
+CAN0_LR_IRQHandler      0x00035ac9      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_MESS_IRQHandler    0x00035ab3      0xa  Code  Gb  HW_CAN.o [1]
+CAN0_RW_IRQHandler      0x00035ac3      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_TW_IRQHandler      0x00035ac1      0x2  Code  Gb  HW_CAN.o [1]
+CAN0_WAKE_UP_IRQHandler
+                        0x00035ac5      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_BUS_OFF_IRQHandler
+                        0x00035ae9      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_ERR_IRQHandler     0x00035aeb      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_IMEU_IRQHandler    0x00035af3      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_ISR                0x1fff087c     0x40  Data  Gb  HW_CAN.o [1]
+CAN1_LR_IRQHandler      0x00035af5      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_MESS_IRQHandler    0x00035acb      0xa  Code  Gb  HW_CAN.o [1]
+CAN1_RW_IRQHandler      0x00035aef      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_TW_IRQHandler      0x00035aed      0x2  Code  Gb  HW_CAN.o [1]
+CAN1_WAKE_UP_IRQHandler
+                        0x00035af1      0x2  Code  Gb  HW_CAN.o [1]
+CB                      0x000344dc    0x400  Data  Gb  LQ12864.o [1]
+CB1                     0x000368a4      0x8  Data  Gb  LQ12864.o [1]
+CSTACK$$Base            0x1fff1740            --   Gb  - Linker created -
+CSTACK$$Limit           0x1fff2740            --   Gb  - Linker created -
+CodeRelocate$$Base      0x00036428            --   Gb  - Linker created -
+CodeRelocate$$Limit     0x00036474            --   Gb  - Linker created -
+CodeRelocateRam$$Base   0x1fff05f0            --   Gb  - Linker created -
+CodeRelocateRam$$Limit  0x1fff063c            --   Gb  - Linker created -
+CurrVol                 0x1fff1734      0x1  Data  Lc  ff.o [1]
+DAC0_IRQHandler         0x0003603d     0x6a  Code  Gb  HW_DAC.o [1]
+DAC1_IRQHandler         0x000360a7     0x6a  Code  Gb  HW_DAC.o [1]
+DAC_RDPTBOT_ISR         0x1fff08bc      0x8  Data  Gb  HW_DAC.o [1]
+DAC_RDPTTOP_ISR         0x1fff08c4      0x8  Data  Gb  HW_DAC.o [1]
+DAC_WATERMK_ISR         0x1fff08cc      0x8  Data  Gb  HW_DAC.o [1]
+DMA0_IRQHandler         0x00035ed5     0x16  Code  Gb  HW_DMA.o [1]
+DMA10_IRQHandler        0x00035fb1     0x16  Code  Gb  HW_DMA.o [1]
+DMA11_IRQHandler        0x00035fc7     0x16  Code  Gb  HW_DMA.o [1]
+DMA12_IRQHandler        0x00035fdd     0x16  Code  Gb  HW_DMA.o [1]
+DMA13_IRQHandler        0x00035ff3     0x16  Code  Gb  HW_DMA.o [1]
+DMA14_IRQHandler        0x00036009     0x16  Code  Gb  HW_DMA.o [1]
+DMA15_IRQHandler        0x0003601f     0x16  Code  Gb  HW_DMA.o [1]
+DMA1_IRQHandler         0x00035eeb     0x16  Code  Gb  HW_DMA.o [1]
+DMA2_IRQHandler         0x00035f01     0x16  Code  Gb  HW_DMA.o [1]
+DMA3_IRQHandler         0x00035f17     0x16  Code  Gb  HW_DMA.o [1]
+DMA4_IRQHandler         0x00035f2d     0x16  Code  Gb  HW_DMA.o [1]
+DMA5_IRQHandler         0x00035f43     0x16  Code  Gb  HW_DMA.o [1]
+DMA6_IRQHandler         0x00035f59     0x16  Code  Gb  HW_DMA.o [1]
+DMA7_IRQHandler         0x00035f6f     0x16  Code  Gb  HW_DMA.o [1]
+DMA8_IRQHandler         0x00035f85     0x16  Code  Gb  HW_DMA.o [1]
+DMA9_IRQHandler         0x00035f9b     0x16  Code  Gb  HW_DMA.o [1]
+DMA_ISR                 0x1fff08d4     0x40  Data  Gb  HW_DMA.o [1]
+DefaultISR              0x00035c1d     0x14  Code  Gb  system_MK60DZ10.o [1]
+E                       0x000368bc      0x8  Data  Gb  LQ12864.o [1]
+ENET_ISR                0x1fff0914     0x10  Data  Gb  HW_ENET.o [1]
+Eth_Err_Misc_IRQHandler
+                        0x0003625f     0x16  Code  Gb  HW_ENET.o [1]
+Eth_IEEE1588_IRQHandler
+                        0x00036249     0x16  Code  Gb  HW_ENET.o [1]
+Eth_RX_IRQHandler       0x000361fd     0x26  Code  Gb  HW_ENET.o [1]
+Eth_TX_IRQHandler       0x00036223     0x26  Code  Gb  HW_ENET.o [1]
+F128x641                0x000348dc    0x400  Data  Gb  LQ12864.o [1]
+F14x16                  0x000330b4    0x930  Data  Gb  LQ12864.o [1]
+F16x8                   0x00036574     0x30  Data  Gb  LQ12864.o [1]
+F6x8                    0x00034f5c    0x228  Data  Gb  LQ12864.o [1]
+F8X16                   0x000339e4    0x5f0  Data  Gb  LQ12864.o [1]
+F8x8                    0x000368c4      0x8  Data  Gb  LQ12864.o [1]
+FTM0_IRQHandler         0x00032081      0xa  Code  Gb  HW_FTM.o [1]
+FTM1_IRQHandler         0x0003208b      0xa  Code  Gb  HW_FTM.o [1]
+FTM2_IRQHandler         0x00032095      0xa  Code  Gb  HW_FTM.o [1]
+FTM_ISR                 0x1fff0924      0xc  Data  Gb  HW_FTM.o [1]
+FatFs                   0x1fff0650      0x4  Data  Lc  ff.o [1]
+Files                   0x1fff0654     0x60  Data  Lc  ff.o [1]
+Fsid                    0x1fff16e8      0x2  Data  Lc  ff.o [1]
+GPIO_ISR                0x1fff0930     0x14  Data  Gb  HW_GPIO.o [1]
+Game                    0x000308e9     0x30  Code  Gb  saolei.o [1]
+HEAP$$Base              0x1fff2740            --   Gb  - Linker created -
+HEAP$$Limit             0x1fff2940            --   Gb  - Linker created -
+HardFault_Handler       0x00035c13      0xa  Code  Gb  system_MK60DZ10.o [1]
+I2C0_IRQHandler         0x00036131     0x5a  Code  Gb  HW_I2C.o [1]
+I2C1_IRQHandler         0x0003618b     0x5a  Code  Gb  HW_I2C.o [1]
+I2C_ISR                 0x1fff0944      0x8  Data  Gb  HW_I2C.o [1]
+LCD_CLS                 0x0002eabd     0x38  Code  Gb  LQ12864.o [1]
+LCD_DLY_ms              0x0002eaf5     0x16  Code  Gb  LQ12864.o [1]
+LCD_Fill                0x0002ea81     0x3c  Code  Gb  LQ12864.o [1]
+LCD_Init                0x0002eb0b     0xe4  Code  Gb  LQ12864.o [1]
+LCD_P128x64Ch1          0x0002ee83     0x3c  Code  Gb  LQ12864.o [1]
+LCD_P14x16Ch            0x0002ed11     0x6a  Code  Gb  LQ12864.o [1]
+LCD_P14x16Ch1           0x0002ed7b     0x6c  Code  Gb  LQ12864.o [1]
+LCD_P16x8Ch             0x0002ede7     0x2e  Code  Gb  LQ12864.o [1]
+LCD_P6x8Str             0x0002ebef     0x7a  Code  Gb  LQ12864.o [1]
+LCD_P8x16Str            0x0002ec69     0xa8  Code  Gb  LQ12864.o [1]
+LCD_P8x8Ch              0x0002eebf     0x2c  Code  Gb  LQ12864.o [1]
+LCD_Set_Pos             0x0002ea55     0x2c  Code  Gb  LQ12864.o [1]
+LCD_WrCmd               0x0002e9f1     0x64  Code  Gb  LQ12864.o [1]
+LCD_WrDat               0x0002e98d     0x64  Code  Gb  LQ12864.o [1]
+LCD_siping              0x0002ee15     0x6e  Code  Gb  LQ12864.o [1]
+LCD_tuxing              0x0002efe5     0xaa  Code  Gb  LQ12864.o [1]
+LCD_tuxing1             0x0002f08f     0x2c  Code  Gb  LQ12864.o [1]
+LCD_tuxing2             0x0002f0bb     0xa4  Code  Gb  LQ12864.o [1]
+LPLD_ADC_Cal            0x0003170f     0xa0  Code  Lc  HW_ADC.o [1]
+LPLD_ADC_Chn_Enable     0x00031539    0x1d6  Code  Gb  HW_ADC.o [1]
+LPLD_ADC_Get            0x00031511     0x28  Code  Gb  HW_ADC.o [1]
+LPLD_ADC_Init           0x00031371    0x1a0  Code  Gb  HW_ADC.o [1]
+LPLD_CAN_CAN0_Interrupt_Handler
+                        0x00035a37     0x3e  Code  Lc  HW_CAN.o [1]
+LPLD_CAN_CAN1_Interrupt_Handler
+                        0x00035a75     0x3e  Code  Lc  HW_CAN.o [1]
+LPLD_CAN_Interrupt_ClearPending
+                        0x0003593d     0x24  Code  Lc  HW_CAN.o [1]
+LPLD_CAN_Interrupt_GetFlag
+                        0x00035961     0x1e  Code  Lc  HW_CAN.o [1]
+LPLD_CAN_Receive_Interrupt
+                        0x000359db     0x5c  Code  Lc  HW_CAN.o [1]
+LPLD_CAN_Transmit_Interrupt
+                        0x0003597f     0x5c  Code  Lc  HW_CAN.o [1]
+LPLD_FTM_DEC_Init       0x00032079      0x8  Code  Lc  HW_FTM.o [1]
+LPLD_FTM_IC_Init        0x00031ae7     0x96  Code  Lc  HW_FTM.o [1]
+LPLD_FTM_Init           0x000317e9    0x120  Code  Gb  HW_FTM.o [1]
+LPLD_FTM_PWM_ChangeDuty
+                        0x00031973     0x4e  Code  Gb  HW_FTM.o [1]
+LPLD_FTM_PWM_Enable     0x00031909     0x6a  Code  Gb  HW_FTM.o [1]
+LPLD_FTM_PWM_Init       0x000319c1    0x126  Code  Lc  HW_FTM.o [1]
+LPLD_FTM_PinInit        0x00031b7d    0x4a4  Code  Lc  HW_FTM.o [1]
+LPLD_FTM_QD_Init        0x0003203d     0x3c  Code  Lc  HW_FTM.o [1]
+LPLD_GPIO_EnableIrq     0x00032211     0x4e  Code  Gb  HW_GPIO.o [1]
+LPLD_GPIO_Init          0x0003212d     0xe4  Code  Gb  HW_GPIO.o [1]
+LPLD_GPIO_Output_b      0x0003225f     0x18  Code  Gb  HW_GPIO.o [1]
+LPLD_PIT_EnableIrq      0x000323e3     0x26  Code  Gb  HW_PIT.o [1]
+LPLD_PIT_Init           0x00032331     0xb2  Code  Gb  HW_PIT.o [1]
+LPLD_PLL_Setup          0x00035d3d    0x198  Code  Gb  HW_MCG.o [1]
+LPLD_SDHC_IOC           0x0002d495    0x5c0  Code  Gb  HW_SDHC.o [1]
+LPLD_SDHC_Init          0x0002d28d     0xcc  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_InitCard      0x0002dc99    0x1f4  Code  Gb  HW_SDHC.o [1]
+LPLD_SDHC_InitGPIO      0x0002d171     0x58  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_IsRunning     0x0002d265     0x18  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_Read          0x0002da55    0x11e  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_ReadBlocks    0x0002dea5     0x74  Code  Gb  HW_SDHC.o [1]
+LPLD_SDHC_SendCommand   0x0002d359    0x13c  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_SetBaudrate   0x0002d1c9     0x9c  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_WaitStatus    0x0002d27d     0x10  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_Write         0x0002db73    0x106  Code  Lc  HW_SDHC.o [1]
+LPLD_SDHC_WriteBlocks   0x0002df3d    0x13a  Code  Gb  HW_SDHC.o [1]
+LPLD_Set_SYS_DIV        0x1fff05f1     0x4c  Code  Gb  HW_MCG.o [1]
+LPLD_UART_Init          0x00033fd5    0x314  Code  Gb  HW_UART.o [1]
+LPLD_UART_PutChar       0x000342e9      0xa  Code  Gb  HW_UART.o [1]
+LPTMR_ISR               0x1fff094c      0x4  Data  Gb  HW_LPTMR.o [1]
+LPT_IRQHandler          0x00036735     0x16  Code  Gb  HW_LPTMR.o [1]
+LfnOfs                  0x000367d8     0x10  Data  Lc  ff.o [1]
+NVIC_EnableIRQ          0x00032119     0x14  Code  Lc  HW_GPIO.o [1]
+NVIC_EnableIRQ          0x0003231d     0x14  Code  Lc  HW_PIT.o [1]
+PDB_IRQHandler          0x0003627d     0x6a  Code  Gb  HW_PDB.o [1]
+PDB_ISR                 0x1fff0950      0x4  Data  Gb  HW_PDB.o [1]
+PDB_SE_ISR              0x1fff0954      0x4  Data  Gb  HW_PDB.o [1]
+PIT0_IRQHandler         0x00032409     0x16  Code  Gb  HW_PIT.o [1]
+PIT1_IRQHandler         0x0003241f     0x16  Code  Gb  HW_PIT.o [1]
+PIT2_IRQHandler         0x00032435     0x16  Code  Gb  HW_PIT.o [1]
+PIT3_IRQHandler         0x0003244b     0x16  Code  Gb  HW_PIT.o [1]
+PIT_ISR                 0x1fff0958     0x10  Data  Gb  HW_PIT.o [1]
+PORTA_IRQHandler        0x00032277     0x12  Code  Gb  HW_GPIO.o [1]
+PORTB_IRQHandler        0x00032289     0x12  Code  Gb  HW_GPIO.o [1]
+PORTC_IRQHandler        0x0003229b     0x12  Code  Gb  HW_GPIO.o [1]
+PORTD_IRQHandler        0x000322ad     0x12  Code  Gb  HW_GPIO.o [1]
+PORTE_IRQHandler        0x000322bf     0x12  Code  Gb  HW_GPIO.o [1]
+RTC_IRQHandler          0x0003636d     0x56  Code  Gb  HW_RTC.o [1]
+RTC_ISR                 0x1fff0968      0xc  Data  Gb  HW_RTC.o [1]
+Region$$Table$$Base     0x00036704            --   Gb  - Linker created -
+Region$$Table$$Limit    0x00036714            --   Gb  - Linker created -
+SPI0_IRQHandler         0x00035185     0xaa  Code  Gb  HW_SPI.o [1]
+SPI0_ISR                0x1fff0978     0x18  Data  Gb  HW_SPI.o [1]
+SPI1_IRQHandler         0x0003522f     0xaa  Code  Gb  HW_SPI.o [1]
+SPI1_ISR                0x1fff0990     0x18  Data  Gb  HW_SPI.o [1]
+SPI2_IRQHandler         0x000352d9     0xaa  Code  Gb  HW_SPI.o [1]
+SPI2_ISR                0x1fff09a8     0x18  Data  Gb  HW_SPI.o [1]
+Sweep                   0x0003066b    0x27e  Code  Gb  saolei.o [1]
+SystemCoreClock         0x1fff044c      0x4  Data  Gb  system_MK60DZ10.o [1]
+SystemCoreClockUpdate   0x00035bed     0x26  Code  Gb  system_MK60DZ10.o [1]
+SystemInit              0x00035af9     0xf4  Code  Gb  system_MK60DZ10.o [1]
+TSI_IRQHandler          0x000362fd     0x5c  Code  Gb  HW_TSI.o [1]
+TSI_ISR                 0x1fff09c0      0x8  Data  Gb  HW_TSI.o [1]
+UART0_IRQHandler        0x000342f3     0x30  Code  Gb  HW_UART.o [1]
+UART1_IRQHandler        0x00034323     0x30  Code  Gb  HW_UART.o [1]
+UART2_IRQHandler        0x00034353     0x30  Code  Gb  HW_UART.o [1]
+UART3_IRQHandler        0x00034383     0x30  Code  Gb  HW_UART.o [1]
+UART4_IRQHandler        0x000343b3     0x30  Code  Gb  HW_UART.o [1]
+UART5_IRQHandler        0x000343e3     0x30  Code  Gb  HW_UART.o [1]
+UART_R_ISR              0x1fff09c8     0x18  Data  Gb  HW_UART.o [1]
+UART_T_ISR              0x1fff09e0     0x18  Data  Gb  HW_UART.o [1]
+X                       0x1fff172e      0x2  Data  Gb  tuixiangzi.o [1]
+__BOOT_STACK_ADDRESS {Abs}
+                        0x2000fff8            --   Gb  command line/config [2]
+__VECTOR_RAM {Abs}      0x1fff0000            --   Gb  command line/config [2]
+__VECTOR_TABLE {Abs}    0x00000000            --   Gb  command line/config [2]
+__Vectors               0x00000000            --   Gb  startup_K60.o [1]
+__Vectors_End           0x00000400           Data  Gb  startup_K60.o [1]
+__Vectors_Size {Abs}    0x00000400            --   Gb  startup_K60.o [1]
+__as_entries_start      0xffffffff            --   Gb  command line/config [2]
+__as_table_start        0xffffffff            --   Gb  command line/config [2]
+__cmain                 0x00036755           Code  Gb  cmain.o [5]
+__exit                  0x00036785     0x14  Code  Gb  exit.o [6]
+__iar_data_init3        0x00036605     0x28  Code  Gb  data_init.o [5]
+__iar_program_start     0x00036879           Code  Gb  cstartup_M.o [5]
+__iar_unaligned___aeabi_memcpy
+                        0x000312f9           Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_unaligned___aeabi_memcpy4
+                        0x00031319           Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_unaligned___aeabi_memcpy8
+                        0x00031319           Code  Gb  ABImemcpy_unaligned.o [5]
+__iar_zero_init3        0x0002c8e3     0x22  Code  Gb  zero_init3.o [5]
+__low_level_init        0x0003676f      0x4  Code  Gb  low_level_init.o [3]
+__vector_table          0x00000000           Data  Gb  startup_K60.o [1]
+__vector_table_0x1c     0x0000001c           Data  Gb  startup_K60.o [1]
+_call_main              0x00036761           Code  Gb  cmain.o [5]
+_exit                   0x00036779           Code  Gb  cexit.o [5]
+_main                   0x0003676b           Code  Gb  cmain.o [5]
+a                       0x1fff170c      0x2  Data  Gb  saolei.o [1]
+adc_init                0x0002e3bd     0xf4  Code  Gb  yingjian.o [1]
+adc_init_struct         0x1fff1690     0x14  Data  Gb  yingjian.o [1]
+assert_failed           0x000330a1     0x14  Code  Gb  assert.o [1]
+b                       0x1fff170e      0x2  Data  Gb  saolei.o [1]
+badapple                0x0002ce75    0x10e  Code  Gb  LPLD_FatFs.o [1]
+badapple_time           0x1fff043c      0x1  Data  Gb  LPLD_FatFs.o [1]
+base                    0x1fff063c     0x10  Data  Lc  alloc.o [1]
+biaozhi                 0x1fff171e      0x2  Data  Gb  saolei.o [1]
+board                   0x1fff14a4     0x40  Data  Gb  LQ12864.o [1]
+board_scan              0x0003111f    0x1ac  Code  Gb  wuziqi.o [1]
+br                      0x1fff0e60      0x4  Data  Gb  LPLD_FatFs.o [1]
+buff_114                0x1fff1114    0x390  Data  Gb  LPLD_FatFs.o [1]
+buff_86                 0x1fff0e64    0x2b0  Data  Gb  LPLD_FatFs.o [1]
+check_fs                0x0002be89     0x78  Code  Lc  ff.o [1]
+chess_board             0x0002eeeb     0x44  Code  Gb  LQ12864.o [1]
+chess_board1            0x0002ef2f     0x90  Code  Gb  LQ12864.o [1]
+chk_chr                 0x0002ad71     0x14  Code  Lc  ff.o [1]
+chk_lock                0x0002ad85     0x8e  Code  Lc  ff.o [1]
+chk_mounted             0x0002bf09    0x37c  Code  Lc  ff.o [1]
+cit                     0x1fff1724      0x2  Data  Gb  saolei.o [1]
+clear_lock              0x0002af69     0x2e  Code  Lc  ff.o [1]
+clmt_clust              0x0002b43f     0x2a  Code  Lc  ff.o [1]
+clust2sect              0x0002b0f7     0x18  Code  Gb  ff.o [1]
+cmp_lfn                 0x0002b6cd     0x96  Code  Lc  ff.o [1]
+codn_x                  0x1fff1738      0x1  Data  Gb  LQ12864.o [1]
+codn_y                  0x1fff1739      0x1  Data  Gb  LQ12864.o [1]
+common_relocate         0x00035c95     0xa0  Code  Gb  relocate.o [1]
+count                   0x1fff0442      0x2  Data  Gb  saolei.o [1]
+counter                 0x1fff170a      0x2  Data  Gb  saolei.o [1]
+create_chain            0x0002b38b     0xb4  Code  Lc  ff.o [1]
+create_name             0x0002baed    0x306  Code  Lc  ff.o [1]
+ct                      0x1fff1718      0x2  Data  Gb  saolei.o [1]
+cu_x                    0x1fff0420      0x2  Data  Gb  huatu.o [1]
+cu_y                    0x1fff0422      0x2  Data  Gb  huatu.o [1]
+curCordBlink            0x0002efbf     0x26  Code  Gb  LQ12864.o [1]
+cur_x                   0x1fff172a      0x2  Data  Gb  tuixiangzi.o [1]
+cur_y                   0x1fff172c      0x2  Data  Gb  tuixiangzi.o [1]
+dec_lock                0x0002af1b     0x4e  Code  Lc  ff.o [1]
+delay                   0x0002e57d     0x1e  Code  Gb  yingjian.o [1]
+delay1                  0x00030ab5     0x26  Code  Gb  saolei.o [1]
+die                     0x0002cc6d     0x2e  Code  Gb  LPLD_FatFs.o [1]
+dir                     0x1fff0450     0x10  Data  Gb  tuixiangzi.o [1]
+dir1                    0x1fff0410     0x10  Data  Gb  huatu.o [1]
+dir_alloc               0x0002b643     0x50  Code  Lc  ff.o [1]
+dir_find                0x0002b897     0xe8  Code  Lc  ff.o [1]
+dir_next                0x0002b517    0x12c  Code  Lc  ff.o [1]
+dir_register            0x0002b97f    0x16e  Code  Lc  ff.o [1]
+dir_sdi                 0x0002b469     0xae  Code  Lc  ff.o [1]
+disk_initialize         0x0002c905     0x14  Code  Gb  diskio.o [1]
+disk_ioctl              0x0002c967     0x54  Code  Gb  diskio.o [1]
+disk_read               0x0002c923     0x22  Code  Gb  diskio.o [1]
+disk_status             0x0002c919      0xa  Code  Gb  diskio.o [1]
+disk_write              0x0002c945     0x22  Code  Gb  diskio.o [1]
+display                 0x0003051f     0x48  Code  Gb  saolei.o [1]
+djm                     0x1fff0438      0x1  Data  Gb  jianmian.o [1]
+enq_lock                0x0002ae13     0x26  Code  Lc  ff.o [1]
+exit                    0x00036773      0x4  Code  Gb  exit.o [3]
+f                       0x1fff0446      0x2  Data  Gb  saolei.o [1]
+f_close                 0x0002c7a9     0x24  Code  Gb  ff.o [1]
+f_getfree               0x0002c7e9     0xfa  Code  Gb  ff.o [1]
+f_mount                 0x0002c2bb     0x3e  Code  Gb  ff.o [1]
+f_open                  0x0002c2fd    0x206  Code  Gb  ff.o [1]
+f_read                  0x0002c503    0x1fc  Code  Gb  ff.o [1]
+f_sync                  0x0002c6ff     0xaa  Code  Gb  ff.o [1]
+fatfs                   0x1fff09f8    0x238  Data  Gb  LPLD_FatFs.o [1]
+ff_convert              0x0002c9c1     0x60  Code  Gb  cc936.o [1]
+ff_memalloc             0x0002ca65      0x8  Code  Gb  syscall.o [1]
+ff_memfree              0x0002ca6d      0x8  Code  Gb  syscall.o [1]
+ff_wtoupper             0x0002ca21     0x32  Code  Gb  cc936.o [1]
+fil                     0x1fff0c34    0x22c  Data  Gb  LPLD_FatFs.o [1]
+fit_lfn                 0x0002b763     0x74  Code  Lc  ff.o [1]
+flag                    0x1fff043e      0x2  Data  Gb  LPLD_FatFs.o [1]
+flag1                   0x1fff16fc      0x2  Data  Gb  LPLD_FatFs.o [1]
+flag2                   0x1fff16fe      0x2  Data  Gb  LPLD_FatFs.o [1]
+flash_start             0x0002cf8d    0x17c  Code  Gb  LPLD_FatFs.o [1]
+flexcan_msgobj_param_t  0x1fff073c    0x100  Data  Gb  HW_CAN.o [1]
+follow_path             0x0002bdf3     0x96  Code  Lc  ff.o [1]
+free                    0x0002e0e9     0x66  Code  Gb  alloc.o [1]
+freep                   0x1fff064c      0x4  Data  Lc  alloc.o [1]
+fs                      0x1fff0c30      0x4  Data  Gb  LPLD_FatFs.o [1]
+ftm_init_struct         0x1fff16cc     0x1c  Data  Gb  yingjian.o [1]
+fun                     0x0003016d    0x13c  Code  Gb  tuixiangzi.o [1]
+g                       0x1fff0448      0x2  Data  Gb  saolei.o [1]
+g_bus_clock             0x1fff042c      0x4  Data  Gb  HW_MCG.o [1]
+g_core_clock            0x1fff0428      0x4  Data  Gb  HW_MCG.o [1]
+g_flash_clock           0x1fff0430      0x4  Data  Gb  HW_MCG.o [1]
+g_flexbus_clock         0x1fff0434      0x4  Data  Gb  HW_MCG.o [1]
+gameing                 0x1fff16fa      0x2  Data  Gb  LPLD_FatFs.o [1]
+gameover                0x1fff1702      0x2  Data  Gb  LPLD_FatFs.o [1]
+gameoversl              0x1fff1704      0x2  Data  Gb  saolei.o [1]
+gameovertxz             0x1fff1730      0x2  Data  Gb  tuixiangzi.o [1]
+gamestart               0x1fff16f8      0x2  Data  Gb  LPLD_FatFs.o [1]
+gen_numname             0x0002b7dd     0x9c  Code  Gb  ff.o [1]
+get_fat                 0x0002b10f     0xf2  Code  Gb  ff.o [1]
+get_fattime             0x0002cc9b      0x6  Code  Gb  LPLD_FatFs.o [1]
+get_num                 0x00030567    0x104  Code  Gb  saolei.o [1]
+gpio_init_struct        0x1fff167c     0x14  Data  Gb  yingjian.o [1]
+huatu                   0x000324cd    0x220  Code  Gb  huatu.o [1]
+huatu1                  0x1fff06b4     0x80  Data  Gb  huatu.o [1]
+inc_lock                0x0002ae39     0xe2  Code  Lc  ff.o [1]
+init_gpio               0x0002e2e7     0xd6  Code  Gb  yingjian.o [1]
+jianmian                0x0002f1b1    0x244  Code  Gb  jianmian.o [1]
+jmms                    0x1fff1735      0x1  Data  Gb  jianmian.o [1]
+judge                   0x00030097     0xd0  Code  Gb  tuixiangzi.o [1]
+k                       0x1fff1726      0x2  Data  Gb  saolei.o [1]
+kaiguan                 0x1fff1564      0x8  Data  Gb  saolei.o [1]
+key                     0x0002e1cd     0xc6  Code  Gb  yingjian.o [1]
+key_down                0x1fff16f2      0x2  Data  Gb  LPLD_FatFs.o [1]
+key_left                0x1fff16f4      0x2  Data  Gb  LPLD_FatFs.o [1]
+key_right               0x1fff16f6      0x2  Data  Gb  LPLD_FatFs.o [1]
+key_scan                0x00031017    0x108  Code  Gb  wuziqi.o [1]
+key_up                  0x1fff16f0      0x2  Data  Gb  LPLD_FatFs.o [1]
+kongzhi                 0x0003091d    0x192  Code  Gb  saolei.o [1]
+ld_clust                0x0002b693     0x22  Code  Lc  ff.o [1]
+main                    0x0002ca75     0xb4  Code  Gb  LPLD_FatFs.o [1]
+malloc                  0x0002e14f     0x6e  Code  Gb  alloc.o [1]
+map                     0x1fff157c     0x80  Data  Gb  tuixiangzi.o [1]
+mapshu                  0x1fff05e0      0x2  Data  Gb  tuixiangzi.o [1]
+mat                     0x1fff15fc     0x80  Data  Gb  tuixiangzi.o [1]
+mat1                    0x1fff0460     0x80  Data  Gb  tuixiangzi.o [1]
+mat2                    0x1fff04e0     0x80  Data  Gb  tuixiangzi.o [1]
+mat3                    0x1fff0560     0x80  Data  Gb  tuixiangzi.o [1]
+mem_cmp                 0x0002ad51     0x20  Code  Lc  ff.o [1]
+mem_cpy                 0x0002ad2d     0x14  Code  Lc  ff.o [1]
+mem_set                 0x0002ad41     0x10  Code  Lc  ff.o [1]
+memset                  0x000324ad     0x1e  Code  Gb  stdlib.o [1]
+menu                    0x00030481      0x4  Code  Gb  saolei.o [1]
+mine                    0x1fff14e4     0x40  Data  Gb  saolei.o [1]
+mosixuanzi              0x1fff043a      0x2  Data  Gb  LPLD_FatFs.o [1]
+move                    0x000326ed     0xa2  Code  Gb  huatu.o [1]
+move_window             0x0002afed     0x36  Code  Lc  ff.o [1]
+oem2uni                 0x000158a8  0x15484  Data  Lc  cc936.o [1]
+out_char                0x000367c5      0xe  Code  Gb  io.o [1]
+panduan                 0x00030da9     0xe2  Code  Gb  saolei.o [1]
+pit0_init_struct        0x1fff16a4     0x14  Data  Gb  yingjian.o [1]
+pit1_init_struct        0x1fff16b8     0x14  Data  Gb  yingjian.o [1]
+pit_init                0x0002e4b1     0x88  Code  Gb  yingjian.o [1]
+pit_n                   0x1fff1732      0x2  Data  Gb  yingjian.o [1]
+pit_time                0x0002e7f9     0xca  Code  Gb  yingjian.o [1]
+pit_time0               0x0002e7f1      0x8  Code  Gb  yingjian.o [1]
+player                  0x1fff05e2      0x1  Data  Gb  wuziqi.o [1]
+playmusic               0x0002e293     0x54  Code  Gb  yingjian.o [1]
+portb_isr               0x0002e59d    0x254  Code  Gb  yingjian.o [1]
+printf                  0x00033055     0x1e  Code  Gb  printf.o [1]
+printk                  0x00032c6d    0x3e8  Code  Gb  printf.o [1]
+printk_mknumstr         0x00032bc1     0x70  Code  Lc  printf.o [1]
+printk_pad_space        0x00032c4f     0x1e  Code  Lc  printf.o [1]
+printk_pad_zero         0x00032c31     0x1e  Code  Lc  printf.o [1]
+printk_putc             0x00032b95     0x2c  Code  Lc  printf.o [1]
+put_fat                 0x0002b201    0x120  Code  Gb  ff.o [1]
+pwm_init                0x0002e539     0x44  Code  Gb  yingjian.o [1]
+rc                      0x1fff1736      0x1  Data  Gb  LPLD_FatFs.o [1]
+readsd                  0x0002cca1    0x1d0  Code  Gb  LPLD_FatFs.o [1]
+remove_chain            0x0002b321     0x6a  Code  Lc  ff.o [1]
+result                  0x1fff16ec      0x2  Data  Gb  LPLD_FatFs.o [1]
+result1                 0x1fff16ee      0x2  Data  Gb  LPLD_FatFs.o [1]
+rou                     0x1fff173a      0x1  Data  Gb  wuziqi.o [1]
+round                   0x1fff05e4      0xc  Data  Gb  yingjian.o [1]
+s                       0x1fff0444      0x2  Data  Gb  saolei.o [1]
+saolei                  0x00030329    0x158  Code  Gb  saolei.o [1]
+sdcard_ptr              0x1fff0974      0x4  Data  Gb  HW_SDHC.o [1]
+set_mine                0x00030485     0x9a  Code  Gb  saolei.o [1]
+show                    0x1fff1524     0x40  Data  Gb  saolei.o [1]
+show_map                0x0003005b     0x3c  Code  Gb  tuixiangzi.o [1]
+show_start              0x0002fa0d    0x246  Code  Gb  tuixiangzi.o [1]
+show_win                0x00030fdf     0x38  Code  Gb  wuziqi.o [1]
+showtx                  0x000328f7    0x272  Code  Gb  huatu.o [1]
+sprintf                 0x00033079     0x26  Code  Gb  printf.o [1]
+st_clust                0x0002b6b5     0x18  Code  Lc  ff.o [1]
+start                   0x0002fc53    0x408  Code  Gb  tuixiangzi.o [1]
+start_pic               0x0002cb29    0x144  Code  Gb  LPLD_FatFs.o [1]
+strlen                  0x00032491     0x1c  Code  Gb  stdlib.o [1]
+sum_sfn                 0x0002b879     0x1e  Code  Lc  ff.o [1]
+surrond                 0x00030b7b    0x228  Code  Gb  saolei.o [1]
+sync_fs                 0x0002b023     0xd4  Code  Lc  ff.o [1]
+sync_window             0x0002af97     0x56  Code  Lc  ff.o [1]
+t                       0x1fff1720      0x2  Data  Gb  saolei.o [1]
+t1                      0x1fff1706      0x2  Data  Gb  saolei.o [1]
+t2                      0x1fff1708      0x2  Data  Gb  saolei.o [1]
+t3                      0x1fff1710      0x2  Data  Gb  saolei.o [1]
+t4                      0x1fff1712      0x2  Data  Gb  saolei.o [1]
+t5                      0x1fff1714      0x2  Data  Gb  saolei.o [1]
+t6                      0x1fff1716      0x2  Data  Gb  saolei.o [1]
+ti                      0x1fff1722      0x2  Data  Gb  saolei.o [1]
+time                    0x1fff0440      0x2  Data  Gb  LPLD_FatFs.o [1]
+time1                   0x00030adb     0xa0  Code  Gb  saolei.o [1]
+timeflag                0x1fff1700      0x2  Data  Gb  LPLD_FatFs.o [1]
+timesl                  0x1fff1728      0x2  Data  Gb  saolei.o [1]
+tuixiangzi              0x0002f5e9    0x41e  Code  Gb  tuixiangzi.o [1]
+tuxing                  0x000363cc     0x5c  Data  Gb  LQ12864.o [1]
+tuxing1                 0x0003692c      0x4  Data  Gb  LQ12864.o [1]
+tuxing2                 0x00034cdc    0x280  Data  Gb  LQ12864.o [1]
+txshu                   0x1fff0424      0x2  Data  Gb  huatu.o [1]
+uni2oem                 0x00000424  0x15484  Data  Lc  cc936.o [1]
+validate                0x0002c285     0x36  Code  Lc  ff.o [1]
+wherex                  0x1fff156c      0x8  Data  Gb  tuixiangzi.o [1]
+wherey                  0x1fff1574      0x8  Data  Gb  tuixiangzi.o [1]
+wj_wzq                  0x1fff1737      0x1  Data  Gb  LPLD_FatFs.o [1]
+wuziqi                  0x00030f31     0xae  Code  Gb  wuziqi.o [1]
+x                       0x1fff171a      0x2  Data  Gb  saolei.o [1]
+xtjianmian              0x0002f3f5    0x1c2  Code  Gb  jianmian.o [1]
+xuanzhetx               0x1fff16ea      0x2  Data  Gb  huatu.o [1]
+xuanzhetxjm             0x0003278f    0x168  Code  Gb  huatu.o [1]
+y                       0x1fff171c      0x2  Data  Gb  saolei.o [1]
+
+
+[1] = D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj
+[2] = command line
+[3] = dl7M_tln.a
+[4] = m7M_tl.a
+[5] = rt7M_tl.a
+[6] = shb_l.a
+
+   39 414 bytes of readonly  code memory
+       76 bytes of readwrite code memory
+  184 106 bytes of readonly  data memory
+    9 439 bytes of readwrite data memory
+
+Errors: none
+Warnings: none

@@ -1,0 +1,155 @@
+###############################################################################
+#
+# IAR ANSI C/C++ Compiler V7.20.5.7591/W32 for ARM        28/Dec/2018  12:27:12
+# Copyright 1999-2014 IAR Systems AB.
+#
+#    Cpu mode     =  thumb
+#    Endian       =  little
+#    Source file  =  D:\2019.IAR\project\001-My NaoKe\app\naospi.c
+#    Command line =  
+#        "D:\2019.IAR\project\001-My NaoKe\app\naospi.c" -D LPLD_K60 -lCN
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -lB
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\" -o
+#        "D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\" --no_cse --no_unroll
+#        --no_inline --no_code_motion --no_tbaa --no_clustering --no_scheduling
+#        --debug --endian=little --cpu=Cortex-M4 -e --fpu=None --dlib_config
+#        "D:\Embedded Workbench 7.0\arm\INC\c\DLib_Config_Normal.h" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\app\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\CPU\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\HW\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\LPLD\DEV\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Ports\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\uCOS-II\Source\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\FatFs\option\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\common\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\driver\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\descriptor\" -I
+#        "D:\2019.IAR\project\001-My NaoKe\iar\..\..\..\lib\USB\class\" -Ol -I
+#        "D:\Embedded Workbench 7.0\arm\CMSIS\Include\" -D ARM_MATH_CM4
+#    List file    =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\List\naospi.lst
+#    Object file  =  D:\2019.IAR\project\001-My NaoKe\iar\FLASH\Obj\naospi.o
+#
+###############################################################################
+
+D:\2019.IAR\project\001-My NaoKe\app\naospi.c
+      1          #include "common.h"
+
+   \                                 In section .text, align 2, keep-with-next
+      2          void SPI1_Init(void){
+   \                     SPI1_Init: (+1)
+   \   00000000   0xB500             PUSH     {LR}
+   \   00000002   0xB097             SUB      SP,SP,#+92
+      3            SPI_InitTypeDef spi_init_param;
+      4            //配置SPI
+      5            spi_init_param.SPI_SPIx = SPI0;
+   \   00000004   0x....             LDR.N    R0,??DataTable1  ;; 0x4002c000
+   \   00000006   0x9009             STR      R0,[SP, #+36]
+      6            spi_init_param.SPI_SckDivider = SPI_SCK_DIV_32;//1.56Mhz
+   \   00000008   0x2005             MOVS     R0,#+5
+   \   0000000A   0xF88D 0x0029      STRB     R0,[SP, #+41]
+      7            spi_init_param.SPI_Pcs0Pin = PTA14;
+   \   0000000E   0x200E             MOVS     R0,#+14
+   \   00000010   0xF88D 0x0034      STRB     R0,[SP, #+52]
+      8            spi_init_param.SPI_SckPin  = PTA15;
+   \   00000014   0x200F             MOVS     R0,#+15
+   \   00000016   0xF88D 0x003A      STRB     R0,[SP, #+58]
+      9            spi_init_param.SPI_MosiPin = PTA16;
+   \   0000001A   0x2010             MOVS     R0,#+16
+   \   0000001C   0xF88D 0x003B      STRB     R0,[SP, #+59]
+     10            spi_init_param.SPI_MisoPin = PTA17;
+   \   00000020   0x2011             MOVS     R0,#+17
+   \   00000022   0xF88D 0x003C      STRB     R0,[SP, #+60]
+     11            
+     12            LPLD_SPI_Init(spi_init_param);
+   \   00000026   0xA909             ADD      R1,SP,#+36
+   \   00000028   0xB084             SUB      SP,SP,#+16
+   \   0000002A   0x4668             MOV      R0,SP
+   \   0000002C   0x2234             MOVS     R2,#+52
+   \   0000002E   0x.... 0x....      BL       __aeabi_memcpy4
+   \   00000032   0xBC0F             POP      {R0-R3}
+   \   00000034   0x.... 0x....      BL       LPLD_SPI_Init
+     13            LPLD_SPI_EnableIrq(spi_init_param);
+   \   00000038   0xA909             ADD      R1,SP,#+36
+   \   0000003A   0xB084             SUB      SP,SP,#+16
+   \   0000003C   0x4668             MOV      R0,SP
+   \   0000003E   0x2234             MOVS     R2,#+52
+   \   00000040   0x.... 0x....      BL       __aeabi_memcpy4
+   \   00000044   0xBC0F             POP      {R0-R3}
+   \   00000046   0x.... 0x....      BL       LPLD_SPI_EnableIrq
+     14          }
+   \   0000004A   0xB017             ADD      SP,SP,#+92
+   \   0000004C   0xBD00             POP      {PC}             ;; return
+     15          
+
+   \                                 In section .text, align 2, keep-with-next
+     16          void SPI1_SetSpeed(uint8 speed){
+     17          	/*SPI_InitTypeDef spi_init_param;
+     18            //配置SPI
+     19            spi_init_param.SPI_SPIx = SPI0;
+     20            //spi_init_param.SPI_SckDivider = SPI_SCK_DIV_32;//1.56Mhz
+     21            spi_init_param.SPI_Pcs0Pin = PTA14;
+     22            spi_init_param.SPI_SckPin  = PTA15;
+     23            spi_init_param.SPI_MosiPin = PTA16;
+     24            spi_init_param.SPI_MisoPin = PTA17;
+     25            
+     26          	if(speed==32)
+     27          		spi_init_param.SPI_SckDivider=SPI_SCK_DIV_32;
+     28          	else
+     29          		spi_init_param.SPI_SckDivider=SPI_SCK_DIV_8;
+     30          	LPLD_SPI_Init(spi_init_param);*/
+     31            return;
+   \                     SPI1_SetSpeed: (+1)
+   \   00000000   0x4770             BX       LR               ;; return
+     32          }
+     33          
+
+   \                                 In section .text, align 2, keep-with-next
+     34          uint8 SPI1_ReadWriteByte(uint8 data){
+   \                     SPI1_ReadWriteByte: (+1)
+   \   00000000   0xB580             PUSH     {R7,LR}
+     35          	return LPLD_SPI_Master_WriteRead(SPI0,(uint8)data,SPI_PCS0,SPI_PCS_ASSERTED);
+   \   00000002   0x2301             MOVS     R3,#+1
+   \   00000004   0x2201             MOVS     R2,#+1
+   \   00000006   0x0001             MOVS     R1,R0
+   \   00000008   0xB2C9             UXTB     R1,R1            ;; ZeroExt  R1,R1,#+24,#+24
+   \   0000000A   0x....             LDR.N    R0,??DataTable1  ;; 0x4002c000
+   \   0000000C   0x.... 0x....      BL       LPLD_SPI_Master_WriteRead
+   \   00000010   0xBD02             POP      {R1,PC}          ;; return
+     36          }
+
+   \                                 In section .text, align 4, keep-with-next
+   \                     ??DataTable1:
+   \   00000000   0x4002C000         DC32     0x4002c000
+
+   Maximum stack usage in bytes:
+
+   .cstack Function
+   ------- --------
+     112   SPI1_Init
+        96   -> LPLD_SPI_EnableIrq
+        96   -> LPLD_SPI_Init
+       112   -> __aeabi_memcpy4
+       8   SPI1_ReadWriteByte
+         8   -> LPLD_SPI_Master_WriteRead
+       0   SPI1_SetSpeed
+
+
+   Section sizes:
+
+   Bytes  Function/Label
+   -----  --------------
+       4  ??DataTable1
+      78  SPI1_Init
+      18  SPI1_ReadWriteByte
+       2  SPI1_SetSpeed
+
+ 
+ 102 bytes in section .text
+ 
+ 102 bytes of CODE memory
+
+Errors: none
+Warnings: none
